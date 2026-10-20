@@ -81,6 +81,7 @@ Placement writes once. No academy tick scan, network handler or entity populatio
 - `AcademyGameTests`: registered palette/property checks and placed-station integration, research refusal, paid lantern creation and Conclave oath.
 - `AcademyClientGameTests`: registered placement plus seven screenshots: overview, bridge, hall, library, quarters, forge and Echo Chamber. Not run yet.
 - `tools/preview_winterhold_academy.py`: optional reproducible Blender rendering without game assets.
+- `tools/AcademyVanillaProbe.java`: optional headless vanilla palette verification, with no mod or world launch.
 
 ```sh
 python tools/winterhold_academy.py
@@ -97,7 +98,13 @@ No dependency/platform pins changed: Minecraft 26.3, Java 25, Loader 0.19.5, Fab
 
 Windows, 20 October 2026: Blender 5.2 / Python 3.13.13. Five recovered tests passed before expansion; **seven expanded academy tests pass**. The navigation model checks two-block headroom/one-block steps, hand-openable wooden doors and passable thin snow. It reaches all six bedrooms, upper battlements, balconies, archive and underground rooms. It does not simulate exact Minecraft collision.
 
-**Six client-test selection regressions** and **eleven World Designer model/compiler regressions** pass. Both architectural previews were rendered and visually inspected. Full repository/data audit outcomes are recorded in the PR after restoring the complete source; no passing result is implied here.
+**Six client-test selection regressions** and **eleven World Designer model/compiler regressions** pass. The repository structure/link check passes with a Windows path-normalization wrapper for long catalog paths; its assertions were unchanged. Both architectural previews were rendered and visually inspected. The full material-data audit was attempted after restoring source assets and supplying its existing DejaVu font dependency. It did not finish after an extended local run and was stopped without a result: **incomplete, not passed**. CI must rerun it.
+
+The installed vanilla Minecraft **26.3** JAR and its 75 available launcher libraries were also loaded by Microsoft Java **25.0.1**. `AcademyVanillaProbe` bootstrapped the real vanilla registries and read the generated NBT: **49 vanilla palette states passed** ID/property/value validation; **four Jugcraft states were explicitly skipped**. DataVersion was 5023. This is not Jugcraft compilation, structure placement, server GameTests or a client launch. To reproduce, use Java 25 with the installed vanilla 26.3 launcher's complete classpath:
+
+```sh
+java --class-path "<vanilla-26.3-launcher-classpath>" tools/AcademyVanillaProbe.java src/main/resources/data/jugcraft/structure/academy/winterhold.nbt
+```
 
 A local Microsoft JDK **25.0.1** was found. `gradlew.bat build --no-daemon` stopped before compilation with `java.net.UnknownHostException: services.gradle.org` fetching Gradle. Upstream Build/Foundation runs report `action_required`: a maintainer must approve fork CI. The upstream workflow is unchanged. Neither is a passing Minecraft result.
 
@@ -109,3 +116,4 @@ Remaining acceptance work:
 4. Future slices: terrain-aware survival/worldgen, supported World Designer integration, instructors/curriculum/quests and authored hazardous encounters. No unmerged API is assumed.
 
 A real academy implementation is saved for review and manual placement after building. Runtime certification and those later school systems remain outstanding.
+
