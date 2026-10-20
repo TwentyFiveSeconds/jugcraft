@@ -8,6 +8,8 @@ import io.github.jimbozoomer.jugcraft.concordance.JugcraftConcordance;
 import io.github.jimbozoomer.jugcraft.concordance.KindledLanternItem;
 import io.github.jimbozoomer.jugcraft.concordance.LampwrightBenchBlockEntity;
 import io.github.jimbozoomer.jugcraft.concordance.rules.ResearchState;
+import io.github.jimbozoomer.jugcraft.concordance.starbound.ConclaveLecternBlockEntity;
+import io.github.jimbozoomer.jugcraft.concordance.starbound.Starbound;
 import java.io.IOException;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
@@ -49,23 +51,33 @@ public class AcademyGameTests {
 
 	@GameTest(structure = "jugcraft:academy/winterhold", maxTicks = 20)
 	public void academyStationsRetainResearchAndIngredientCosts(GameTestHelper helper) {
-		BlockPos position = new BlockPos(37, 9, 24);
+		BlockPos position = new BlockPos(37, 25, 24);
 		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, position);
-		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, new BlockPos(59, 9, 24));
-		helper.assertBlockPresent(JugcraftConcordance.CRUCIBLE, new BlockPos(22, 9, 54));
-		helper.getBlockEntity(new BlockPos(22, 9, 54), CrucibleBlockEntity.class);
-		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(Jugcraft.id("artificer_bench")), new BlockPos(74, 9, 54));
-		helper.assertBlockPresent(Blocks.SPRUCE_WALL_SIGN, new BlockPos(48, 16, 48));
+		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, new BlockPos(59, 25, 24));
+		helper.assertBlockPresent(JugcraftConcordance.CRUCIBLE, new BlockPos(82, 25, 54));
+		helper.getBlockEntity(new BlockPos(82, 25, 54), CrucibleBlockEntity.class);
+		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(Jugcraft.id("artificer_bench")), new BlockPos(74, 25, 54));
+		helper.assertBlockPresent(Blocks.SPRUCE_WALL_SIGN, new BlockPos(48, 32, 48));
+		helper.assertBlockPresent(Blocks.ENCHANTING_TABLE, new BlockPos(78, 25, 67));
+		helper.assertBlockPresent(Blocks.SPRUCE_DOOR, new BlockPos(63, 17, 29));
+		helper.assertBlockPresent(Blocks.SOUL_CAMPFIRE, new BlockPos(22, 17, 27));
+		var lectern = helper.getBlockEntity(new BlockPos(48, 39, 18), ConclaveLecternBlockEntity.class);
+		helper.assertTrue(lectern.owner() == null && lectern.projectOwner().isEmpty(),
+				"Template placement must not fabricate an owner or a communal project");
 		var bench = helper.getBlockEntity(position, LampwrightBenchBlockEntity.class);
 		var player = helper.makeMockServerPlayerInLevel();
 		player.setGameMode(GameType.SURVIVAL);
-		BlockPos stand = helper.absolutePos(new BlockPos(37, 9, 25));
+		BlockPos stand = helper.absolutePos(new BlockPos(37, 25, 25));
 		player.snapTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, 180.0F, 0.0F);
+		Starbound.use(player, lectern, false);
+		helper.assertTrue(!Starbound.standing(player).member(), "The college lectern still requires First Light");
 		bench.setItem(LampwrightBenchBlockEntity.SPECIMEN, new ItemStack(Items.AMETHYST_SHARD));
 		bench.setItem(LampwrightBenchBlockEntity.WORK, new ItemStack(Items.LANTERN));
 		helper.assertTrue(bench.status(player, LampwrightBenchBlockEntity.BUTTON_KINDLE) == BenchStatus.UNKNOWN_RESEARCH
 				&& !bench.press(player, LampwrightBenchBlockEntity.BUTTON_KINDLE), "Visiting the college must not bypass research");
 		ConcordanceProgress.grant(player, "jugcraft:first_light", ResearchState.UNDERSTOOD);
+		Starbound.use(player, lectern, false);
+		helper.assertTrue(Starbound.standing(player).member(), "A learned visitor can swear the existing Conclave oath");
 		helper.assertTrue(bench.press(player, LampwrightBenchBlockEntity.BUTTON_KINDLE), "A learned player can use the placed bench");
 		var lantern = bench.getItem(LampwrightBenchBlockEntity.WORK);
 		helper.assertTrue(lantern.is(JugcraftConcordance.KINDLED_LANTERN)

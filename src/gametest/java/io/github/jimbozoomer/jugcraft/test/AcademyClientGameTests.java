@@ -19,11 +19,12 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			TestServerContext server = world.getServer();
 			server.runCommand("time set noon");
 			server.runCommand("weather clear");
+			server.runCommand("forceload add 0 0 96 120");
 			// Only this disposable test world: explicitly clear the preview volume above the landscape.
 			server.runOnServer(s -> {
 				for (int x = 0; x < 97; x++) {
 					for (int z = 0; z < 121; z++) {
-						for (int y = 240; y < 300; y++) {
+						for (int y = 224; y < 300; y++) {
 							BlockPos pos = new BlockPos(x, y, z);
 							if (!s.overworld().getBlockState(pos).isAir()) {
 								s.overworld().setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
@@ -32,7 +33,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 					}
 				}
 			});
-			server.runCommand("place template jugcraft:academy/winterhold 0 240 0");
+			server.runCommand("place template jugcraft:academy/winterhold 0 224 0");
 			server.runOnServer(s -> {
 				if (s.overworld().getBlockEntity(new BlockPos(37, 249, 24)) == null) {
 					throw new AssertionError("Academy placement did not create the study bench");
@@ -49,6 +50,13 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_hall");
 			view(context, server, 48, 266, 39, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
+			view(context, server, 48, 278, 38, 180, 10);
+			context.takeScreenshot("jugcraft_academy_archmage");
+			view(context, server, 23, 244, 34, 180, 10);
+			context.takeScreenshot("jugcraft_academy_midden_forge");
+			view(context, server, 51, 244, 65, 155, 5);
+			context.takeScreenshot("jugcraft_academy_echo_chamber");
+			server.runCommand("forceload remove 0 0 96 120");
 			context.getInput().pressKey(options -> options.keyToggleGui);
 		}
 	}

@@ -42,6 +42,13 @@ CI runs all of these and fails if generated files are out of date.
 
 ## Content inventory
 
+### Frostward College (`tools/winterhold_academy.py`)
+
+The [Winterhold-inspired academy](features/frostward-academy.md) is an operator-placeable template:
+`/place template jugcraft:academy/winterhold`. It includes a rocky base, bridge, courtyard, teaching hall,
+library, residential towers, private quarters and connected Midden chambers, using existing magic stations.
+No automatic worldgen or instructor NPC system is added. Offline checks pass; Minecraft validation is pending.
+
 ### World Designer (`world/design/`, `tools/world-designer/`)
 
 The [offline editor](WORLD_DESIGNER.md) shapes a new world's height field, paints registered biomes, selects spawn and the existing walled town, and pins native structure start chunks. The operator command `/jugcraft design export` writes its UI and a live registry catalog. `model.js` validates the versioned design and compiles a datapack with the `jugcraft:designed` preset. `DesignDensity`, `DesignBiomeSource`, `DesignPlacement` and `DesignGrid` serialize generation state per world; `WorldDesigner` connects the existing spawn and town hooks. No extra library is required. New-world generation only; no arbitrary city assembly, structure rotation or retrogen. See the [feature record](features/world-designer.md) before extending it.

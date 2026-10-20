@@ -62,7 +62,7 @@ class AcademyTests(unittest.TestCase):
 
     def test_bounds_unique_positions_and_native_schema(self):
         self.assertEqual(len(self.cells), len(self.template["blocks"]))
-        self.assertLess(len(self.cells), 150_000)
+        self.assertLess(len(self.cells), 240_000)
         self.assertEqual(self.template["size"], list(SIZE))
         for pos in self.cells:
             self.assertTrue(all(0 <= c < n for c, n in zip(pos, SIZE)), pos)
@@ -73,7 +73,7 @@ class AcademyTests(unittest.TestCase):
             self.assertTrue(s["id"].startswith(("minecraft:", "jugcraft:")))
 
     def test_existing_stations_no_rewards_or_owners(self):
-        expected = {block for _, block in STATIONS.values()}
+        expected = {block for _, block in STATIONS.values() if block.startswith("jugcraft:")}
         self.assertEqual({s["id"] for s in self.palette if s["id"].startswith("jugcraft:")}, expected)
         for name, (pos, block) in STATIONS.items():
             self.assertEqual(self.block(pos), block, name)
@@ -86,10 +86,10 @@ class AcademyTests(unittest.TestCase):
                 self.assertEqual(len(data["front_text"]["messages"]), 4)
 
     def test_every_room_and_station_can_be_reached(self):
-        # Conservative two-air-block navigation with one-block steps. This catches sealed rooms,
+        # Two-block headroom navigation with one-block steps and hand-openable doors. This catches sealed rooms,
         # overwritten stair openings and missing landings, but does not replace game collision tests.
         def free(x, y, z):
-            return self.block((x, y, z)) == "minecraft:air"
+            return self.block((x, y, z)) in {"minecraft:air", "minecraft:snow", "minecraft:spruce_door"}
 
         def stand(pos):
             x, y, z = pos
@@ -124,6 +124,33 @@ class AcademyTests(unittest.TestCase):
             if s["id"] == "minecraft:spruce_wall_sign":
                 self.assertEqual(s["properties"]["facing"], "south")
                 self.assertNotEqual(self.block((x, y, z-1)), "minecraft:air")
+
+    def test_doors_are_complete_and_snow_has_full_support(self):
+        doors = []
+        for (x, y, z), s in self.cells.items():
+            if s["id"] == "minecraft:spruce_door":
+                props = s["properties"]
+                lower = props["half"] == "lower"
+                other = self.cells[x, y+(1 if lower else -1), z]
+                self.assertEqual(other["id"], s["id"])
+                self.assertNotEqual(other["properties"]["half"], props["half"])
+                self.assertEqual(other["properties"]["facing"], props["facing"])
+                if lower:
+                    doors.append((x, y, z))
+                    self.assertNotEqual(self.block((x, y-1, z)), "minecraft:air")
+            if s["id"] == "minecraft:snow":
+                self.assertIn(self.block((x, y-1, z)), {
+                    "minecraft:stone_bricks", "minecraft:chiseled_stone_bricks", "minecraft:polished_andesite"})
+                self.assertEqual(s["properties"]["layers"], "1")
+        self.assertEqual(len(doors), 8)  # six bedrooms, archive, secret lab
+
+    def test_foundation_and_existing_conclave_have_no_fabricated_state(self):
+        from winterhold_academy import FLOOR, ROCK_DEPTH
+        self.assertEqual(FLOOR, 24)
+        self.assertGreaterEqual(ROCK_DEPTH, 16)
+        self.assertIn(self.block((48, 0, 45)), {"minecraft:andesite", "minecraft:tuff"})
+        self.assertEqual(self.block(STATIONS["conclave"][0]), "jugcraft:conclave_lectern")
+        self.assertFalse(any(b.get("nbt", {}).get("owner") for b in self.template["blocks"]))
 
 
 if __name__ == "__main__":
