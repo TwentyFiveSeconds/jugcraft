@@ -57,12 +57,12 @@ class AcademyTests(unittest.TestCase):
     def test_nbt_round_trip_and_committed_output(self):
         packed = nbt_bytes(self.template)
         self.assertEqual(read_nbt(packed), self.template)
-        self.assertEqual(OUT.read_bytes(), packed)
+        self.assertEqual(gzip.decompress(OUT.read_bytes()), gzip.decompress(packed))
         self.assertEqual(build(), self.template)
 
     def test_bounds_unique_positions_and_native_schema(self):
         self.assertEqual(len(self.cells), len(self.template["blocks"]))
-        self.assertLess(len(self.cells), 240_000)
+        self.assertLess(len(self.cells), 350_000)
         self.assertEqual(self.template["size"], list(SIZE))
         for pos in self.cells:
             self.assertTrue(all(0 <= c < n for c, n in zip(pos, SIZE)), pos)
@@ -144,11 +144,23 @@ class AcademyTests(unittest.TestCase):
                 self.assertEqual(s["properties"]["layers"], "1")
         self.assertEqual(len(doors), 8)  # six bedrooms, archive, secret lab
 
+    def test_circular_enclosure_and_separate_library(self):
+        # The footprint must not regress to three detached towers on a rectangle.
+        for x, z in ((38, 85), (98, 85), (68, 115), (68, 56)):
+            self.assertNotEqual(self.block((x, 32, z)), "minecraft:air")
+        self.assertEqual(self.block((32, 24, 121)), "minecraft:air")
+        self.assertEqual(self.block((104, 24, 121)), "minecraft:air")
+        self.assertEqual(self.block((68, 31, 85)), "minecraft:air")  # open-sky court
+        self.assertNotEqual(self.block((112, 36, 34)), "minecraft:air")  # low library roof
+        lecterns = [b for b in self.template["blocks"]
+                    if self.palette[b["state"]]["id"] == "jugcraft:conclave_lectern"]
+        self.assertEqual(len(lecterns), 1)
+
     def test_foundation_and_existing_conclave_have_no_fabricated_state(self):
         from winterhold_academy import FLOOR, ROCK_DEPTH
         self.assertEqual(FLOOR, 24)
         self.assertGreaterEqual(ROCK_DEPTH, 16)
-        self.assertIn(self.block((48, 0, 45)), {"minecraft:andesite", "minecraft:tuff"})
+        self.assertIn(self.block((68, 0, 85)), {"minecraft:andesite", "minecraft:tuff"})
         self.assertEqual(self.block(STATIONS["conclave"][0]), "jugcraft:conclave_lectern")
         self.assertFalse(any(b.get("nbt", {}).get("owner") for b in self.template["blocks"]))
 

@@ -89,15 +89,15 @@ def scene_for(template, keep):
     bpy.context.object.rotation_euler = (.4, -.4, -.4)
     bpy.context.object.data.energy = 2.2
     bpy.ops.object.light_add(type="AREA", location=(110, -65, 95))
-    bpy.context.object.rotation_euler = (Vector((48, -40, 40))-bpy.context.object.location).to_track_quat("-Z", "Y").to_euler()
+    bpy.context.object.rotation_euler = (Vector((68, -70, 40))-bpy.context.object.location).to_track_quat("-Z", "Y").to_euler()
     bpy.context.object.data.energy = 5000
     bpy.context.object.data.shape = "DISK"
     bpy.context.object.data.size = 60
-    bpy.ops.object.camera_add(location=(155, -191, 157))
+    bpy.ops.object.camera_add(location=(195, -231, 177))
     camera = bpy.context.object
-    camera.rotation_euler = (Vector((48, -57, 34))-camera.location).to_track_quat("-Z", "Y").to_euler()
+    camera.rotation_euler = (Vector((68, -77, 34))-camera.location).to_track_quat("-Z", "Y").to_euler()
     camera.data.type = "ORTHO"
-    camera.data.ortho_scale = 150
+    camera.data.ortho_scale = 195
     scene = bpy.context.scene
     scene.camera = camera
     scene.render.engine = "CYCLES"
@@ -118,7 +118,7 @@ def main():
     args.output_dir.mkdir(parents=True, exist_ok=True)
     template = build()
     for name, keep in (("overview", lambda x, y, z: True),
-                       ("cutaway", lambda x, y, z: x < 48 or y < FLOOR-2)):
+                       ("cutaway", lambda x, y, z: x < 68 or y < FLOOR-2)):
         scene = scene_for(template, keep)
         scene.render.filepath = str((args.output_dir / f"frostward-academy-{name}.jpg").resolve())
         bpy.ops.render.render(write_still=True)

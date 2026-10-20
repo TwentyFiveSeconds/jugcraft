@@ -2,19 +2,22 @@
 
 Run: python tools/winterhold_academy.py [--check]
 Uses the shared 26.3 NBT writer; no asset copies, dependencies or worldgen hooks.
-The origin is the northwest bottom corner. Entry is (48, 25, 120), facing north.
+The origin is the northwest bottom corner. Entry is (68, 25, 160), facing north.
 """
 import argparse
+import gzip
 import json
 from math import isqrt
 from pathlib import Path
 
 from retro_game_shop import Byte, DATA_VERSION, nbt_bytes, state
+from winterhold_layout import LAYOUT_NAME, apply_layout, load_layout
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "src/main/resources/data/jugcraft/structure/academy/winterhold.nbt"
 ROCK_DEPTH = 16
-SIZE = (97, 76, 121)
+RECOVERED_SIZE = (97, 76, 121)
+SIZE = RECOVERED_SIZE
 FLOOR = 8 + ROCK_DEPTH
 
 
@@ -61,11 +64,11 @@ for tower, cx in (("Apprentice", 18), ("Faculty", 78)):
 ROOMS = {name: world_pos(pos) for name, pos in ROOMS.items()}
 
 
-def build():
+def _recovered_components():
     cells, metadata = {}, {}
 
     def put(x, y, z, block, **props):
-        assert 0 <= x < SIZE[0] and -ROCK_DEPTH <= y < SIZE[1]-ROCK_DEPTH and 0 <= z < SIZE[2], (x, y, z)
+        assert 0 <= x < RECOVERED_SIZE[0] and -ROCK_DEPTH <= y < RECOVERED_SIZE[1]-ROCK_DEPTH and 0 <= z < RECOVERED_SIZE[2], (x, y, z)
         cells[x, y, z] = state(block if ":" in block else "minecraft:" + block, **props)
         metadata.pop((x, y, z), None)
 
@@ -451,10 +454,23 @@ def build():
             entry["nbt"] = metadata[pos]
         blocks.append(entry)
     return {
-        "DataVersion": DATA_VERSION, "size": list(SIZE),
+        "DataVersion": DATA_VERSION, "size": list(RECOVERED_SIZE),
         "palette": [{"id": name, **({"properties": dict(props)} if props else {})} for name, props in palette],
         "blocks": blocks, "entities": [],
     }
+
+
+# The recovered coordinates above remain private authoring components. Public
+# coordinates come from the revised campus specification and are used by tests.
+LAYOUT = load_layout(Path(__file__).with_name(LAYOUT_NAME))
+SIZE = tuple(LAYOUT["size"])
+ENTRY = tuple(LAYOUT["entry"])
+ROOMS = {name: tuple(pos) for name, pos in LAYOUT["rooms"].items()}
+STATIONS = {name: (tuple(pos), block) for name, (pos, block) in LAYOUT["stations"].items()}
+
+
+def build():
+    return apply_layout(_recovered_components(), LAYOUT)
 
 
 def main():
@@ -465,7 +481,7 @@ def main():
     template = build()
     packed = nbt_bytes(template)
     if args.check:
-        if not OUT.exists() or OUT.read_bytes() != packed:
+        if not OUT.exists() or gzip.decompress(OUT.read_bytes()) != gzip.decompress(packed):
             raise SystemExit("Academy template is stale; run python tools/winterhold_academy.py")
     else:
         OUT.parent.mkdir(parents=True, exist_ok=True)

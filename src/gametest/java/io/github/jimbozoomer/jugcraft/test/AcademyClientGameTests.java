@@ -19,11 +19,11 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			TestServerContext server = world.getServer();
 			server.runCommand("time set noon");
 			server.runCommand("weather clear");
-			server.runCommand("forceload add 0 0 96 120");
+			server.runCommand("forceload add 0 0 144 160");
 			// Only this disposable test world: explicitly clear the preview volume above the landscape.
 			server.runOnServer(s -> {
-				for (int x = 0; x < 97; x++) {
-					for (int z = 0; z < 121; z++) {
+				for (int x = 0; x < 145; x++) {
+					for (int z = 0; z < 161; z++) {
 						for (int y = 224; y < 300; y++) {
 							BlockPos pos = new BlockPos(x, y, z);
 							if (!s.overworld().getBlockState(pos).isAir()) {
@@ -35,28 +35,30 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			});
 			server.runCommand("place template jugcraft:academy/winterhold 0 224 0");
 			server.runOnServer(s -> {
-				if (s.overworld().getBlockEntity(new BlockPos(37, 249, 24)) == null) {
+				if (s.overworld().getBlockEntity(new BlockPos(57, 249, 28)) == null) {
 					throw new AssertionError("Academy placement did not create the study bench");
 				}
 			});
 			context.getInput().pressKey(options -> options.keyToggleGui);
 			context.runOnClient(c -> c.options.fov().set(75));
-			view(context, server, 113, 307, 145, 147, 20);
+			view(context, server, 170, 330, 190, 137, 24);
 			world.getConnection().waitForChunksRender();
 			context.takeScreenshot("jugcraft_academy_overview");
-			view(context, server, 48, 251, 113, 180, -5);
+			view(context, server, 68, 251, 151, 180, -5);
 			context.takeScreenshot("jugcraft_academy_bridge");
-			view(context, server, 48, 252, 41, 180, 0);
+			view(context, server, 68, 254, 108, 180, 5);
+			context.takeScreenshot("jugcraft_academy_cloister");
+			view(context, server, 68, 252, 45, 180, 0);
 			context.takeScreenshot("jugcraft_academy_hall");
-			view(context, server, 48, 266, 39, 180, 5);
+			view(context, server, 112, 252, 44, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
-			view(context, server, 48, 278, 38, 180, 10);
+			view(context, server, 68, 278, 42, 180, 10);
 			context.takeScreenshot("jugcraft_academy_archmage");
-			view(context, server, 23, 244, 34, 180, 10);
+			view(context, server, 43, 244, 38, 180, 10);
 			context.takeScreenshot("jugcraft_academy_midden_forge");
-			view(context, server, 51, 244, 65, 155, 5);
+			view(context, server, 71, 244, 69, 155, 5);
 			context.takeScreenshot("jugcraft_academy_echo_chamber");
-			server.runCommand("forceload remove 0 0 96 120");
+			server.runCommand("forceload remove 0 0 144 160");
 			context.getInput().pressKey(options -> options.keyToggleGui);
 		}
 	}

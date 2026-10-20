@@ -45,9 +45,10 @@ CI runs all of these and fails if generated files are out of date.
 ### Frostward College (`tools/winterhold_academy.py`)
 
 The [Winterhold-inspired academy](features/frostward-academy.md) is an operator-placeable template:
-`/place template jugcraft:academy/winterhold`. It includes a rocky base, bridge, courtyard, teaching hall,
-library, residential towers, private quarters and connected Midden chambers, using existing magic stations.
-No automatic worldgen or instructor NPC system is added. Offline checks pass; Minecraft validation is pending.
+`/place template jugcraft:academy/winterhold`. It includes a rocky base following a circular campus, bridge, enclosed court/cloister, teaching hall,
+attached library and residential wings, private quarters and connected Midden chambers, using existing magic stations.
+No automatic worldgen or instructor NPC system is added. Revised NBT/layout checks pass; Python regeneration
+and Minecraft validation are pending. See the feature page for current previews and test limits.
 
 ### World Designer (`world/design/`, `tools/world-designer/`)
 

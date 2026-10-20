@@ -51,23 +51,23 @@ public class AcademyGameTests {
 
 	@GameTest(structure = "jugcraft:academy/winterhold", maxTicks = 20)
 	public void academyStationsRetainResearchAndIngredientCosts(GameTestHelper helper) {
-		BlockPos position = new BlockPos(37, 25, 24);
+		BlockPos position = new BlockPos(57, 25, 28);
 		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, position);
-		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, new BlockPos(59, 25, 24));
-		helper.assertBlockPresent(JugcraftConcordance.CRUCIBLE, new BlockPos(82, 25, 54));
-		helper.getBlockEntity(new BlockPos(82, 25, 54), CrucibleBlockEntity.class);
-		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(Jugcraft.id("artificer_bench")), new BlockPos(74, 25, 54));
-		helper.assertBlockPresent(Blocks.SPRUCE_WALL_SIGN, new BlockPos(48, 32, 48));
-		helper.assertBlockPresent(Blocks.ENCHANTING_TABLE, new BlockPos(78, 25, 67));
-		helper.assertBlockPresent(Blocks.SPRUCE_DOOR, new BlockPos(63, 17, 29));
-		helper.assertBlockPresent(Blocks.SOUL_CAMPFIRE, new BlockPos(22, 17, 27));
-		var lectern = helper.getBlockEntity(new BlockPos(48, 39, 18), ConclaveLecternBlockEntity.class);
+		helper.assertBlockPresent(JugcraftConcordance.LAMPWRIGHT_BENCH, new BlockPos(79, 25, 28));
+		helper.assertBlockPresent(JugcraftConcordance.CRUCIBLE, new BlockPos(113, 25, 85));
+		helper.getBlockEntity(new BlockPos(113, 25, 85), CrucibleBlockEntity.class);
+		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(Jugcraft.id("artificer_bench")), new BlockPos(105, 25, 85));
+		helper.assertBlockPresent(Blocks.SPRUCE_WALL_SIGN, new BlockPos(68, 32, 52));
+		helper.assertBlockPresent(Blocks.ENCHANTING_TABLE, new BlockPos(109, 25, 98));
+		helper.assertBlockPresent(Blocks.SPRUCE_DOOR, new BlockPos(83, 17, 33));
+		helper.assertBlockPresent(Blocks.SOUL_CAMPFIRE, new BlockPos(42, 17, 31));
+		var lectern = helper.getBlockEntity(new BlockPos(112, 25, 23), ConclaveLecternBlockEntity.class);
 		helper.assertTrue(lectern.owner() == null && lectern.projectOwner().isEmpty(),
 				"Template placement must not fabricate an owner or a communal project");
 		var bench = helper.getBlockEntity(position, LampwrightBenchBlockEntity.class);
 		var player = helper.makeMockServerPlayerInLevel();
 		player.setGameMode(GameType.SURVIVAL);
-		BlockPos stand = helper.absolutePos(new BlockPos(37, 25, 25));
+		BlockPos stand = helper.absolutePos(new BlockPos(57, 25, 29));
 		player.snapTo(stand.getX() + 0.5, stand.getY(), stand.getZ() + 0.5, 180.0F, 0.0F);
 		Starbound.use(player, lectern, false);
 		helper.assertTrue(!Starbound.standing(player).member(), "The college lectern still requires First Light");
