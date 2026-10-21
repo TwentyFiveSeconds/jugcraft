@@ -122,9 +122,11 @@ def apply_layout(legacy, layout):
     from academy_architecture import add_autumn
     add_autumn(cells, put)
     from academy_fonta59 import (enrich_hall_and_campus, furnish_academic_crosswing,
-                                 furnish_reading_wing_from_donor, plant_autumn_court)
+                                 open_elements_gallery, furnish_reading_wing_from_donor,
+                                 plant_autumn_court)
     enrich_hall_and_campus(cells, put)
     furnish_academic_crosswing(cells, put)
+    open_elements_gallery(cells, put)
     furnish_reading_wing_from_donor(cells, put)
     plant_autumn_court(cells, put)
     final_palette = sorted(set(cells.values()))

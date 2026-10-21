@@ -135,6 +135,50 @@ def furnish_academic_crosswing(cells, put):
         block(x, 35, z, "lantern", hanging="true", waterlogged="false")
 
 
+def open_elements_gallery(cells, put):
+    """Adapt the donor Hall's open annular interior into a safe teaching gallery.
+
+    Fonta59 Hall world X 20..64, Z -201..-157 at Y118/131 has a deep
+    central void and occupied ring. Frostward keeps the existing center anchor
+    by crossing the void with two five-wide teaching bridges. Its original
+    stairs and all floor-level magic stations remain in their existing places.
+    """
+    def block(x, y, z, name, **props):
+        put(x, y, z, state("minecraft:" + name, **props))
+
+    openings = set()
+    for x in range(59, 78):
+        for z in range(24, 43):
+            dx, dz = x - 68, z - 33
+            if dx * dx + dz * dz <= 10 * 10 and abs(dx) > 2 and abs(dz) > 2:
+                openings.add((x, z))
+                block(x, 38, z, "air")
+                for y in range(39, 43):
+                    block(x, y, z, "air")
+
+    # A low stone rail follows each opening on the *solid* gallery floor;
+    # it has a supporting floor block and leaves three clear bridge lanes.
+    for x, z in openings:
+        for nx, nz in ((x - 1, z), (x + 1, z), (x, z - 1), (x, z + 1)):
+            if (nx, nz) in openings or not 58 <= nx <= 78 or not 23 <= nz <= 43:
+                continue
+            if cells.get((nx, 38, nz), ("minecraft:air",))[0] == "minecraft:air":
+                continue
+            block(nx, 39, nz, "stone_brick_wall", up="true")
+
+    # The north and south sectors serve different purposes: a teaching
+    # lectern and a quiet archival bench, both outside the old stair landings.
+    for x in range(64, 73):
+        for z in (18, 19, 47, 48):
+            for y in range(39, 42):
+                block(x, y, z, "bookshelf")
+    block(68, 39, 21, "lectern", facing="south", has_book="false", powered="false")
+    block(68, 39, 45, "cartography_table")
+    for x, z in ((61, 21), (75, 21), (61, 45), (75, 45)):
+        block(x, 39, z, "chiseled_stone_bricks")
+        block(x, 40, z, "lantern", hanging="false", waterlogged="false")
+
+
 def furnish_reading_wing_from_donor(cells, put):
     """Remodel one small diagonal donor bookcase return into two archive bays.
 

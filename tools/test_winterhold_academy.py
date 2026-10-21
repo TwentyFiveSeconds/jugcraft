@@ -98,6 +98,8 @@ class AcademyTests(unittest.TestCase):
         self.assertLess(sum(row.count("#") for row in motif["rows"]), 150)
         self.assertEqual(self.block((68, 87, 33)), "minecraft:lantern")
         self.assertEqual(self.block((151, 25, 19)), "minecraft:bookshelf")
+        self.assertEqual(self.block((64, 38, 29)), "minecraft:air")
+        self.assertNotEqual(self.block((68, 38, 33)), "minecraft:air")
         self.assertEqual(self.block((52, 29, 75)), "jugcraft:ecology_maple_log")
         self.assertIn("jugcraft:ecology_red_maple_leaves", {s["id"] for s in self.palette})
         self.assertNotIn("minecraft:snow", {s["id"] for s in self.palette})

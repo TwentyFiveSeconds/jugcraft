@@ -59,7 +59,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 					&& c.level.getBlockState(new BlockPos(150, 248, 34)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(90, 260, 34)).is(Blocks.STONE_BRICKS)
 					&& c.level.getBlockState(new BlockPos(51, 249, 99)).is(Blocks.CARVED_PUMPKIN)
-					&& c.level.getBlockState(new BlockPos(68, 296, 33)).is(Blocks.STONE_BRICK_SLAB)
+					&& c.level.getBlockState(new BlockPos(68, 311, 33)).is(Blocks.LANTERN)
 					&& c.level.getBlockState(new BlockPos(68, 251, 85)).is(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.WARD));
 			try {
 				world.getConnection().waitForChunksRender(false);
@@ -73,12 +73,18 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_overview");
 			view(context, server, 68, 251, 151, 180, -5);
 			context.takeScreenshot("jugcraft_academy_bridge");
+			server.runCommand("time set midnight");
+			view(context, server, 68, 251, 151, 180, -5);
+			context.takeScreenshot("jugcraft_academy_bridge_night");
+			server.runCommand("time set noon");
 			view(context, server, 68, 251, 136, 180, -5);
 			context.takeScreenshot("jugcraft_academy_gatehouse");
 			view(context, server, 68, 254, 108, 180, 5);
 			context.takeScreenshot("jugcraft_academy_cloister");
 			view(context, server, 68, 252, 45, 180, 0);
 			context.takeScreenshot("jugcraft_academy_hall");
+			view(context, server, 68, 264, 41, 180, 10);
+			context.takeScreenshot("jugcraft_academy_upper_gallery");
 			view(context, server, 59, 251, 36, 180, 20);
 			context.takeScreenshot("jugcraft_academy_radiance_instructor");
 			server.runOnServer(s -> {
