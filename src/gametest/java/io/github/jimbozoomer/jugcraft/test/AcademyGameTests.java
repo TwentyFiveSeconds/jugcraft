@@ -102,7 +102,10 @@ public class AcademyGameTests {
 
 	@GameTest(structure = "jugcraft:academy/winterhold", maxTicks = 20)
 	public void academyGateWingAndAutumnArePlaced(GameTestHelper helper) {
-		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(68, 33, 120));
+		helper.assertBlockPresent(Blocks.AIR, new BlockPos(68, 33, 120));
+		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(62, 33, 120));
+		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(74, 33, 120));
+		helper.assertBlockPresent(Blocks.CHISELED_STONE_BRICKS, new BlockPos(68, 32, 126));
 		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(90, 36, 34));
 		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(133, 44, 34));
 		helper.assertBlockPresent(Blocks.POLISHED_DIORITE, new BlockPos(153, 36, 42));
