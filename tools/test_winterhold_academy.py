@@ -75,6 +75,7 @@ class AcademyTests(unittest.TestCase):
     def test_existing_stations_no_rewards_or_owners(self):
         expected = {block for _, block in STATIONS.values() if block.startswith("jugcraft:")}
         expected.add("jugcraft:academy_ward")
+        expected.update("jugcraft:" + colour + "_leaf_pile" for colour in ("red", "orange", "yellow"))
         self.assertEqual({s["id"] for s in self.palette if s["id"].startswith("jugcraft:")}, expected)
         for name, (pos, block) in STATIONS.items():
             self.assertEqual(self.block(pos), block, name)
@@ -126,8 +127,9 @@ class AcademyTests(unittest.TestCase):
                 self.assertEqual(s["properties"]["facing"], "south")
                 self.assertNotEqual(self.block((x, y, z-1)), "minecraft:air")
 
-    def test_doors_are_complete_and_snow_has_full_support(self):
+    def test_doors_and_autumn_groundcover_have_full_support(self):
         doors = []
+        piles = 0
         for (x, y, z), s in self.cells.items():
             if s["id"] == "minecraft:spruce_door":
                 props = s["properties"]
@@ -139,16 +141,27 @@ class AcademyTests(unittest.TestCase):
                 if lower:
                     doors.append((x, y, z))
                     self.assertNotEqual(self.block((x, y-1, z)), "minecraft:air")
-            if s["id"] == "minecraft:snow":
-                self.assertIn(self.block((x, y-1, z)), {
-                    "minecraft:stone_bricks", "minecraft:chiseled_stone_bricks", "minecraft:polished_andesite"})
+            self.assertNotEqual(s["id"], "minecraft:snow")
+            if s["id"].endswith("_leaf_pile"):
+                piles += 1
+                self.assertNotEqual(self.block((x, y-1, z)), "minecraft:air")
                 self.assertEqual(s["properties"]["layers"], "1")
         self.assertEqual(len(doors), 8)  # six bedrooms, archive, secret lab
+        self.assertGreaterEqual(piles, 12)
+        self.assertEqual(sum(s["id"] == "minecraft:carved_pumpkin" for s in self.cells.values()), 4)
 
-    def test_circular_enclosure_and_separate_library(self):
-        # The footprint must not regress to three detached towers on a rectangle.
-        for x, z in ((38, 85), (98, 85), (68, 115), (68, 56)):
+    def test_compact_court_gate_and_connected_academic_wing(self):
+        # The court has a defined edge, a vaulted bridge entrance, and an
+        # enclosed scholarly cross-wing physically joining Hall and library.
+        for x, z in ((38, 85), (98, 85), (68, 56)):
             self.assertNotEqual(self.block((x, 32, z)), "minecraft:air")
+        for z in (114, 120, 126):
+            self.assertEqual(self.block((68, 25, z)), "minecraft:air")
+            self.assertNotEqual(self.block((68, 35, z)), "minecraft:air")
+        for z in (25, 34, 44):
+            self.assertNotEqual(self.block((90, 36, z)), "minecraft:air")
+        for x in (83, 97):
+            self.assertEqual(self.block((x, 27, 34)), "minecraft:air")
         self.assertEqual(self.block((32, 24, 121)), "minecraft:air")
         self.assertEqual(self.block((104, 24, 121)), "minecraft:air")
         self.assertEqual(self.block((68, 31, 85)), "minecraft:air")  # open-sky court

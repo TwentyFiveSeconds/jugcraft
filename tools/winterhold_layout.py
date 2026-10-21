@@ -111,6 +111,14 @@ def apply_layout(legacy, layout):
 
     from academy_interiors import furnish
     furnish(cells, put)
+    from academy_architecture import (connect_academic_cluster, build_gatehouse,
+                                      open_cloister_stairs, build_archmage_annex)
+    connect_academic_cluster(cells, put, layout["academic_wing"])
+    build_gatehouse(cells, put, layout["gatehouse"])
+    open_cloister_stairs(cells, put)
+    build_archmage_annex(cells, put, layout["archmage_annex"])
+    from academy_architecture import add_autumn
+    add_autumn(cells, put)
     final_palette = sorted(set(cells.values()))
     indices = {block: i for i, block in enumerate(final_palette)}
     blocks = []

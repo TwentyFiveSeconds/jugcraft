@@ -56,6 +56,8 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.POLISHED_ANDESITE)
 					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.POLISHED_DIORITE)
+					&& c.level.getBlockState(new BlockPos(90, 260, 34)).is(Blocks.STONE_BRICKS)
+					&& c.level.getBlockState(new BlockPos(51, 249, 99)).is(Blocks.CARVED_PUMPKIN)
 					&& c.level.getBlockState(new BlockPos(68, 296, 33)).is(Blocks.STONE_BRICK_SLAB)
 					&& c.level.getBlockState(new BlockPos(68, 251, 85)).is(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.WARD));
 			try {
@@ -70,6 +72,8 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_overview");
 			view(context, server, 68, 251, 151, 180, -5);
 			context.takeScreenshot("jugcraft_academy_bridge");
+			view(context, server, 68, 251, 136, 180, -5);
+			context.takeScreenshot("jugcraft_academy_gatehouse");
 			view(context, server, 68, 254, 108, 180, 5);
 			context.takeScreenshot("jugcraft_academy_cloister");
 			view(context, server, 68, 252, 45, 180, 0);
@@ -85,8 +89,12 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			});
 			view(context, server, 112, 252, 44, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
+			view(context, server, 90, 251, 36, 180, 5);
+			context.takeScreenshot("jugcraft_academy_scholarly_wing");
 			view(context, server, 68, 278, 42, 180, 10);
 			context.takeScreenshot("jugcraft_academy_archmage");
+			view(context, server, 43, 277, 39, 180, 5);
+			context.takeScreenshot("jugcraft_academy_archmage_annex");
 			view(context, server, 43, 244, 38, 180, 10);
 			context.takeScreenshot("jugcraft_academy_midden_forge");
 			view(context, server, 71, 244, 69, 155, 5);
