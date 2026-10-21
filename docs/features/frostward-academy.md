@@ -49,6 +49,10 @@ Client snow and reused `JugcraftAgriculture.FOG` wisps use a 16-block horizontal
 
 `tools/academy_data.py` supplies fixture blockstates/models and language, called by the shared material generator. Fixture models reference vanilla block texture identifiers without copying texture bytes. No fixture BlockItems, recipes, loot or survival acquisition are introduced. `tools/academy_skins.py` reuses `town_skins.py`'s original classic-player UV/robe helpers for the ivory robe, blue hem and gold trim at `textures/entity/townsfolk/academy_radiance.png`; no new rig/renderer is needed.
 
+![Arctus Vale: front and back of the actual runtime skin](../images/frostward-instructor-skin-preview.png)
+
+This is a flat UV projection of the actual skin, not a Minecraft screenshot. Reproduce with `python tools/academy_skins.py --preview-only docs/images/frostward-instructor-skin-preview.png`.
+
 The owner library's magic robe item assets and `originals/Magic/assets/ars_jimbaux/textures/entity/villager/profession/shady_wizard.png` were inspected. Those item/villager UVs do not fit the existing townsfolk player model. Original library files remain unchanged. The skin is generated using the existing Jugcraft helper rather than blindly importing an incompatible UV layout.
 
 ### M0 validation — 21 October 2026
@@ -58,6 +62,8 @@ Passed locally: canonical Python regeneration/freshness; all nine `test_winterho
 Common, client and game-test Java compilation passed against Minecraft 26.3, Fabric API 0.161.0+26.3, Loader 0.19.5, Loom 1.17.21, Gradle 9.6.0 and Microsoft Java 25.0.1 (`compileJava compileClientJava compileGametestJava -x processResources -x processClientResources`: successful in 1m52s; this deliberately isolates compilation, not runtime). First client compilation exposed old API names; these were checked against the installed pinned JARs and corrected. The initial full compilation attempt hit a concurrent resource-directory conflict; subsequent checks run sequentially. Full build, server GameTests, client GameTests/screenshots and two-client play remain unverified until a recorded successful run. Added tests are not passing-test claims.
 
 The repository/link checker was attempted in this sparse checkout and failed because excluded `.github`/art source files are absent locally. That result is not an academy link regression or a passing repository check. The source/asset subset does include all runtime resources for the build. No checker assertions or CI gates were weakened.
+
+The full `tools/check_mod_data.py` audit also stopped during import on the excluded owner-library `originals/Magic/assets/ars_jimbaux/lang/en_us.json`; it did not audit the academy or return a pass. The academy feature/ledger's own local documentation links and `git diff --check` pass.
 
 Server acceptance covers all palette IDs/properties, existing bench research/material costs, personal lore/no research grants, instructor save-marker/no duplicate on reload and all template rotations/mirrors. The selected `AcademyClientGameTests` adds an instructor screenshot/assertion and confirms global clear weather remains unchanged. Biome placements, disconnect/dimension transitions, off/low/minimal, real persistence/reconnect and performance still need runtime observation. Existing previews show layout only; they do not certify the instructor or climate.
 
