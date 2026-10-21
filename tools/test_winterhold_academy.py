@@ -169,13 +169,17 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(sum(s["id"] == "minecraft:carved_pumpkin" for s in self.cells.values()), 4)
 
     def test_compact_court_gate_and_connected_academic_wing(self):
-        # The court has a defined edge, a vaulted bridge entrance, and an
-        # enclosed scholarly cross-wing physically joining Hall and library.
+        # The court has a defined edge, a framed open-sky bridge entrance,
+        # and an enclosed scholarly cross-wing joining Hall and library.
         for x, z in ((38, 85), (98, 85), (68, 56)):
             self.assertNotEqual(self.block((x, 32, z)), "minecraft:air")
         for z in (114, 120, 126):
             self.assertEqual(self.block((68, 25, z)), "minecraft:air")
-            self.assertNotEqual(self.block((68, 33, z)), "minecraft:air")
+            self.assertEqual(self.block((68, 33, z)), "minecraft:air")
+            self.assertNotEqual(self.block((62, 33, z)), "minecraft:air")
+            self.assertNotEqual(self.block((74, 33, z)), "minecraft:air")
+        for z in (114, 126):
+            self.assertEqual(self.block((68, 32, z)), "minecraft:chiseled_stone_bricks")
         for z in (25, 34, 44):
             self.assertNotEqual(self.block((90, 36, z)), "minecraft:air")
         for x in (83, 97):

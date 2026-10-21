@@ -290,12 +290,15 @@ def build_gatehouse(cells, put, spec):
         for x in (x0, x1):
             for y in range(25, 34):
                 block(x, y, z, "stone_bricks")
-    for x in range(x0, x1 + 1):
+    # Roof the reception wings, leaving the passage open to the sky. From the
+    # bridge this exposes the Hall's lower drum beyond the gate.
+    wing_x = list(range(x0, 65)) + list(range(72, x1 + 1))
+    for x in wing_x:
         for z in range(z0, z1 + 1):
             block(x, 33, z, "stone_bricks")
     for z in (z0, z1):
         for x in range(65, 72):
-            for y in range(25, 33):
+            for y in range(25, 34):
                 block(x, y, z, "air")
     # Open reception bays connect to the vaulted through-route. Their benches
     # are decoration; the existing ward remains the authoritative interaction.
@@ -311,9 +314,19 @@ def build_gatehouse(cells, put, spec):
         for z in (118, 122):
             block(x, 25, z, "polished_diorite_stairs", facing="east" if x == 61 else "west",
                   half="bottom", shape="straight", waterlogged="false")
-    for z in (114, 126):
-        for x in range(60, 77):
+    for z in (z0, z1):
+        for x in wing_x:
             block(x, 34, z, "stone_brick_wall", up="true")
+        # Shallow arches join the roofed wings while retaining five blocks of
+        # passage headroom and a clear upper sightline to the Hall.
+        for x in (65, 71):
+            for y in (29, 30):
+                block(x, y, z, "stone_bricks")
+        for x in (66, 70):
+            block(x, 31, z, "stone_bricks")
+        for x in (67, 69):
+            block(x, 32, z, "stone_bricks")
+        block(68, 32, z, "chiseled_stone_bricks")
 
 
 def open_cloister_stairs(cells, put):
