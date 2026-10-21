@@ -263,6 +263,26 @@
       68,
       25,
       88
+    ],
+    "West Archive": [
+      100,
+      25,
+      30
+    ],
+    "East Archive": [
+      124,
+      25,
+      30
+    ],
+    "West Research Alcove": [
+      100,
+      25,
+      39
+    ],
+    "East Research Alcove": [
+      124,
+      25,
+      39
     ]
   },
   "ops": [

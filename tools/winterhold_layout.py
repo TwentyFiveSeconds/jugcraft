@@ -109,6 +109,8 @@ def apply_layout(legacy, layout):
                         for y in range(op["y"][0], op["y"][1]+1):
                             put(x, y, z, block)
 
+    from academy_interiors import furnish
+    furnish(cells, put)
     final_palette = sorted(set(cells.values()))
     indices = {block: i for i, block in enumerate(final_palette)}
     blocks = []

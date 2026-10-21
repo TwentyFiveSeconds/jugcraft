@@ -52,10 +52,10 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			// Verify received geometry across every wing and the roof, rather than unrelated view-distance corners.
 			context.waitFor(c -> c.level != null
 					&& c.level.getBlockState(new BlockPos(68, 248, 160)).is(Blocks.POLISHED_ANDESITE)
-					&& c.level.getBlockState(new BlockPos(27, 248, 76)).is(Blocks.SPRUCE_PLANKS)
-					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.SPRUCE_PLANKS)
+					&& c.level.getBlockState(new BlockPos(27, 248, 76)).is(Blocks.POLISHED_DIORITE)
+					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.POLISHED_ANDESITE)
-					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.SPRUCE_PLANKS)
+					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(68, 296, 33)).is(Blocks.STONE_BRICK_SLAB)
 					&& c.level.getBlockState(new BlockPos(68, 251, 85)).is(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.WARD));
 			try {

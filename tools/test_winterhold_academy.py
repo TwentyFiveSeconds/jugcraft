@@ -174,6 +174,22 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((59, 26, 31)), "minecraft:air")
         self.assertNotEqual(self.block((59, 24, 31)), "minecraft:air")
 
+    def test_library_has_connected_archives_and_masonry_enclosure(self):
+        # Navigation above independently reaches each archive/alcove. Also
+        # protect the authored arches and windowless side suites from regressions.
+        for x in (104, 120):
+            for z in (29, 39):
+                for y in range(25, 29):
+                    self.assertEqual(self.block((x, y, z)), 'minecraft:air')
+            self.assertEqual(self.block((x, 27, 34)), 'minecraft:quartz_pillar')
+        shelves = sum(s['id'] == 'minecraft:bookshelf'
+                      for (x, y, z), s in self.cells.items()
+                      if 98 <= x <= 126 and 25 <= y <= 29 and 22 <= z <= 46)
+        self.assertGreaterEqual(shelves, 96)
+        self.assertFalse(any('glass' in s['id'] for (x, y, z), s in self.cells.items()
+                             if 94 <= x <= 130 and 25 <= y <= 35 and 16 <= z <= 52))
+        self.assertEqual(self.block((112, 24, 34)), 'minecraft:polished_diorite')
+
 
 if __name__ == "__main__":
     unittest.main()

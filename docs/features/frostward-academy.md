@@ -1,5 +1,15 @@
 # Frostward College: Winterhold-inspired magical academy
 
+## Interior revision, 21 October 2026
+
+Owner feedback correctly identified the first screenshots as a sparse architectural base. The Arcanaeum now has a central reading hall and four connected side archive/research areas, broad stone arches, 96 additional bookshelf blocks, reading tables and facing seats, quartz pilasters, illuminated ceiling coffers and dark stone floor inlays. Its large glazed openings are replaced with masonry, making the archives windowless. Broad spruce-plank surfaces throughout the academy become polished diorite; working wooden doors, bookshelves and shaped joinery remain. No Bethesda assets, loot or new progression currency is introduced. Authoring is in `tools/academy_interiors.py`, applied to the same single `academy/winterhold` template. This is an interior improvement checkpoint, not completion of the grand academy plan. Other rooms still need individual furnishing and stair-edge review.
+
+Ten Python structure tests pass, including the new enclosure, stack and arch regression. Independent Node validation reaches all 37 room points and retains eight doors, seven beds, eight signs and 753 supported snow layers. The previously reported 2,111 server tests apply to the preceding M0 checkpoint; they are not a fresh full-suite result for this revision. Updated client and JAR results are recorded below after execution.
+
+Recovery/duplication audit: the latest 100 upstream PR records contain one academy PR, #441 (open draft, unmerged); the contributor fork has only `main` and `feature/frostward-academy`. Different checkpoint commit titles update the same template rather than installing duplicate colleges.
+
+The reported missing `jugcraft.client.mixins.json` error matches the earlier development launch that excluded `processClientResources`. The source config exists; processing client resources normally allowed the subsequent client run to pass. Do not delete the manifest entry or disable required mixins. `tools/check_mixin_jar.py` checks every declared config and its classes inside the actual built JAR, including client resources. It checks packaging, not mixin application. AI for this revision: OpenAI Codex, GPT-6.1.
+
 Status: manually placeable circular campus plus M0 instructor, personal courtyard memory and localized winter prototype. Nine Python structure tests, independent Node/Java checks, all 2,111 required server GameTests and the selected academy client GameTest pass. Nine actual Minecraft screenshots were captured and inspected. Full-build certification and human multiplayer acceptance remain open in [draft PR #441](https://github.com/jimbozoomer-byte/jugcraft/pull/441).
 
 Contributor: @TwentyFiveSeconds. AI: OpenAI Codex (GPT-6), explicitly requested by the contributor. Base: upstream main at `62c32ad3a5cfa05c298eab93e978951ab351aba8`, 20 October 2026. Tier: shared magical workshop infrastructure.
