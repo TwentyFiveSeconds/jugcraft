@@ -78,11 +78,11 @@ function renderAcademy(t,mode) {
  text("FROSTWARD COLLEGE",44,28,4);
  text(mode==="plan"?"CORRECTED GROUND FLOOR - CUT ABOVE DOORWAYS":mode==="bridge"?"BRIDGE APPROACH - GENERATED VOXEL PREVIEW":"CORRECTED CAMPUS - GENERATED VOXEL PREVIEW",44,70,2,[137,192,212]);
  if(mode==="plan"){
-  const scale=6,ox=72,oz=100,top=new Map();
+  const scale=5,ox=72,oz=100,top=new Map();
   for(const b of cells.values()){const [x,y,z]=b.pos;if(y>28)continue;const k=x+","+z;if(!top.has(k)||top.get(k).pos[1]<y)top.set(k,b);}
   for(const b of top.values()){const [x,y,z]=b.pos;rect(ox+x*scale,oz+z*scale,scale,scale,shade(color(t.palette[b.state]),y<24?.55:y===24?.72:1));}
   const mark=(n,x,z)=>{const a=ox+x*scale,b=oz+z*scale;rect(a-11,b-12,24,25,[20,29,41]);text(String(n),a-5,b-8,2);};
-  for(const [n,x,z]of [[1,68,143],[2,68,94],[3,27,76],[4,109,92],[5,68,33],[6,50,22],[7,112,34]])mark(n,x,z);
+  for(const [n,x,z]of [[1,68,143],[2,68,94],[3,27,76],[4,109,92],[5,68,33],[6,43,33],[7,147,34]])mark(n,x,z);
   text("1 BRIDGE    2 COURTYARD    3 ATTAINMENT",44,1095,2);
   text("4 COUNTENANCE    5 ELEMENTS    6 ARCH-MAGE ABOVE",44,1120,2);
   text("7 ARCANAEUM - JOINED BY SCHOLARLY WING",44,1145,2,[137,192,212]);
@@ -107,9 +107,9 @@ function renderAcademy(t,mode) {
    if(!cells.has([x+1,y,z].join(",")))poly([pos(1,0,0),pos(1,0,1),pos(1,height,1),pos(1,height,0)],shade(c,.84));
    if(!cells.has([x,y+1,z].join(",")))poly([pos(0,height,0),pos(1,height,0),pos(1,height,1),pos(0,height,1)],c);
   }
-  text("COMPACT CLOISTER / GATEHOUSE / JOINED SCHOLARLY WING",44,990,2,[137,192,212]);
+  text("CLOISTER / GATEHOUSE / CONNECTED READING WING",44,990,2,[137,192,212]);
   text("ACTUAL TEMPLATE CELLS - COLOURS AND BLOCK SHAPES APPROXIMATED",44,1020,2,[154,168,181]);
-  text("145 X 76 X 161 BLOCKS - NOT A MINECRAFT SCREENSHOT",44,1046,2,[154,168,181]);
+  text(`${t.size.join(" X ")} BLOCKS - NOT A MINECRAFT SCREENSHOT`,44,1046,2,[154,168,181]);
  }
  return {width:w,height:h,pixels:pix};
 }
@@ -137,7 +137,7 @@ assert.deepEqual(result.failures, []);
 assert.equal(result.doors, 8);
 assert.equal(result.beds, 16);
 const cells = new Map(template.blocks.map(b => [b.pos.join(","), template.palette[b.state].id]));
-for (const pos of [[38,32,85], [98,32,85], [68,32,56], [112,36,34], [90,36,25]]) {
+for (const pos of [[38,32,85], [98,32,85], [68,32,56], [112,36,34], [90,36,25], [133,44,34], [147,44,34], [153,36,42]]) {
   assert.notEqual(cells.get(pos.join(",")) ?? "minecraft:air", "minecraft:air", "enclosure/library");
 }
 for (const pos of [[32,24,121], [104,24,121], [68,31,85]]) {

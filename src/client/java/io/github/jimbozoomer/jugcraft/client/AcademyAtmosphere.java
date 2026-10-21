@@ -20,9 +20,7 @@ import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 
 /** Camera-local falling autumn leaves and low mist; no weather, biome or terrain edits. */
@@ -31,7 +29,6 @@ public final class AcademyAtmosphere {
 	private static List<AcademySite> sites = List.of();
 	private static ClientLevel world;
 	private static String mode = "normal";
-	private static ParticleOptions[] leaves;
 	private static final Path CONFIG = FabricLoader.getInstance().getConfigDir().resolve("jugcraft-academy-client.properties");
 	private AcademyAtmosphere() {}
 	public static void register() {
@@ -83,17 +80,13 @@ public final class AcademyAtmosphere {
 				|| !world.canSeeSky(BlockPos.containing(camera))) { removeParticles(); return; }
 		boolean low = mode.equals("low") || setting == ParticleStatus.DECREASED;
 		int budget = low ? 2 : 6;
-		if (leaves == null) leaves = new ParticleOptions[] {
-				new BlockParticleOption(ParticleTypes.BLOCK, JugcraftAgriculture.block("red_leaf_pile").defaultBlockState()),
-				new BlockParticleOption(ParticleTypes.BLOCK, JugcraftAgriculture.block("orange_leaf_pile").defaultBlockState()),
-				new BlockParticleOption(ParticleTypes.BLOCK, JugcraftAgriculture.block("yellow_leaf_pile").defaultBlockState())};
 		for (int i = 0; i < budget && OWN.size() < 512; i++) {
 			var random = world.getRandom();
 			double x = camera.x + (random.nextDouble()-0.5)*24;
 			double z = camera.z + (random.nextDouble()-0.5)*24;
 			double y = camera.y + 3 + random.nextDouble()*8;
 			if (random.nextDouble() > strength * influence(x, y, z) || !world.canSeeSky(BlockPos.containing(x,y,z))) continue;
-			spawn(client, leaves[random.nextInt(leaves.length)], x, y, z,
+			spawn(client, JugcraftAgriculture.ACADEMY_LEAF, x, y, z,
 					(random.nextDouble()-0.5)*0.024, -0.045, (random.nextDouble()-0.5)*0.024);
 		}
 		if (OWN.size() < 512 && world.getGameTime() % (low ? 12 : 5) == 0) {

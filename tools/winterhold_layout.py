@@ -111,9 +111,10 @@ def apply_layout(legacy, layout):
 
     from academy_interiors import furnish
     furnish(cells, put)
-    from academy_architecture import (connect_academic_cluster, build_gatehouse,
-                                      open_cloister_stairs, build_archmage_annex)
+    from academy_architecture import (connect_academic_cluster, build_arcanaeum_reading_wing,
+                                      build_gatehouse, open_cloister_stairs, build_archmage_annex)
     connect_academic_cluster(cells, put, layout["academic_wing"])
+    build_arcanaeum_reading_wing(cells, put, layout["library_wing"])
     build_gatehouse(cells, put, layout["gatehouse"])
     open_cloister_stairs(cells, put)
     build_archmage_annex(cells, put, layout["archmage_annex"])

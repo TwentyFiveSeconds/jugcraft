@@ -157,7 +157,7 @@ class AcademyTests(unittest.TestCase):
             self.assertNotEqual(self.block((x, 32, z)), "minecraft:air")
         for z in (114, 120, 126):
             self.assertEqual(self.block((68, 25, z)), "minecraft:air")
-            self.assertNotEqual(self.block((68, 35, z)), "minecraft:air")
+            self.assertNotEqual(self.block((68, 33, z)), "minecraft:air")
         for z in (25, 34, 44):
             self.assertNotEqual(self.block((90, 36, z)), "minecraft:air")
         for x in (83, 97):
@@ -202,6 +202,15 @@ class AcademyTests(unittest.TestCase):
         self.assertFalse(any('glass' in s['id'] for (x, y, z), s in self.cells.items()
                              if 94 <= x <= 130 and 25 <= y <= 35 and 16 <= z <= 52))
         self.assertEqual(self.block((112, 24, 34)), 'minecraft:polished_diorite')
+
+    def test_grand_reading_wing_has_a_real_upper_route(self):
+        self.assertEqual(SIZE, (176, 76, 161))
+        self.assertEqual(self.block((134, 27, 34)), 'minecraft:air')
+        self.assertEqual(self.block((133, 44, 34)), 'minecraft:stone_bricks')
+        self.assertEqual(self.block((150, 24, 34)), 'minecraft:polished_diorite')
+        self.assertEqual(self.block((148, 36, 41)), 'minecraft:stone_brick_stairs')
+        self.assertEqual(self.block((153, 36, 42)), 'minecraft:polished_diorite')
+        self.assertEqual(self.block((147, 44, 34)), 'minecraft:stone_bricks')
 
 
 if __name__ == "__main__":

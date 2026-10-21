@@ -83,6 +83,126 @@ def connect_academic_cluster(cells, put, spec):
                 block(x, y, z, "chiseled_stone_bricks")
 
 
+def build_arcanaeum_reading_wing(cells, put, spec):
+    """Broaden the Arcanaeum eastward with a usable hall and upper archive."""
+    cx, cz = spec["center"]
+    rx, rz = spec["radii"]
+    assert (cx, cz, rx, rz) == (147, 34, 22, 23)
+
+    def block(x, y, z, name, **props):
+        put(x, y, z, state("minecraft:" + name, **props))
+
+    def inside(x, z, inset=0):
+        return ((x - cx) / (rx - inset)) ** 2 + ((z - cz) / (rz - inset)) ** 2 <= 1
+
+    # The old round stacks meet an eastern half-oval. Its straight west wall
+    # becomes a long indoor threshold, rather than another detached drum.
+    for x in range(135, cx + rx + 1):
+        for z in range(cz - rz, cz + rz + 1):
+            if not inside(x, z):
+                continue
+            for y in range(24):
+                if (x, y, z) not in cells:
+                    block(x, y, z, "tuff" if y < 16 else "stone_bricks")
+            block(x, 24, z, "polished_diorite" if (x + z) % 7 else "polished_deepslate")
+            rim = not inside(x + 1, z) or not inside(x - 1, z) or not inside(x, z + 1) or not inside(x, z - 1)
+            if x == 135 or rim:
+                for y in range(25, 44):
+                    block(x, y, z, "chiseled_stone_bricks" if y in (25, 35, 43) else "stone_bricks")
+            # A stepped solid crown has no inaccessible interior void.
+            block(x, 44, z, "stone_bricks")
+            if inside(x, z, 3):
+                block(x, 45, z, "stone_brick_slab", type="bottom", waterlogged="false")
+            if inside(x, z, 9):
+                block(x, 46, z, "stone_brick_slab", type="bottom", waterlogged="false")
+            if inside(x, z, 16):
+                block(x, 47, z, "stone_bricks")
+
+    # Seven-wide sheltered link through the old Arcanaeum perimeter. Carving
+    # this after the walls preserves the original stacks away from the route.
+    for x in range(127, 139):
+        for z in range(31, 38):
+            block(x, 24, z, "polished_diorite")
+            for y in range(25, 33):
+                block(x, y, z, "air")
+    for x in range(131, 140):
+        for z in (30, 38):
+            for y in range(25, 34):
+                block(x, y, z, "stone_bricks")
+        for z in range(30, 39):
+            block(x, 34, z, "stone_bricks")
+
+    # A taller rectangular knuckle ties both curved library volumes together
+    # in elevation as well as in plan. It spans the lower original roof and
+    # gives the bridge view one continuous academic silhouette.
+    for x in range(124, 141):
+        for z in range(25, 44):
+            block(x, 44, z, "stone_bricks")
+        for z in (25, 43):
+            for y in range(36, 44):
+                block(x, y, z, "stone_bricks")
+    for x in range(124, 135):
+        for z in range(25, 44):
+            for y in (42, 43):
+                block(x, y, z, "stone_bricks")
+    for x in (126, 133, 140):
+        for z in (25, 43):
+            for y in range(36, 48):
+                block(x, y, z, "chiseled_stone_bricks")
+    for x in range(125, 140):
+        for z in (25, 43):
+            block(x, 45, z, "stone_brick_slab", type="bottom", waterlogged="false")
+
+    # The main reading floor has two shelf courts, open central tables and
+    # supported lighting. The rooms remain free of undocumented loot/grants.
+    for x in (145, 153, 161):
+        for z in (20, 48):
+            if inside(x, z, 2):
+                for y in range(25, 30):
+                    block(x, y, z, "bookshelf")
+                block(x, 30, z, "chiseled_quartz_block")
+    for x in (146, 154, 162):
+        for z in (27, 41):
+            if inside(x, z, 3):
+                block(x, 25, z, "quartz_pillar")
+                block(x, 26, z, "smooth_quartz_slab", type="top", waterlogged="false")
+    for x, z in ((142, 25), (142, 43), (162, 25), (162, 43)):
+        for y in range(25, 37):
+            block(x, y, z, "quartz_pillar")
+        block(x, 37, z, "sea_lantern")
+
+    # An upper ring overlooks a central open reading hall. The straight stair
+    # starts on the east side of the lower hall and lands on this gallery.
+    for x in range(148, 165):
+        for z in range(22, 47):
+            if inside(x, z, 2) and not (151 <= x <= 159 and 29 <= z <= 39):
+                block(x, 36, z, "polished_diorite")
+    for step in range(12):
+        x, y, z = 137 + step, 25 + step, 41
+        for support in range(25, y):
+            block(x, support, z, "stone_bricks")
+        block(x, y, z, "stone_brick_stairs", facing="east", half="bottom",
+              shape="straight", waterlogged="false")
+        for head in (y + 1, y + 2, y + 3):
+            block(x, head, z, "air")
+        block(x, y, z + 1, "stone_brick_wall", up="true")
+    for x in range(150, 161):
+        for z in (28, 40):
+            if (x, 36, z) in cells:
+                block(x, 37, z, "stone_brick_wall", up="true")
+    for z in range(29, 40):
+        for x in (150, 160):
+            if (x, 36, z) in cells:
+                block(x, 37, z, "stone_brick_wall", up="true")
+    for x in (152, 157, 162):
+        for z in (24, 44):
+            if inside(x, z, 3):
+                for y in range(37, 40):
+                    block(x, y, z, "bookshelf")
+    for x, z in ((150, 26), (162, 42)):
+        block(x, 43, z, "sea_lantern")
+
+
 def build_gatehouse(cells, put, spec):
     x0, z0, x1, z1 = spec["bounds"]
     assert (x0, z0, x1, z1) == (60, 114, 76, 126)
@@ -100,15 +220,15 @@ def build_gatehouse(cells, put, spec):
                 block(x, y, z, "air")
     for x in range(x0, x1 + 1):
         for z in (z0, z1):
-            for y in range(25, 36):
+            for y in range(25, 34):
                 block(x, y, z, "stone_bricks")
     for z in range(z0, z1 + 1):
         for x in (x0, x1):
-            for y in range(25, 36):
+            for y in range(25, 34):
                 block(x, y, z, "stone_bricks")
     for x in range(x0, x1 + 1):
         for z in range(z0, z1 + 1):
-            block(x, 35, z, "stone_bricks")
+            block(x, 33, z, "stone_bricks")
     for z in (z0, z1):
         for x in range(65, 72):
             for y in range(25, 33):
@@ -129,7 +249,7 @@ def build_gatehouse(cells, put, spec):
                   half="bottom", shape="straight", waterlogged="false")
     for z in (114, 126):
         for x in range(60, 77):
-            block(x, 36, z, "stone_brick_wall", up="true")
+            block(x, 34, z, "stone_brick_wall", up="true")
 
 
 def open_cloister_stairs(cells, put):

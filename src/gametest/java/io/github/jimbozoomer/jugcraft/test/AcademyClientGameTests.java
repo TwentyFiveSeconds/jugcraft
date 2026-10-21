@@ -26,10 +26,10 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			TestServerContext server = world.getServer();
 			server.runCommand("time set noon");
 			server.runCommand("weather clear");
-			server.runCommand("forceload add 0 0 144 160");
+			server.runCommand("forceload add 0 0 175 160");
 			// Only this disposable test world: explicitly clear the preview volume above the landscape.
 			server.runOnServer(s -> {
-				for (int x = 0; x < 145; x++) {
+				for (int x = 0; x < 176; x++) {
 					for (int z = 0; z < 161; z++) {
 						for (int y = 224; y < 300; y++) {
 							BlockPos pos = new BlockPos(x, y, z);
@@ -56,6 +56,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.POLISHED_ANDESITE)
 					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.POLISHED_DIORITE)
+					&& c.level.getBlockState(new BlockPos(150, 248, 34)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(90, 260, 34)).is(Blocks.STONE_BRICKS)
 					&& c.level.getBlockState(new BlockPos(51, 249, 99)).is(Blocks.CARVED_PUMPKIN)
 					&& c.level.getBlockState(new BlockPos(68, 296, 33)).is(Blocks.STONE_BRICK_SLAB)
@@ -89,6 +90,10 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			});
 			view(context, server, 112, 252, 44, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
+			view(context, server, 150, 251, 48, 180, 5);
+			context.takeScreenshot("jugcraft_academy_grand_reading");
+			view(context, server, 153, 262, 42, 180, 5);
+			context.takeScreenshot("jugcraft_academy_upper_archive");
 			view(context, server, 90, 251, 36, 180, 5);
 			context.takeScreenshot("jugcraft_academy_scholarly_wing");
 			view(context, server, 68, 278, 42, 180, 10);

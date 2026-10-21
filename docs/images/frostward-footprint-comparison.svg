@@ -11,7 +11,7 @@
 <text x="480" y="137" class="small">Measured template, 145 × 76 × 161</text>
 <rect x="895" y="83" width="400" height="450" rx="12" fill="#20313a" stroke="#5e7780"/>
 <text x="915" y="113" class="title">CONTINUATION SHELL</text>
-<text x="915" y="137" class="small">Measured template, same bounds</text>
+<text x="915" y="137" class="small">Measured template, 176 × 76 × 161</text>
 <line x1="68" y1="445" x2="197" y2="323" stroke="#d8bc82" stroke-width="7" stroke-linecap="round"/>
 <line x1="190" y1="300" x2="103" y2="275" stroke="#d8bc82" stroke-width="7" stroke-linecap="round"/>
 <line x1="195" y1="321" x2="250" y2="418" stroke="#d8bc82" stroke-width="7" stroke-linecap="round"/>
@@ -70,8 +70,11 @@
 <text x="1062.8" y="221.3" text-anchor="middle" class="label">5</text>
 <text x="1062.8" y="278.3" text-anchor="middle" class="note">hall</text>
 <circle cx="1155.2" cy="218.4" r="46" fill="#546b70" stroke="#e0c999" stroke-width="3"/>
-<text x="1155.2" y="223.4" text-anchor="middle" class="label">7</text>
-<text x="1155.2" y="282.4" text-anchor="middle" class="note">library</text>
+<text x="1155.2" y="223.4" text-anchor="middle" class="note">stacks</text>
+<rect x="1180" y="199" width="34" height="39" fill="#8f7970" stroke="#e0c999" stroke-width="2"/>
+<ellipse cx="1228.7" cy="218.4" rx="46.2" ry="48.3" fill="#546b70" stroke="#e0c999" stroke-width="3"/>
+<text x="1228.7" y="223.4" text-anchor="middle" class="label">7</text>
+<text x="1228.7" y="282.4" text-anchor="middle" class="note">reading wing</text>
 <circle cx="976.7" cy="306.6" r="29" fill="#546b70" stroke="#e0c999" stroke-width="3"/>
 <text x="976.7" y="311.6" text-anchor="middle" class="label">3</text>
 <text x="976.7" y="353.6" text-anchor="middle" class="note">attainment</text>
