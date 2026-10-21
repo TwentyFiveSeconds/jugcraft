@@ -5,7 +5,7 @@ comes from the owner's permission-cleared world. The supporting drum, façade
 and autumn landscaping are original Frostward construction.
 """
 import json
-from math import hypot
+from math import hypot, cos, sin, pi, atan2
 from pathlib import Path
 
 from retro_game_shop import state
@@ -164,7 +164,7 @@ def open_elements_gallery(cells, put):
                 continue
             if cells.get((nx, 38, nz), ("minecraft:air",))[0] == "minecraft:air":
                 continue
-            block(nx, 39, nz, "stone_brick_wall", up="true")
+            block(nx, 39, nz, "chiseled_stone_bricks")
 
     # The north and south sectors serve different purposes: a teaching
     # lectern and a quiet archival bench, both outside the old stair landings.
@@ -218,3 +218,104 @@ def plant_autumn_court(cells, put):
                 for z in range(tz - radius, tz + radius + 1):
                     if (x - tx) ** 2 + (z - tz) ** 2 <= radius ** 2 and (x, z) != (tx, tz):
                         block(x, y, z, "ecology_" + colour + "_maple_leaves")
+
+
+def enrich_court_arcade(cells, put):
+    """Give the original round cloister the donor court's deep bay cadence.
+
+    The donor's court around world X 10, Z -143 has alternating projecting
+    supports, clerestory openings and roofed walkway. These dimensions and
+    details are newly fitted to Frostward's 23/30-radius ring, avoiding its
+    four cardinal hall/bridge/residence connections.
+    """
+    def block(x, y, z, name, **props):
+        put(x, y, z, state("minecraft:" + name, **props))
+
+    cx, cz = 68, 85
+    # Eight stone bay frames, each with a real floor-to-cornice support on the
+    # inside and outside of the covered walk, then a shallow roof rib between.
+    for sector in range(8):
+        angle = pi / 8 + sector * pi / 4
+        for radius in (23, 30):
+            x, z = round(cx + radius * cos(angle)), round(cz + radius * sin(angle))
+            for y in range(24, 36):
+                block(x, y, z, "chiseled_stone_bricks" if y in (24, 30, 34) else "stone_bricks")
+            block(x, 36, z, "stone_brick_wall", up="true")
+        for radius in range(24, 30):
+            x, z = round(cx + radius * cos(angle)), round(cz + radius * sin(angle))
+            block(x, 31, z, "chiseled_stone_bricks")
+
+    # Four diagonal windowed bays show the autumn court from the cloister.
+    # Cardinal bays stay solid/open as authored so every named entrance works.
+    for x in range(cx - 30, cx + 31):
+        for z in range(cz - 30, cz + 31):
+            r = hypot(x - cx, z - cz)
+            if not 29.45 <= r <= 30.3:
+                continue
+            angle = atan2(z - cz, x - cx)
+            if min(abs((angle - (pi / 4 + sector * pi / 2) + pi) % (2 * pi) - pi)
+                   for sector in range(4)) > .085:
+                continue
+            if cells.get((x, 27, z), ("minecraft:air",))[0] != "minecraft:stone_bricks":
+                continue
+            for y in range(27, 30):
+                block(x, y, z, "orange_stained_glass_pane")
+            block(x, 30, z, "chiseled_stone_bricks")
+
+    # Suspended amber lights over the covered passage; each hangs from the
+    # existing continuous Y32 roof slab, leaving five clear blocks below.
+    for sector in range(8):
+        angle = sector * pi / 4
+        x, z = round(cx + 27 * cos(angle)), round(cz + 27 * sin(angle))
+        if cells.get((x, 32, z), ("minecraft:air",))[0] == "minecraft:stone_bricks":
+            block(x, 31, z, "lantern", hanging="true", waterlogged="false")
+
+
+def distinguish_residence_halls(cells, put):
+    """Give apprentice and faculty residences different roofs and room uses.
+
+    The donor's two smaller court satellites are deliberately unequal in mass
+    and roof treatment. Frostward's original bedrooms and roof stairs remain;
+    the added west gable and east pinnacles are fitted to their existing shells.
+    """
+    def block(x, y, z, name, **props):
+        put(x, y, z, state("minecraft:" + name, **props))
+
+    # A supported, dark Nordic gable shelters the student's still-accessible
+    # battlement floor. Its four corner posts are rooted in the existing roof.
+    for x in (20, 34):
+        for z in (69, 83):
+            for y in range(42, 46):
+                block(x, y, z, "spruce_log", axis="y")
+        for z in range(69, 84):
+            block(x, 44, z, "spruce_log", axis="z")
+    for x in range(20, 35):
+        y = 45 + 7 - abs(x - 27)
+        for z in range(69, 84):
+            block(x, y, z, "deepslate_tiles")
+    for z in range(69, 84):
+        block(27, 53, z, "spruce_log", axis="z")
+    # Communal study and hearth alternatives give the student ground floor a
+    # purpose without changing any station, bed or staircase.
+    block(27, 25, 68, "smoker", facing="south", lit="false")
+    block(27, 26, 68, "lantern", hanging="false", waterlogged="false")
+    for x, z in ((23, 72), (23, 79)):
+        block(x, 25, z, "spruce_fence")
+        block(x, 26, z, "spruce_slab", type="top", waterlogged="false")
+        block(x + 2, 25, z, "spruce_stairs", facing="west", half="bottom",
+              shape="straight", waterlogged="false")
+    block(28, 25, 69, "lectern", facing="south", has_book="false", powered="false")
+
+    # The faculty roof stays open and walkable between four formal pinnacles.
+    # Its restrained meeting/study tables are set between the established
+    # alchemy, artifice, enchanting and switchback-stair routes.
+    for x in (102, 116):
+        for z in (85, 99):
+            for y in range(42, 54):
+                block(x, y, z, "chiseled_stone_bricks" if y in (42, 48, 53) else "stone_bricks")
+            block(x, 54, z, "stone_brick_wall", up="true")
+    for x, z in ((108, 88), (110, 88)):
+        for y in range(25, 29):
+            block(x, y, z, "bookshelf")
+    block(109, 25, 89, "cartography_table")
+    block(108, 29, 88, "lantern", hanging="false", waterlogged="false")

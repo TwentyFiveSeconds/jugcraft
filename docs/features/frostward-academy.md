@@ -1,5 +1,9 @@
 # Frostward College: Winterhold-inspired magical academy
 
+## Current PR #448 checkpoint — 21 October 2026
+
+The single `jugcraft:academy/winterhold` structure now measures **176 × 88 × 161**. Its Hall has a higher supported drum and roof with a small transformed relief motif selected from Fonta59's permission-cleared Winterhold world; a guarded upper teaching gallery opens views down to the original lesson floor. The Hall–Arcanaeum connection, eastern reading wing, western Arch-Mage annex, stations, 45 named room/anchor points, Arctus Vale, S01 runes and Midden remain in place. Student and faculty residences now have different rooflines and common-room treatments. [The source adaptation record](frostward-fonta59-adaptations.md) credits the exact donor regions and transformations. The courtyard has four red/orange/yellow Jugcraft maples, supported arcade bays and warm windows alongside its pumpkins, fallen leaves and local drifting leaves/fog. **There is no authored snow.** [The live progress ledger](frostward-rebuild-progress.md) distinguishes generated geometry, client screenshots and unverified gameplay. Sections below retain historical prototype details and should be read in that context.
+
 ## Continuation from merged PR #447 — 21 October 2026
 
 PR [#447](https://github.com/jimbozoomer-byte/jugcraft/pull/447) merged the College M0 from closed PR [#441](https://github.com/jimbozoomer-byte/jugcraft/pull/441) into main at `38f1f809001d5d1415f7e77524be94320d469350`. Older sections below describe historical checkpoints; their claims that #441 is open, snow is the intended permanent climate, or full Build remains pending do not describe current main.

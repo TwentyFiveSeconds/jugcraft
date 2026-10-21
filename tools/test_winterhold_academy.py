@@ -101,6 +101,7 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((64, 38, 29)), "minecraft:air")
         self.assertNotEqual(self.block((68, 38, 33)), "minecraft:air")
         self.assertEqual(self.block((52, 29, 75)), "jugcraft:ecology_maple_log")
+        self.assertEqual(self.block((46, 28, 65)), "minecraft:orange_stained_glass_pane")
         self.assertIn("jugcraft:ecology_red_maple_leaves", {s["id"] for s in self.palette})
         self.assertNotIn("minecraft:snow", {s["id"] for s in self.palette})
 
