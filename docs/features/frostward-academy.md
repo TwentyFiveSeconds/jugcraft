@@ -4,7 +4,13 @@
 
 Owner feedback correctly identified the first screenshots as a sparse architectural base. The Arcanaeum now has a central reading hall and four connected side archive/research areas, broad stone arches, 96 additional bookshelf blocks, reading tables and facing seats, quartz pilasters, illuminated ceiling coffers and dark stone floor inlays. Its large glazed openings are replaced with masonry, making the archives windowless. Broad spruce-plank surfaces throughout the academy become polished diorite; working wooden doors, bookshelves and shaped joinery remain. No Bethesda assets, loot or new progression currency is introduced. Authoring is in `tools/academy_interiors.py`, applied to the same single `academy/winterhold` template. This is an interior improvement checkpoint, not completion of the grand academy plan. Other rooms still need individual furnishing and stair-edge review.
 
-Ten Python structure tests pass, including the new enclosure, stack and arch regression. Independent Node validation reaches all 37 room points and retains eight doors, seven beds, eight signs and 753 supported snow layers. The previously reported 2,111 server tests apply to the preceding M0 checkpoint; they are not a fresh full-suite result for this revision. Updated client and JAR results are recorded below after execution.
+Ten Python structure tests pass, including the new enclosure, stack and arch regression. Independent Node validation reaches all 37 room points and retains eight doors, seven beds, eight signs and 753 supported snow layers. The vanilla 26.3 registry probe validates all 56 vanilla palette states; nine Jugcraft states are deliberately outside that probe. The previously reported 2,111 server tests apply to the preceding M0 checkpoint; they are not a fresh full-suite result for this revision.
+
+The revised `AcademyClientGameTests` completed successfully and captured nine screenshots, with the library and quarters inspected. The targeted run reused previously compiled common/client classes and previously processed main resources, explicitly replacing the processed template with the newly generated NBT; client resources and GameTest Java compilation ran normally. This is not a clean full build. JAR packaging is checked separately after completion.
+
+![Revised windowless Arcanaeum, actual Minecraft screenshot](../images/frostward-runtime/library-stone.jpg)
+
+![Stone-floored quarters, actual Minecraft screenshot; stair openings still need review](../images/frostward-runtime/archmage-stone.jpg)
 
 Recovery/duplication audit: the latest 100 upstream PR records contain one academy PR, #441 (open draft, unmerged); the contributor fork has only `main` and `feature/frostward-academy`. Different checkpoint commit titles update the same template rather than installing duplicate colleges.
 
