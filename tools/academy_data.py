@@ -3,6 +3,10 @@ import json
 from pathlib import Path
 
 LANG = {
+    "academy.jugcraft.rune.0": "Dawn rune.",
+    "academy.jugcraft.rune.1": "Dusk rune.",
+    "academy.jugcraft.rune.2": "Noon rune.",
+    "academy.jugcraft.rune.3": "Night rune.",
     "academy.jugcraft.effects": "College atmosphere: %s",
     "block.jugcraft.academy_ward": "College Memory Ward",
     "block.jugcraft.academy_rune": "Courtyard Rune",

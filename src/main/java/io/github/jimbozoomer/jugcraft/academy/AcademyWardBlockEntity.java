@@ -72,6 +72,7 @@ public final class AcademyWardBlockEntity extends BlockEntity {
 		if (player.level() != level || !control.equals(runePosition(rune)) || player.distanceToSqr(net.minecraft.world.phys.Vec3.atCenterOf(control)) > 64
 				|| !RateGate.allow(player, "academy_rune", 6)) return;
 		player.setAttached(JugcraftAcademy.VISITED, true);
+		player.sendSystemMessage(Component.translatable("academy.jugcraft.rune." + rune));
 		if (player.getAttachedOrElse(JugcraftAcademy.COURTYARD_LORE, false)) {
 			player.sendSystemMessage(Component.translatable("academy.jugcraft.lore"));
 			return;

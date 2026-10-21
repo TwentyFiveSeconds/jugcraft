@@ -50,6 +50,15 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_cloister");
 			view(context, server, 68, 252, 45, 180, 0);
 			context.takeScreenshot("jugcraft_academy_hall");
+			view(context, server, 59, 251, 36, 180, 20);
+			context.takeScreenshot("jugcraft_academy_radiance_instructor");
+			server.runOnServer(s -> {
+				var home = new BlockPos(59, 249, 31);
+				var instructors = s.overworld().getEntitiesOfClass(io.github.jimbozoomer.jugcraft.town.Townsfolk.class,
+						new net.minecraft.world.phys.AABB(home).inflate(8), t -> t.role().equals("academy_radiance"));
+				if (instructors.size() != 1) throw new AssertionError("Expected one persistent Radiance instructor");
+				if (s.overworld().isRaining() || s.overworld().isThundering()) throw new AssertionError("Academy altered global clear weather");
+			});
 			view(context, server, 112, 252, 44, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
 			view(context, server, 68, 278, 42, 180, 10);

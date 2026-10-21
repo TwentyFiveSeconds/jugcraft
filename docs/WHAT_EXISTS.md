@@ -47,8 +47,11 @@ CI runs all of these and fails if generated files are out of date.
 The [Winterhold-inspired academy](features/frostward-academy.md) is an operator-placeable template:
 `/place template jugcraft:academy/winterhold`. It includes a rocky base following a circular campus, bridge, enclosed court/cloister, teaching hall,
 attached library and residential wings, private quarters and connected Midden chambers, using existing magic stations.
-No automatic worldgen or instructor NPC system is added. Revised NBT/layout checks pass; Python regeneration
-and Minecraft validation are pending. See the feature page for current previews and test limits.
+M0 adds Professor Arctus Vale using the existing townsfolk model and Concordance Journal, four courtyard runes
+with personal lore completion, and bounded localized client snow/mist. Existing benches retain their research/material
+costs. No automatic worldgen, schedules or new spell progression is added. Python regeneration, nine structure tests,
+independent Node checks and common/client/game-test Java compilation pass. Full Minecraft runtime validation remains
+pending; see the feature page for current previews and test limits.
 
 ### World Designer (`world/design/`, `tools/world-designer/`)
 

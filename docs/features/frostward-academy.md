@@ -1,6 +1,6 @@
 # Frostward College: Winterhold-inspired magical academy
 
-Status: manually placeable academy with a revised circular campus and regenerated runtime template. Independent NBT/layout checks passed for this revision; Python/Gradle/Minecraft reruns are pending because the execution environment became unavailable. [Draft PR #441](https://github.com/jimbozoomer-byte/jugcraft/pull/441).
+Status: manually placeable circular campus plus M0 instructor, personal courtyard memory and localized winter prototype. Nine Python structure tests, independent Node validation and isolated Java logic checks pass. Minecraft compilation/runtime validation is recorded below; this remains a [draft PR #441](https://github.com/jimbozoomer-byte/jugcraft/pull/441).
 
 Contributor: @TwentyFiveSeconds. AI: OpenAI Codex (GPT-6), explicitly requested by the contributor. Base: upstream main at `62c32ad3a5cfa05c298eab93e978951ab351aba8`, 20 October 2026. Tier: shared magical workshop infrastructure.
 
@@ -18,7 +18,52 @@ These are code-rendered previews of actual NBT cells, **not Minecraft screenshot
 
 The contributor supplied two College maps after reviewing the first prototype. The revision replaces the rectangular platform with a circular enclosed court and covered annular cloister. Residential towers attach at staggered points on the rim, and their dormitory floors connect to the cloister roof walk. The bridge/gate/monument/main-hall axis remains clear. A separate low Arcanaeum wing attaches beside the main hall through a covered gallery; the former library level is now an upper teaching gallery, with Archmage quarters above it. The rocky foundation follows the joined circular footprints. Interiors, stairs, bedrooms, archive, stations and Midden components are reused.
 
-This slice fixes the overall layout. Kitchens, baths, new lessons and NPC systems are deferred to subsequent work. It adapts the supplied maps rather than claiming an exact Skyrim reconstruction.
+The layout adapts the supplied maps rather than claiming an exact Skyrim reconstruction. M0 below adds its first instructor and orientation activity. Kitchens, baths, schedules and later lessons remain deferred.
+
+## Grand Academy M0 checkpoint
+
+The approved [planning package](../plans/winterhold-grand-academy-2026-10-20/README_START_HERE.md) is preserved unchanged, with a separate [implementation ledger](../plans/winterhold-grand-academy-2026-10-20/IMPLEMENTATION.md). Checkpoint `9d7cc28` saves the initial implementation on the existing fork branch. This continues the same geometry, not a second academy.
+
+Professor Arctus Vale, Master of Radiance, appears beside the Hall of the Elements' western study area, template `(59,25,31)`. He uses `Townsfolk`'s existing player model, persistent name/home/skin, safe local wandering and book. Speak to open the existing Concordance Journal; sneak and speak for text orientation only. He directs apprentices to the existing specimens/research/paid Lampwright benches. He does not teach a new spell system or grant research. Full schedules and practical combat instruction are later milestones.
+
+The central monument contains `academy_ward` at `(68,27,85)`; four `academy_rune` blocks at `(64,25,81)`, `(72,25,81)`, `(72,25,89)`, `(64,25,89)` demonstrate Dawn → Noon → Dusk → Night. Use the ward for the complete text clue. Each stone announces its name when used, independently of its particle/color cue. Wrong presses or more than 200 ticks between presses reset only that player's attempt. Completion stores a personal lore flag kept through saves/death; replay prints the same lore. It gives no items, spell unlocks, currencies or economic benefit. At most 64 active attempts per ward are retained; expired entries are pruned each second. Client requests never supply completion claims.
+
+The guide's instance UUID and successful spawn marker persist with the ward. Loaded home chunks and safe two-block headroom are required to spawn. A saved successful spawn never triggers another merely because the entity is unloaded. Deliberately killing the instructor requires operator repair; automatic replacement is intentionally absent in this prototype. Rotation and reflection transform the instructor home and rune positions together with the template.
+
+| Activity | Tier / input producer | Output consumer | Cost / failure |
+| --- | --- | --- | --- |
+| Instructor consultation | Orientation; visitor | Existing read-only Concordance Journal | No material cost or research change; per-player rate limit |
+| Radiance practice | Existing Concordance research and gathered specimens | Existing Lampwright benches / existing workings | Existing bench requirements and consumptions remain authoritative |
+| S01 courtyard memory | Exploration; four authored stones | Personal academy journal lore | No resource reward; wrong/late press resets, no shared completion |
+| Academy winter | Authored ward infrastructure | Client snow / existing agriculture mist particle | Cosmetic only; bounded work, no power/production or biome effects |
+
+### Local winter and configuration
+
+The ward records a per-dimension `AcademyRegions` entry matching the actual court, hall, library, tower and bridge footprints. Sites persist when the anchor chunk unloads. Only loaded anchors are checked for removal; validation never loads chunks. Up to 32 sites per dimension are supported, with at most 16 nearby sites in a bounded clientbound snapshot every 40 ticks. New placement must tick its ward once before ambience is discovered; invalid/unloaded sites are not searched globally.
+
+Client snow and reused `JugcraftAgriculture.FOG` wisps use a 16-block horizontal smooth fade, a bounded vertical range, sky visibility checks, and at most 512 owned particle handles. Normal spawns at most six snow particles per tick and one mist every five ticks; low uses two and one every twelve ticks. Overlapping sites share the budget. Minimal particles disable the effect. On exit, indoor entry, dimension/world change, disconnect or disabling effects, owned particles are removed. No fog shader, global weather, lightning, biome, seasonal state, terrain snow/ice or farming rule is changed.
+
+`/academyfx off`, `/academyfx low`, `/academyfx normal` persist a client preference in `jugcraft-academy-client.properties`. Server `academy.active=off` in the existing Jugcraft config stops ward activities/spawning and sends empty climate snapshots. All block/entity/attachment registrations and earned lore remain saved. Existing NPCs remain present. Existing `concordance.enabled` behavior still governs the real benches; academy consultation cannot bypass it.
+
+### M0 assets and source ownership
+
+`tools/academy_data.py` supplies fixture blockstates/models and language, called by the shared material generator. Fixture models reference vanilla block texture identifiers without copying texture bytes. No fixture BlockItems, recipes, loot or survival acquisition are introduced. `tools/academy_skins.py` reuses `town_skins.py`'s original classic-player UV/robe helpers for the ivory robe, blue hem and gold trim at `textures/entity/townsfolk/academy_radiance.png`; no new rig/renderer is needed.
+
+The owner library's magic robe item assets and `originals/Magic/assets/ars_jimbaux/textures/entity/villager/profession/shady_wizard.png` were inspected. Those item/villager UVs do not fit the existing townsfolk player model. Original library files remain unchanged. The skin is generated using the existing Jugcraft helper rather than blindly importing an incompatible UV layout.
+
+### M0 validation — 21 October 2026
+
+Passed locally: canonical Python regeneration/freshness; all nine `test_winterhold_academy.py` tests, including two-block navigation to 33 room points/new controls; Node NBT/schema/navigation checks; Java 25 `AcademyLogicProbe` checks sequence, isolation, wrong input, timeout/rollback, visual order and climate bounds. The template has 287,054 cells, 58 palette states, eight doors, 14 bed halves, eight supported signs and 753 supported snow layers.
+
+Common, client and game-test Java compilation passed against Minecraft 26.3, Fabric API 0.161.0+26.3, Loader 0.19.5, Loom 1.17.21, Gradle 9.6.0 and Microsoft Java 25.0.1 (`compileJava compileClientJava compileGametestJava -x processResources -x processClientResources`: successful in 1m52s; this deliberately isolates compilation, not runtime). First client compilation exposed old API names; these were checked against the installed pinned JARs and corrected. The initial full compilation attempt hit a concurrent resource-directory conflict; subsequent checks run sequentially. Full build, server GameTests, client GameTests/screenshots and two-client play remain unverified until a recorded successful run. Added tests are not passing-test claims.
+
+The repository/link checker was attempted in this sparse checkout and failed because excluded `.github`/art source files are absent locally. That result is not an academy link regression or a passing repository check. The source/asset subset does include all runtime resources for the build. No checker assertions or CI gates were weakened.
+
+Server acceptance covers all palette IDs/properties, existing bench research/material costs, personal lore/no research grants, instructor save-marker/no duplicate on reload and all template rotations/mirrors. The selected `AcademyClientGameTests` adds an instructor screenshot/assertion and confirms global clear weather remains unchanged. Biome placements, disconnect/dimension transitions, off/low/minimal, real persistence/reconnect and performance still need runtime observation. Existing previews show layout only; they do not certify the instructor or climate.
+
+Reproduce the pure checks with `python tools/winterhold_academy.py --check`, `python -m unittest discover -s tools -p test_winterhold_academy.py -v`, `node tools/preview_winterhold_layout.mjs --check`, then Java 25 `javac -d <scratch> src/main/java/io/github/jimbozoomer/jugcraft/academy/AcademyPuzzle.java src/main/java/io/github/jimbozoomer/jugcraft/academy/AcademyClimate.java tools/AcademyLogicProbe.java` and `java -cp <scratch> AcademyLogicProbe`. Actual Minecraft gates remain `./gradlew build` and `./gradlew runClientGameTest -PclientTests=AcademyClientGameTests`.
+
+AI: initial M0 checkpoint used OpenAI Codex (GPT-6); subsequent client API corrections/validation used OpenAI Codex (`gpt-6.1-sol-wm`). No dependency, platform pin or CI workflow changes.
 
 | Location | Implemented spaces |
 | --- | --- |
@@ -52,7 +97,7 @@ No recipe, research gate, Focus payment, quantity or conversion loss changes. No
 
 The placed Conclave Lectern has **no owner**. Its public oath/standing/commission interactions use `Starbound.use`; owner/party projects need a normally player-placed lectern. It fabricates no owner or first-visitor claim. See [Conclave](arcane-concordance-conclave.md), [First Light](arcane-concordance-first-light.md) and [research sharing](arcane-concordance-sharing.md).
 
-The forge has ordinary furnace/anvil behavior, not Skyrim's summoning recipes; its campfire starts unlit. The Echo Chamber contains a sealed light, not an NPC/reward. No mobs, spawners, filled inventories, loot tables or reward scripts are generated. Instructors, scheduled lessons and quests are not implemented; existing trading professions are not a magic-instructor API.
+The forge has ordinary furnace/anvil behavior, not Skyrim's summoning recipes; its campfire starts unlit. The Echo Chamber contains a sealed light, not an NPC/reward. No hostile mobs, spawners, filled inventories or loot tables are generated. M0 supplies one orientation instructor through the existing townsfolk model, as described above; scheduled lessons and quests remain deferred.
 
 ## Manual placement
 
@@ -102,7 +147,7 @@ Owner-library guides/catalog and actual magic source were inspected. Already int
 
 No dependency/platform pins changed: Minecraft 26.3, Java 25, Loader 0.19.5, Fabric API 0.161.0+26.3, Gradle 9.6.0; Loom retains the source's `1.17-SNAPSHOT`. Actual AI attribution is OpenAI Codex (GPT-6), not Claude; maintainer acceptance of the repository's model-policy exception remains for review.
 
-## Validation and remaining work
+## Earlier layout validation (historical)
 
 Previous layout validation, Windows, 20 October 2026: Blender 5.2 / Python 3.13.13. Five recovered tests passed before expansion; **seven expanded academy tests passed before this layout revision**. The navigation model checks two-block headroom/one-block steps, hand-openable wooden doors and passable thin snow. It reaches all six bedrooms, upper battlements, balconies, archive and underground rooms. It does not simulate exact Minecraft collision.
 
@@ -116,7 +161,7 @@ java --class-path "<vanilla-26.3-launcher-classpath>" tools/AcademyVanillaProbe.
 
 A local Microsoft JDK **25.0.1** was found. `gradlew.bat build --no-daemon` stopped before compilation with `java.net.UnknownHostException: services.gradle.org` fetching Gradle. Upstream Build/Foundation runs report `action_required`: a maintainer must approve fork CI. The upstream workflow is unchanged. Neither is a passing Minecraft result.
 
-Current layout revision: the shell/runtime environment reports **No usable execution environment is available**. The saved generator's eight Python tests, Gradle compilation, Blender rerender and all Minecraft tests therefore have **not been rerun**. No CI workflow was added or changed to work around this.
+At the earlier layout checkpoint, execution reported **No usable execution environment is available**. The eight Python tests, Gradle compilation, Blender rerender and Minecraft tests could not be rerun at that time. The M0 validation section above supersedes that environment limitation. No CI workflow was added or changed to work around it.
 
 The runtime template was regenerated through the same declarative operations applied to the preserved prior NBT. An independent JavaScript NBT reader/writer checked compression CRC, primitive round-trip, bounds/uniqueness, all six station positions, 31 room/walkway points using the existing navigation model, eight complete doors, 14 bed halves, eight supported signs, 753 supported snow layers, no inventories/owners/entities, a single Conclave Lectern, the circular footprint and separate library roof. All passed. All 53 palette states are identical to the previous template's states; the earlier vanilla-only palette probe still is not a mod runtime placement test. The two current PNGs were generated from those actual cells and visually inspected.
 
@@ -127,7 +172,7 @@ Remaining acceptance work:
 1. Approve CI, compile, run server GameTests and `AcademyClientGameTests`, inspect actual screenshots and fix exposed registry/model/collision issues; run optional-integrations-absent coverage.
 2. Walk every stair/door; use study, spell practice, alchemy, enchanting, artifice and the lectern. Test two users, concurrent benches, reconnect/restart with active study, disable behavior and placement timing.
 3. Review proportions in-game; voxel previews cannot certify appearance.
-4. Future slices: terrain-aware survival/worldgen, supported World Designer integration, instructors/curriculum/quests and authored hazardous encounters. No unmerged API is assumed.
+4. Future slices: terrain-aware survival/worldgen, supported World Designer integration, additional instructors/curriculum/quests and authored hazardous encounters. No unmerged API is assumed.
 
 A real academy implementation is saved for review and manual placement after building. Runtime certification and those later school systems remain outstanding.
 

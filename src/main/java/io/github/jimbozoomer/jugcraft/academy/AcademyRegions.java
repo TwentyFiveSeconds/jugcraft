@@ -16,7 +16,7 @@ public final class AcademyRegions extends SavedData {
 	public static final Codec<AcademyRegions> CODEC = AcademySite.CODEC.listOf(0, MAX_SITES)
 			.xmap(AcademyRegions::new, state -> List.copyOf(state.sites));
 	private static final SavedDataType<AcademyRegions> TYPE = new SavedDataType<>(Jugcraft.id("academy_regions"),
-			() -> new AcademyRegions(List.of()), CODEC, null);
+			() -> new AcademyRegions(List.of()), io.github.jimbozoomer.jugcraft.concordance.Saved.versioned("academy_regions", CODEC), null);
 	private final List<AcademySite> sites;
 	private AcademyRegions(List<AcademySite> sites) { this.sites = new ArrayList<>(sites); }
 	public static AcademyRegions get(ServerLevel level) { return level.getDataStorage().computeIfAbsent(TYPE); }

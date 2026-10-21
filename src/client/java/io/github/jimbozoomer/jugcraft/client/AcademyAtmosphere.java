@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommands;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.ParticleStatus;
+import net.minecraft.server.level.ParticleStatus;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.core.BlockPos;
@@ -50,9 +50,9 @@ public final class AcademyAtmosphere {
 		ClientPlayConnectionEvents.DISCONNECT.register((listener, client) -> clear());
 		ClientTickEvents.END_CLIENT_TICK.register(AcademyAtmosphere::tick);
 		ClientCommandRegistrationCallback.EVENT.register((dispatcher, access) -> {
-			var root = ClientCommandManager.literal("academyfx");
+			var root = ClientCommands.literal("academyfx");
 			for (String option : List.of("off", "low", "normal")) {
-				root.then(ClientCommandManager.literal(option).executes(context -> {
+				root.then(ClientCommands.literal(option).executes(context -> {
 					mode = option; removeParticles();
 					try { Files.writeString(CONFIG, "effects="+mode+"\n"); }
 					catch (java.io.IOException e) { Jugcraft.LOGGER.warn("Could not save academy client options", e); }
@@ -74,7 +74,7 @@ public final class AcademyAtmosphere {
 		if (client.level != world) { clear(); return; }
 		if (client.level == null || client.player == null || client.isPaused()) return;
 		OWN.removeIf(p -> !p.isAlive());
-		var camera = client.gameRenderer.getMainCamera().position();
+		var camera = client.gameRenderer.mainCamera().position();
 		double strength = influence(camera.x, camera.y, camera.z);
 		ParticleStatus setting = client.options.particles().get();
 		if (mode.equals("off") || setting == ParticleStatus.MINIMAL || strength == 0
@@ -82,7 +82,7 @@ public final class AcademyAtmosphere {
 		boolean low = mode.equals("low") || setting == ParticleStatus.DECREASED;
 		int budget = low ? 2 : 6;
 		for (int i = 0; i < budget && OWN.size() < 512; i++) {
-			var random = world.random;
+			var random = world.getRandom();
 			double x = camera.x + (random.nextDouble()-0.5)*24;
 			double z = camera.z + (random.nextDouble()-0.5)*24;
 			double y = camera.y + 2 + random.nextDouble()*8;
@@ -90,9 +90,9 @@ public final class AcademyAtmosphere {
 			spawn(client, ParticleTypes.SNOWFLAKE, x, y, z, 0.015, -0.06, 0.005);
 		}
 		if (OWN.size() < 512 && world.getGameTime() % (low ? 12 : 5) == 0) {
-			double x = camera.x+(world.random.nextDouble()-0.5)*12, z = camera.z+(world.random.nextDouble()-0.5)*12;
+			double x = camera.x+(world.getRandom().nextDouble()-0.5)*12, z = camera.z+(world.getRandom().nextDouble()-0.5)*12;
 			double y = camera.y-1;
-			if (world.random.nextDouble() < strength*influence(x,y,z) && world.canSeeSky(BlockPos.containing(x,y,z))
+			if (world.getRandom().nextDouble() < strength*influence(x,y,z) && world.canSeeSky(BlockPos.containing(x,y,z))
 					&& world.getBlockState(BlockPos.containing(x,y,z)).isAir()) {
 				spawn(client, JugcraftAgriculture.FOG, x, y, z, 0.01, 0, 0);
 			}
