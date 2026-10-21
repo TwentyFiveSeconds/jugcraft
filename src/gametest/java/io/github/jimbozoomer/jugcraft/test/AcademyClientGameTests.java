@@ -15,7 +15,14 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 	public void runTest(ClientGameTestContext context) {
 		context.runOnClient(c -> c.options.renderDistance().set(10));
 		try (TestSingleplayerContext world = context.worldBuilder()
-				.adjustSettings(c -> c.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE)).create()) {
+				.adjustSettings(c -> {
+					c.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE);
+					// An isolated architecture fixture: surrounding terrain generation is tested separately.
+					for (var preset : c.getNormalPresetList()) {
+						if (preset.preset().is(net.minecraft.world.level.levelgen.presets.WorldPresets.FLAT)) c.setWorldType(preset);
+					}
+					c.setGenerateStructures(false);
+				}).create()) {
 			TestServerContext server = world.getServer();
 			server.runCommand("time set noon");
 			server.runCommand("weather clear");
@@ -41,8 +48,25 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			});
 			context.getInput().pressKey(options -> options.keyToggleGui);
 			context.runOnClient(c -> c.options.fov().set(75));
-			view(context, server, 170, 330, 190, 137, 24);
-			world.getConnection().waitForChunksRender();
+			view(context, server, 130, 306, 150, 137, 18);
+			// Verify received geometry across every wing and the roof, rather than unrelated view-distance corners.
+			context.waitFor(c -> c.level != null
+					&& c.level.getBlockState(new BlockPos(68, 248, 160)).is(Blocks.POLISHED_ANDESITE)
+					&& c.level.getBlockState(new BlockPos(27, 248, 76)).is(Blocks.SPRUCE_PLANKS)
+					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.SPRUCE_PLANKS)
+					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.POLISHED_ANDESITE)
+					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.SPRUCE_PLANKS)
+					&& c.level.getBlockState(new BlockPos(68, 296, 33)).is(Blocks.STONE_BRICK_SLAB)
+					&& c.level.getBlockState(new BlockPos(68, 251, 85)).is(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.WARD));
+			try {
+				world.getConnection().waitForChunksRender(false);
+			} catch (AssertionError failure) {
+				context.runOnClient(c -> io.github.jimbozoomer.jugcraft.Jugcraft.LOGGER.error(
+						"Academy render wait: native sections ready={}, effective view distance={}",
+						c.levelRenderer.hasRenderedAllSections(), c.options.getEffectiveRenderDistance()));
+				context.takeScreenshot("jugcraft_academy_render_timeout");
+				throw failure;
+			}
 			context.takeScreenshot("jugcraft_academy_overview");
 			view(context, server, 68, 251, 151, 180, -5);
 			context.takeScreenshot("jugcraft_academy_bridge");
