@@ -12,4 +12,4 @@ Room mapping: EXT-01 bridge; EXT-02 gate frame (full vestibule pending); EXT-03 
 
 AI assistance: OpenAI Codex (GPT-6); the existing PR records the model-policy exception for maintainer review.
 
-21 October continuation: `gpt-6.1-sol-wm` corrected pinned-client API names and continues validation. Nine Python structure tests, independent Node validation and pure Java puzzle/climate checks pass. Common, client and game-test Java compile successfully. Full build/server/client runtime evidence remains pending; do not start M1 room expansion before resolving this acceptance slice.
+21 October continuation: `gpt-6.1-sol-wm` corrected pinned-client API names and continues validation. Nine Python structure tests, independent Node validation and pure Java puzzle/climate checks pass. Common, client and game-test Java compile successfully. All 2,111 required Minecraft server GameTests pass, including the four academy methods (Gradle task exit 0). Full `build` certification and client/rendered/two-client evidence remain pending; do not start M1 room expansion before resolving this acceptance slice.
