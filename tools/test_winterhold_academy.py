@@ -211,6 +211,17 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((148, 36, 41)), 'minecraft:stone_brick_stairs')
         self.assertEqual(self.block((153, 36, 42)), 'minecraft:polished_diorite')
         self.assertEqual(self.block((147, 44, 34)), 'minecraft:stone_bricks')
+        self.assertEqual(self.block((169, 30, 34)), 'minecraft:light_blue_stained_glass_pane')
+        self.assertEqual(self.block((140, 26, 30)), 'minecraft:lantern')
+
+    def test_teaching_hall_and_private_suite_have_distinct_furnishings(self):
+        self.assertEqual(self.block((68, 24, 25)), 'minecraft:amethyst_block')
+        self.assertEqual(self.block((68, 26, 29)), 'minecraft:soul_lantern')
+        self.assertEqual(self.block((56, 25, 35)), 'minecraft:spruce_stairs')
+        self.assertEqual(self.block((43, 50, 33)), 'minecraft:red_terracotta')
+        self.assertEqual(self.block((45, 51, 30)), 'minecraft:spruce_stairs')
+        self.assertEqual(self.block((35, 52, 35)), 'minecraft:lantern')
+        self.assertEqual(self.block((62, 36, 116)), 'minecraft:lantern')
 
 
 if __name__ == "__main__":

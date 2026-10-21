@@ -1,6 +1,6 @@
 # Frostward College rebuild progress
 
-Updated 21 October 2026. Continuation branch: `TwentyFiveSeconds:feature/frostward-college-rebuild`, [draft PR #448](https://github.com/jimbozoomer-byte/jugcraft/pull/448), from upstream `main` at `38f1f809001d5d1415f7e77524be94320d469350`. PR #447 is merged; #441 is closed and historical. First pushed milestone: `f90c7f75171a14e81b465621d1e4d72e93dba0ed`. This file is the one session continuity ledger. AI assistance: OpenAI Codex (GPT-6).
+Updated 21 October 2026. Continuation branch: `TwentyFiveSeconds:feature/frostward-college-rebuild`, [draft PR #448](https://github.com/jimbozoomer-byte/jugcraft/pull/448), from upstream `main` at `38f1f809001d5d1415f7e77524be94320d469350`. PR #447 is merged; #441 is closed and historical. Pushed milestones: `f90c7f75171a14e81b465621d1e4d72e93dba0ed` and `fd3c72502e79ae3613fa79e2d4d426f6b8c84c9d`. This file is the one session continuity ledger. AI assistance: OpenAI Codex (GPT-6).
 
 ## Reference-to-template decision
 
@@ -18,18 +18,18 @@ Entrance-relative orientation is defined looking north from the bridge: Attainme
 | Arch-Mage 6 | rooms above Elements | upper study/garden retained; west annex centered (43,33), radius 12, one furnished bed and storage |
 | Arcanaeum 7 | center (112,34), radius 22, narrow link | existing stacks retained; cross-wing X83–97, Z20–48 adds north/south study rooms; sheltered stone link to new half-oval reading wing centered (147,34), radii (22,23), with a reachable upper archive gallery |
 
-The template is now **176 × 76 × 161**, with **326,467 cells and 73 palette states**, from the merged 145 × 76 × 161. This is a larger first corrected shell, not the completed College. Much of the original room volume has not yet grown. The floorplan and Minecraft view must be reassessed in game before deciding the next proportion changes; the code projection still shows repeated round masses and a court that can read too broad.
+The template is now **176 × 76 × 161**, with **326,563 cells and 79 palette states**, from the merged 145 × 76 × 161. This is a larger first corrected shell, not the completed College. Much of the original room volume has not yet grown. Actual Minecraft captures show the court and east library mass still repeat round forms; the changed gate and interior lighting need a fresh capture.
 
 ## Implemented and verified status
 
 | Slice | Implemented | Visually reviewed | Gameplay verified |
 | --- | --- | --- | --- |
-| Gatehouse and two reception bays | generator and NBT; roof lowered two blocks after first capture | first Minecraft bridge capture inspected at initial SHA; updated gate and eastern wing capture pending | offline two-block navigation passed; initial client placement passed; updated version pending |
+| Gatehouse and two reception bays | generator and NBT; roof lowered and corner piers shortened after bridge captures | first and second Minecraft bridge captures inspected; final pier height capture pending | offline two-block navigation passed; client placement passed at `fd3c72502`; final version pending |
 | Court, residences and guarded cloister roof stairs | radius revision, roof stair flights, original beds/doors/stations retained | generated plan inspected; current Minecraft capture pending | offline two-block navigation passed; physical collision/walk pending |
 | Hall–Arcanaeum academic cross-wing | enclosed roof, two rooms, broad arches, stone detail and furnishings | first Minecraft interior captured at initial SHA; eastern addition pending | offline route and initial client placement passed; new version pending |
-| Grand Arcanaeum reading wing | eastern half-oval, sheltered roof knuckle, reading tables and stacks, safe stair to upper gallery | generated plan/bridge projection inspected; actual Minecraft capture pending | both new room points pass offline route; fresh GameTest runtime pending |
-| Arch-Mage west annex | connected upper gallery, shelves, desk, usable bed, barrel and windows | generated bridge projection inspected; interior Minecraft capture pending | offline route and bed-pair checks passed; sleep/storage in game pending |
-| Permanent local autumn slice | zero snow blocks; 28 supported leaf piles; four pumpkins; dedicated camera-local colored leaf sprite and existing mist | initial Minecraft capture showed square block fragments; new leaf sprite capture pending | Python palette/support passed; client off/low/minimal, boundaries, two-client and frame cost pending |
+| Grand Arcanaeum reading wing | eastern half-oval, sheltered roof knuckle, reading tables, additional shelf bays and lights, narrow east windows, safe stair to upper gallery | actual lower and upper Minecraft views inspected at `fd3c72502`: lower floor too dark, prompting light revision; final capture pending | both new room points pass offline route; client placement passed at `fd3c72502`; final version pending |
+| Arch-Mage west annex | connected upper gallery, shelves, desk, usable bed, barrel, windows and warmer floor/lighting | first Minecraft annex view inspected; furnishing revision capture pending | offline route and bed-pair checks passed; sleep/storage in game pending |
+| Permanent local autumn slice | zero snow blocks; 28 supported leaf piles; four pumpkins; dedicated camera-local colored leaf sprite and existing mist | first capture showed square fragments; second Minecraft bridge view at `fd3c72502` shows shaped colored leaves | Python palette/support passed; client off/low/minimal, boundaries, two-client and frame cost pending |
 | Arctus Vale, S01 and Concordance | merged implementation preserved, no new progression grants | historical Minecraft views only | historical PR #447 tests passed; new branch runtime pending |
 
 [The 45-point room and anchor ledger](frostward-room-ledger.csv) records coordinates, connected route, purpose, working interaction or placeholder, persistence/reset, NPC use, and current evidence for every named point in the layout. `tools/winterhold_layout.json` is the coordinate authority. A route passing the offline voxel walker does not certify Minecraft collision, NPC pathfinding or a player's actual traversal.
@@ -37,10 +37,10 @@ The template is now **176 × 76 × 161**, with **326,467 cells and 73 palette st
 ## Checks on this branch
 
 - `python tools/winterhold_academy.py` regenerated the committed NBT; `--check` is the freshness gate.
-- `python -m unittest discover -s tools -p test_winterhold_academy.py -v`: **11/11 passed**. Covers deterministic NBT, bounds, stations, bed/door support, snow removal, groundcover support, the larger library and 45 room/anchor routes.
-- `node tools/preview_winterhold_layout.mjs`: **passed** with 15,449 reachable standing positions, eight doors, 16 bed halves, eight signs, zero snow blocks and 45 room/anchor points.
+- `python -m unittest discover -s tools -p test_winterhold_academy.py -v`: **12/12 passed**. Covers deterministic NBT, bounds, stations, bed/door support, snow removal, groundcover support, the larger library, Hall/annex furnishing and 45 room/anchor routes.
+- `node tools/preview_winterhold_layout.mjs`: **passed** with 15,411 reachable standing positions, eight doors, 16 bed halves, eight signs, zero snow blocks and 45 room/anchor points.
 - `compileJava compileClientJava compileGametestJava` against the pinned Minecraft 26.3/Fabric toolchain: **passed**. A second focused offline Java compile after the larger wing, client views and custom leaf particle also **passed** (unchanged Kotlin/resource outputs reused). Existing deprecation warnings remain.
-- PR #448 Foundation on the first milestone commit: **passed**. The first selected academy client GameTest **passed** and captured 12 actual Minecraft views, inspected at SHA `f90c7f75171a14e81b465621d1e4d72e93dba0ed`; these predate the eastern expansion, lower gate roof and dedicated leaf particle. Optional-integrations-absent server build **passed** on that SHA. Full Build was still running at this update. A fresh capture, completed JAR/mixin audit, two-client acceptance and performance measurements are **pending** for the enlarged template.
+- PR #448 Foundation **passed** at both pushed SHAs. The first selected academy client GameTest **passed** with 12 screenshots at `f90c7f751`; the second **passed** with 14 screenshots at `fd3c72502`, including the reading wing and upper archive. Optional-integrations-absent server build **passed** at both SHAs. Full Build was still running at this update. Fresh captures of the final pier/lighting/furnishing changes, completed JAR/mixin audit, two-client acceptance and performance measurements remain **pending**.
 
 ## Open defects and next concrete action
 

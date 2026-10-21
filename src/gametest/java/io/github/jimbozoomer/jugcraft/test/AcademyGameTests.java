@@ -106,6 +106,11 @@ public class AcademyGameTests {
 		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(90, 36, 34));
 		helper.assertBlockPresent(Blocks.STONE_BRICKS, new BlockPos(133, 44, 34));
 		helper.assertBlockPresent(Blocks.POLISHED_DIORITE, new BlockPos(153, 36, 42));
+		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("minecraft:light_blue_stained_glass_pane")),
+				new BlockPos(169, 30, 34));
+		helper.assertBlockPresent(Blocks.AMETHYST_BLOCK, new BlockPos(68, 24, 25));
+		helper.assertBlockPresent(BuiltInRegistries.BLOCK.getValue(net.minecraft.resources.Identifier.parse("minecraft:red_terracotta")),
+				new BlockPos(43, 50, 33));
 		helper.assertBlockPresent(Blocks.CARVED_PUMPKIN, new BlockPos(51, 25, 99));
 		helper.assertBlockPresent(io.github.jimbozoomer.jugcraft.agriculture.JugcraftAgriculture.block("orange_leaf_pile"),
 				new BlockPos(48, 25, 80));

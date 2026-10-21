@@ -6,6 +6,51 @@ They deliberately leave occupied Midden cells below the new wing untouched.
 from retro_game_shop import state
 
 
+def furnish_elements_hall(cells, put):
+    """Give the existing high teaching chamber a structured public interior."""
+    def block(x, y, z, name, **props):
+        put(x, y, z, state("minecraft:" + name, **props))
+
+    # A flush teaching-circle inlay leaves the central circulation and both
+    # existing Concordance benches untouched.
+    for x in range(60, 77):
+        for z in range(25, 42):
+            d2 = (x - 68) ** 2 + (z - 33) ** 2
+            if 6 ** 2 <= d2 <= 8 ** 2:
+                block(x, 24, z, "polished_deepslate")
+    for x, z in ((68, 25), (76, 33), (68, 41), (60, 33)):
+        block(x, 24, z, "amethyst_block")
+
+    # Four internal piers carry carved ceiling ribs. Hanging lanterns brighten
+    # the side benches while the soul lantern is a restrained magical focus.
+    for x in (54, 82):
+        for z in (24, 43):
+            for y in range(25, 37):
+                block(x, y, z, "quartz_pillar" if y % 5 else "chiseled_quartz_block")
+            block(x, 37, z, "sea_lantern")
+    for x in (57, 79):
+        for z in (34, 40):
+            block(x, 37, z, "lantern", hanging="true", waterlogged="false")
+    for x in range(54, 83):
+        for z in (22, 46):
+            block(x, 37, z, "chiseled_stone_bricks")
+    for z in range(23, 46):
+        for x in (54, 82):
+            block(x, 37, z, "chiseled_stone_bricks")
+    for x in (54, 82):
+        for z in (24, 43):
+            block(x, 36, z, "sea_lantern")
+
+    # Bench banks face the demonstration floor but leave broad central aisles.
+    for x0 in (56, 78):
+        for z in (35, 39, 43):
+            for x in range(x0, x0 + 4):
+                block(x, 25, z, "spruce_stairs", facing="north", half="bottom",
+                      shape="straight", waterlogged="false")
+    block(68, 25, 29, "chiseled_quartz_block")
+    block(68, 26, 29, "soul_lantern", hanging="false", waterlogged="false")
+
+
 def connect_academic_cluster(cells, put, spec):
     x0, z0, x1, z1 = spec["bounds"]
     assert (x0, z0, x1, z1) == (83, 20, 97, 48)
@@ -202,6 +247,25 @@ def build_arcanaeum_reading_wing(cells, put, spec):
     for x, z in ((150, 26), (162, 42)):
         block(x, 43, z, "sea_lantern")
 
+    # Narrow eastern daylight slots and several warm light pedestals make the
+    # deep reading floor legible without turning its protected stacks into a
+    # glazed hall. Shelf bays keep the broad center aisle unobstructed.
+    for z in (28, 34, 40):
+        for y in range(29, 34):
+            block(169, y, z, "light_blue_stained_glass_pane")
+    for x in range(140, 164, 2):
+        for z in (21, 47):
+            if inside(x, z, 3):
+                for y in range(25, 29):
+                    block(x, y, z, "bookshelf")
+    for x, z in ((140, 30), (140, 38), (150, 25), (160, 25),
+                 (150, 44), (160, 44), (165, 34)):
+        if inside(x, z, 2):
+            block(x, 25, z, "chiseled_quartz_block")
+            block(x, 26, z, "lantern", hanging="false", waterlogged="false")
+    for x, z in ((150, 27), (158, 27), (150, 43), (158, 43)):
+        block(x, 43, z, "lantern", hanging="true", waterlogged="false")
+
 
 def build_gatehouse(cells, put, spec):
     x0, z0, x1, z1 = spec["bounds"]
@@ -240,9 +304,9 @@ def build_gatehouse(cells, put, spec):
             block(x, y, 120, "air")
     for x in (62, 74):
         for z in (116, 123):
-            for y in range(25, 42):
+            for y in range(25, 36):
                 block(x, y, z, "chiseled_stone_bricks")
-            block(x, 42, z, "lantern", hanging="false", waterlogged="false")
+            block(x, 36, z, "lantern", hanging="false", waterlogged="false")
     for x in (61, 75):
         for z in (118, 122):
             block(x, 25, z, "polished_diorite_stairs", facing="east" if x == 61 else "west",
@@ -331,6 +395,25 @@ def build_archmage_annex(cells, put, spec):
     for x, z in ((31, 33), (43, 21), (43, 45)):
         for y in range(53, 57):
             block(x, y, z, "glass_pane")
+
+    # The quiet private suite gains a floor medallion and usable seating rather
+    # than another empty round stone room. Keep the room anchor and bed clear.
+    for x in range(38, 49):
+        for z in range(27, 39):
+            if (x - 43) ** 2 + (z - 33) ** 2 <= 7 ** 2:
+                block(x, 50, z, "red_terracotta" if (x + z) % 5 else "orange_terracotta")
+    for x in (36, 49):
+        for z in (29, 36):
+            for y in range(51, 54):
+                block(x, y, z, "bookshelf")
+    for x, z, facing in ((45, 30, "north"), (47, 32, "west")):
+        block(x, 51, z, "spruce_stairs", facing=facing, half="bottom",
+              shape="straight", waterlogged="false")
+    for x, z in ((37, 34), (48, 38)):
+        block(x, 58, z, "lantern", hanging="true", waterlogged="false")
+    for x, z in ((35, 35), (48, 28)):
+        block(x, 51, z, "chiseled_quartz_block")
+        block(x, 52, z, "lantern", hanging="false", waterlogged="false")
 
 
 def add_autumn(cells, put):
