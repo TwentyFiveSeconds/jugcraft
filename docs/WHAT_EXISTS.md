@@ -50,8 +50,10 @@ attached library and residential wings, private quarters and connected Midden ch
 M0 adds Professor Arctus Vale using the existing townsfolk model and Concordance Journal, four courtyard runes
 with personal lore completion, and bounded localized client snow/mist. Existing benches retain their research/material
 costs. No automatic worldgen, schedules or new spell progression is added. Python regeneration, nine structure tests,
-independent Node checks and common/client/game-test Java compilation pass. Full Minecraft runtime validation remains
-pending; see the feature page for current previews and test limits.
+independent Node checks and common/client/game-test Java compilation pass. All 2,111 required server GameTests pass,
+including the four academy tests. The selected academy client GameTest also passes and produced nine inspected
+Minecraft screenshots. Two-client play, transition/performance checks, interior polish and full `build` certification
+remain open; see the feature page for screenshots and exact test limits.
 
 ### World Designer (`world/design/`, `tools/world-designer/`)
 

@@ -1,6 +1,6 @@
 # Frostward College: Winterhold-inspired magical academy
 
-Status: manually placeable circular campus plus M0 instructor, personal courtyard memory and localized winter prototype. Nine Python structure tests, independent Node validation and isolated Java logic checks pass. Minecraft compilation/runtime validation is recorded below; this remains a [draft PR #441](https://github.com/jimbozoomer-byte/jugcraft/pull/441).
+Status: manually placeable circular campus plus M0 instructor, personal courtyard memory and localized winter prototype. Nine Python structure tests, independent Node/Java checks, all 2,111 required server GameTests and the selected academy client GameTest pass. Nine actual Minecraft screenshots were captured and inspected. Full-build certification and human multiplayer acceptance remain open in [draft PR #441](https://github.com/jimbozoomer-byte/jugcraft/pull/441).
 
 Contributor: @TwentyFiveSeconds. AI: OpenAI Codex (GPT-6), explicitly requested by the contributor. Base: upstream main at `62c32ad3a5cfa05c298eab93e978951ab351aba8`, 20 October 2026. Tier: shared magical workshop infrastructure.
 
@@ -13,6 +13,21 @@ The interrupted session left an uncommitted generator, template, five offline te
 ![Revised ground-floor plan](../images/frostward-academy-revised-plan.png)
 
 These are code-rendered previews of actual NBT cells, **not Minecraft screenshots**. Colours, lighting and block shapes are approximated. The plan cuts at Y=28. Previous Blender [overview](../images/frostward-academy-overview.jpg), [section](../images/frostward-academy-cutaway.jpg) and [recovery preview](../images/frostward-academy-layout.png) show superseded layouts.
+
+## Actual Minecraft views — 21 October 2026
+
+![College placed in Minecraft 26.3](../images/frostward-runtime/overview.jpg)
+
+![Arctus Vale in the Hall of the Elements](../images/frostward-runtime/radiance_instructor.jpg)
+
+These are real frames from the passing `AcademyClientGameTests`, exported as JPEG (quality 90; no scene retouching). The isolated flat test world places the template at `(0,224,0)`; it demonstrates manual placement, not terrain-aware world generation. Render distance 10, FOV 75, OpenGL and no shaderpack. All nine views were visually inspected; localized snow is visible in the bridge/courtyard while global weather is clear. Detailed interior dressing and stair-edge/connection polish are still needed; the images show the actual prototype rather than a finished furnished academy.
+
+| Scene | Screenshot |
+| --- | --- |
+| Exterior | [Overview](../images/frostward-runtime/overview.jpg), [bridge](../images/frostward-runtime/bridge.jpg), [courtyard/cloister](../images/frostward-runtime/cloister.jpg) |
+| Teaching | [Hall of the Elements](../images/frostward-runtime/hall.jpg), [Radiance instructor](../images/frostward-runtime/radiance_instructor.jpg) |
+| Upper rooms | [Arcanaeum](../images/frostward-runtime/library.jpg), [Arch-Mage rooms](../images/frostward-runtime/archmage.jpg) |
+| Midden | [Forge](../images/frostward-runtime/midden_forge.jpg), [Echo Chamber](../images/frostward-runtime/echo_chamber.jpg) |
 
 ## Layout revision from contributor references
 
@@ -63,13 +78,17 @@ Common, client and game-test Java compilation passed against Minecraft 26.3, Fab
 
 **Minecraft server result: all 2,111 required GameTests passed**, including all four academy methods. The test server reported completion in 14.47 minutes; the Gradle task completed successfully in 15m37s, exit 0. This exercises the actual Jugcraft/Fabric registries, template, workstations, teacher and puzzle. It is not a client render or two-client playtest.
 
-The initial full build was stopped during expensive resource-output fingerprinting after the complete resource tree and expanded manifest were written; an earlier overlapping attempt hit a resource-directory conflict. Runtime tests reused those processed resources and verified current compiled classes, using `runGameTest -x processResources -x processClientResources -x compileJava -x compileClientJava -x compileClientKotlin -x compileGametestJava -x compileGametestKotlin`. No test assertion/entrypoint was removed or filtered. Source compilation and server execution both passed separately; **the full `build` gate is still not certified**. Client GameTests/screenshots and two-client play remain pending.
+The initial full build was stopped during expensive resource-output fingerprinting after the complete resource tree and expanded manifest were written; an earlier overlapping attempt hit a resource-directory conflict. Runtime tests reused those processed resources and verified current compiled classes, using `runGameTest -x processResources -x processClientResources -x compileJava -x compileClientJava -x compileClientKotlin -x compileGametestJava -x compileGametestKotlin`. No server test assertion/entrypoint was removed or filtered. Source compilation and server execution both passed separately; **the full `build` gate is still not certified**.
+
+**Selected Minecraft client result: `AcademyClientGameTests` passed**, task exit 0 in 3m20s. It verifies received block states across the bridge, both residential wings, teaching hall, library, ward and highest roof; waits for lighting and section rendering; captures nine views; and checks exactly one instructor plus unchanged global clear weather. The passing command was `compileGametestJava runClientGameTest -PclientTests=AcademyClientGameTests -x processResources -x compileJava -x compileClientJava -x compileClientKotlin -x compileGametestKotlin`; the existing client mixin resource was processed normally.
+
+Earlier client attempts exposed missing processed client resources and two timeouts in the API's default whole-view-distance download/render wait. The final isolated fixture uses a flat world, an overview camera within build height/range, explicit academy geometry download checks, and the public render-only wait overload. Lighting/render readiness is still required; the test no longer demands unrelated terrain at view-distance corners. Failure diagnostics capture a frame and native render status. This is a focused architecture/instructor screenshot test, not a natural-worldgen or whole-world streaming certification.
 
 The repository/link checker was attempted in this sparse checkout and failed because excluded `.github`/art source files are absent locally. That result is not an academy link regression or a passing repository check. The source/asset subset does include all runtime resources for the build. No checker assertions or CI gates were weakened.
 
 The full `tools/check_mod_data.py` audit also stopped during import on the excluded owner-library `originals/Magic/assets/ars_jimbaux/lang/en_us.json`; it did not audit the academy or return a pass. The academy feature/ledger's own local documentation links and `git diff --check` pass.
 
-Passing server acceptance covers all palette IDs/properties, existing bench research/material costs, personal lore/no research grants, instructor save-marker/no duplicate on reload and all template rotations/mirrors. The selected `AcademyClientGameTests` adds an instructor screenshot/assertion and a check that global clear weather remains unchanged; its result is recorded separately once run. Biome placements, disconnect/dimension transitions, off/low/minimal, real persistence/reconnect and performance still need runtime observation. Existing previews show layout/skin only; they do not certify climate rendering.
+Passing server acceptance covers all palette IDs/properties, existing bench research/material costs, personal lore/no research grants, instructor save-marker/no duplicate on reload and all template rotations/mirrors. Passing client acceptance covers the placed geometry, instructor rendering and global clear weather check. Hot-biome placements, boundary/dimension transitions, off/low/minimal, real persistence/reconnect, journal interaction through the client, performance and two independent clients still need observation. Mist/particle budgeting is implemented but not a measured frame-time guarantee. Keep the PR draft while these and full-build certification remain open.
 
 Reproduce the pure checks with `python tools/winterhold_academy.py --check`, `python -m unittest discover -s tools -p test_winterhold_academy.py -v`, `node tools/preview_winterhold_layout.mjs --check`, then Java 25 `javac -d <scratch> src/main/java/io/github/jimbozoomer/jugcraft/academy/AcademyPuzzle.java src/main/java/io/github/jimbozoomer/jugcraft/academy/AcademyClimate.java tools/AcademyLogicProbe.java` and `java -cp <scratch> AcademyLogicProbe`. Actual Minecraft gates remain `./gradlew build` and `./gradlew runClientGameTest -PclientTests=AcademyClientGameTests`.
 
