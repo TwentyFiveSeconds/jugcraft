@@ -74,6 +74,7 @@ class AcademyTests(unittest.TestCase):
 
     def test_existing_stations_no_rewards_or_owners(self):
         expected = {block for _, block in STATIONS.values() if block.startswith("jugcraft:")}
+        expected.add("jugcraft:academy_ward")
         self.assertEqual({s["id"] for s in self.palette if s["id"].startswith("jugcraft:")}, expected)
         for name, (pos, block) in STATIONS.items():
             self.assertEqual(self.block(pos), block, name)
@@ -163,6 +164,15 @@ class AcademyTests(unittest.TestCase):
         self.assertIn(self.block((68, 0, 85)), {"minecraft:andesite", "minecraft:tuff"})
         self.assertEqual(self.block(STATIONS["conclave"][0]), "jugcraft:conclave_lectern")
         self.assertFalse(any(b.get("nbt", {}).get("owner") for b in self.template["blocks"]))
+
+    def test_memory_ward_controls_and_instructor_home(self):
+        self.assertEqual(self.cells[(68, 27, 85)], {"id": "jugcraft:academy_ward",
+                         "properties": {"facing": "north", "reflected": "false"}})
+        for i, pos in enumerate(((64, 25, 81), (72, 25, 81), (72, 25, 89), (64, 25, 89))):
+            self.assertEqual(self.cells[pos], {"id": "jugcraft:academy_rune", "properties": {"rune": str(i)}})
+        self.assertEqual(self.block((59, 25, 31)), "minecraft:air")
+        self.assertEqual(self.block((59, 26, 31)), "minecraft:air")
+        self.assertNotEqual(self.block((59, 24, 31)), "minecraft:air")
 
 
 if __name__ == "__main__":

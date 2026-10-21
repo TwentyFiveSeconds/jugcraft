@@ -64,6 +64,38 @@
         98
       ],
       "minecraft:enchanting_table"
+    ],
+    "courtyard_rune_0": [
+      [
+        64,
+        25,
+        81
+      ],
+      "jugcraft:academy_rune"
+    ],
+    "courtyard_rune_1": [
+      [
+        72,
+        25,
+        81
+      ],
+      "jugcraft:academy_rune"
+    ],
+    "courtyard_rune_2": [
+      [
+        72,
+        25,
+        89
+      ],
+      "jugcraft:academy_rune"
+    ],
+    "courtyard_rune_3": [
+      [
+        64,
+        25,
+        89
+      ],
+      "jugcraft:academy_rune"
     ]
   },
   "rooms": {
@@ -221,6 +253,16 @@
       115,
       34,
       90
+    ],
+    "radiance_instructor": [
+      59,
+      25,
+      31
+    ],
+    "memory_ward": [
+      68,
+      25,
+      88
     ]
   },
   "ops": [
@@ -1773,6 +1815,107 @@
         85
       ],
       "floor": 24
+    },
+    {
+      "op": "paint",
+      "shape": "box",
+      "xz": [
+        68,
+        85,
+        68,
+        85
+      ],
+      "y": [
+        27,
+        27
+      ],
+      "state": {
+        "id": "jugcraft:academy_ward",
+        "properties": {
+          "facing": "north",
+          "reflected": "false"
+        }
+      }
+    },
+    {
+      "op": "paint",
+      "shape": "box",
+      "xz": [
+        64,
+        81,
+        64,
+        81
+      ],
+      "y": [
+        25,
+        25
+      ],
+      "state": {
+        "id": "jugcraft:academy_rune",
+        "properties": {
+          "rune": "0"
+        }
+      }
+    },
+    {
+      "op": "paint",
+      "shape": "box",
+      "xz": [
+        72,
+        81,
+        72,
+        81
+      ],
+      "y": [
+        25,
+        25
+      ],
+      "state": {
+        "id": "jugcraft:academy_rune",
+        "properties": {
+          "rune": "1"
+        }
+      }
+    },
+    {
+      "op": "paint",
+      "shape": "box",
+      "xz": [
+        72,
+        89,
+        72,
+        89
+      ],
+      "y": [
+        25,
+        25
+      ],
+      "state": {
+        "id": "jugcraft:academy_rune",
+        "properties": {
+          "rune": "2"
+        }
+      }
+    },
+    {
+      "op": "paint",
+      "shape": "box",
+      "xz": [
+        64,
+        89,
+        64,
+        89
+      ],
+      "y": [
+        25,
+        25
+      ],
+      "state": {
+        "id": "jugcraft:academy_rune",
+        "properties": {
+          "rune": "3"
+        }
+      }
     }
   ]
 }

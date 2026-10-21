@@ -25,6 +25,56 @@ import net.minecraft.world.level.block.Blocks;
 /** Checks the authored template against the running 26.3 registries and existing magic. */
 public class AcademyGameTests {
 
+	@GameTest(structure = "jugcraft:academy/winterhold", maxTicks = 80)
+	public void academyInstructorAndMemoryPersist(GameTestHelper helper) {
+		var ward = helper.getBlockEntity(new BlockPos(68, 27, 85), io.github.jimbozoomer.jugcraft.academy.AcademyWardBlockEntity.class);
+		var player = helper.makeMockServerPlayerInLevel();
+		var other = helper.makeMockServerPlayerInLevel();
+		for (int rune : new int[]{0, 2, 1, 3}) {
+			var at = ward.runePosition(rune);
+			player.setPos(at.getX()+1.5, at.getY(), at.getZ()+0.5);
+			io.github.jimbozoomer.jugcraft.concordance.RateGate.forget(player.getUUID());
+			ward.press(player, rune, at);
+		}
+		helper.assertTrue(player.getAttachedOrElse(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.COURTYARD_LORE, false), "Sequence grants personal lore");
+		helper.assertTrue(!other.getAttachedOrElse(io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.COURTYARD_LORE, false), "Another player gets no completion");
+		var before = ConcordanceProgress.knowledge(player);
+		io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.consult(player);
+		helper.assertTrue(ConcordanceProgress.knowledge(player).equals(before), "Consultation cannot grant research");
+		helper.succeedWhen(() -> {
+			var home = ward.instructorHome();
+			var teachers = helper.getLevel().getEntitiesOfClass(io.github.jimbozoomer.jugcraft.town.Townsfolk.class,
+					new net.minecraft.world.phys.AABB(home).inflate(8), t -> t.role().equals("academy_radiance"));
+			helper.assertTrue(teachers.size() == 1, "Exactly one Radiance instructor appears");
+			helper.assertTrue(teachers.getFirst().home().equals(home) && teachers.getFirst().skin().equals("academy_radiance"), "Instructor has persistent home and skin");
+			var saved = ward.saveWithoutMetadata(helper.getLevel().registryAccess());
+			helper.assertTrue(saved.getBooleanOr("instructor_spawned", false), "Spawn marker is saved");
+			ward.loadWithComponents(net.minecraft.world.level.storage.TagValueInput.create(net.minecraft.util.ProblemReporter.DISCARDING, helper.getLevel().registryAccess(), saved));
+			ward.tick(helper.getLevel());
+			helper.assertTrue(helper.getLevel().getEntitiesOfClass(io.github.jimbozoomer.jugcraft.town.Townsfolk.class,
+					new net.minecraft.world.phys.AABB(home).inflate(8), t -> t.role().equals("academy_radiance")).size() == 1, "Reload does not duplicate the guide");
+		});
+	}
+
+	@GameTest
+	public void academyFootprintFollowsTemplateTransforms(GameTestHelper helper) {
+		var original = io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.WARD.defaultBlockState();
+		for (var mirror : net.minecraft.world.level.block.Mirror.values()) {
+			for (var rotation : net.minecraft.world.level.block.Rotation.values()) {
+				var transformed = original.mirror(mirror).rotate(rotation);
+				var offset = io.github.jimbozoomer.jugcraft.academy.AcademyWardBlock.offset(BlockPos.ZERO, transformed, -9, -2, -54);
+				var expected = net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.transform(new BlockPos(-9,-2,-54), mirror, rotation, BlockPos.ZERO);
+				helper.assertTrue(offset.equals(expected), "Teacher follows every rotation and mirror");
+				int facing = switch (transformed.getValue(io.github.jimbozoomer.jugcraft.academy.AcademyWardBlock.FACING)) {
+					case EAST -> 1; case SOUTH -> 2; case WEST -> 3; default -> 0;
+				};
+				var site = new io.github.jimbozoomer.jugcraft.academy.AcademySite(BlockPos.ZERO, facing, transformed.getValue(io.github.jimbozoomer.jugcraft.academy.AcademyWardBlock.REFLECTED));
+				helper.assertTrue(site.influence(offset.getX()+0.5, offset.getY(), offset.getZ()+0.5) == 1, "Climate follows transformed hall");
+			}
+		}
+		helper.succeed();
+	}
+
 	@GameTest
 	public void academyUsesNativeBlockStates(GameTestHelper helper) {
 		try (var input = helper.getLevel().getServer().getResourceManager()
