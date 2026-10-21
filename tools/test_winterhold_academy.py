@@ -76,6 +76,8 @@ class AcademyTests(unittest.TestCase):
         expected = {block for _, block in STATIONS.values() if block.startswith("jugcraft:")}
         expected.add("jugcraft:academy_ward")
         expected.update("jugcraft:" + colour + "_leaf_pile" for colour in ("red", "orange", "yellow"))
+        expected.add("jugcraft:ecology_maple_log")
+        expected.update("jugcraft:ecology_" + colour + "_maple_leaves" for colour in ("red", "orange", "yellow"))
         self.assertEqual({s["id"] for s in self.palette if s["id"].startswith("jugcraft:")}, expected)
         for name, (pos, block) in STATIONS.items():
             self.assertEqual(self.block(pos), block, name)
@@ -86,6 +88,19 @@ class AcademyTests(unittest.TestCase):
             if data:
                 self.assertEqual(data["id"], "minecraft:sign")
                 self.assertEqual(len(data["front_text"]["messages"]), 4)
+
+    def test_selective_donor_roof_and_autumn_court(self):
+        # The adapted donor motif contributes only a bounded roof detail, while
+        # the existing Hall, stations, court and all room routes remain intact.
+        from pathlib import Path
+        import json
+        motif = json.loads(Path(__file__).with_name("fonta59_hall_roof_motif.json").read_text())
+        self.assertLess(sum(row.count("#") for row in motif["rows"]), 150)
+        self.assertEqual(self.block((68, 87, 33)), "minecraft:lantern")
+        self.assertEqual(self.block((151, 25, 19)), "minecraft:bookshelf")
+        self.assertEqual(self.block((52, 29, 75)), "jugcraft:ecology_maple_log")
+        self.assertIn("jugcraft:ecology_red_maple_leaves", {s["id"] for s in self.palette})
+        self.assertNotIn("minecraft:snow", {s["id"] for s in self.palette})
 
     def test_every_room_and_station_can_be_reached(self):
         # Two-block headroom navigation with one-block steps and hand-openable doors. This catches sealed rooms,
@@ -204,7 +219,7 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((112, 24, 34)), 'minecraft:polished_diorite')
 
     def test_grand_reading_wing_has_a_real_upper_route(self):
-        self.assertEqual(SIZE, (176, 76, 161))
+        self.assertEqual(SIZE, (176, 88, 161))
         self.assertEqual(self.block((134, 27, 34)), 'minecraft:air')
         self.assertEqual(self.block((133, 44, 34)), 'minecraft:stone_bricks')
         self.assertEqual(self.block((150, 24, 34)), 'minecraft:polished_diorite')
