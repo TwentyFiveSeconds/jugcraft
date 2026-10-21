@@ -111,6 +111,7 @@ public final class Jugcraft implements ModInitializer {
 		io.github.jimbozoomer.jugcraft.lair.lich.JugcraftLich.register();
 		io.github.jimbozoomer.jugcraft.lair.dreadnought.JugcraftDreadnought.register();
 		io.github.jimbozoomer.jugcraft.lair.alpha.JugcraftAlpha.register();
+		io.github.jimbozoomer.jugcraft.lair.sentinel.JugcraftSentinel.register();
 		io.github.jimbozoomer.jugcraft.styx.JugcraftStyx.register();
 		JugcraftDrones.register();
 		io.github.jimbozoomer.jugcraft.tower.JugcraftTower.register();
@@ -125,10 +126,12 @@ public final class Jugcraft implements ModInitializer {
 		PixelHollows.register();
 		RetroTrader.register();
 		AlpineSpawn.register();
+		io.github.jimbozoomer.jugcraft.world.AdamOndiAhman.register();
 		JugcraftRegions.register();
 		JugcraftDimensions.register();
 		JugcraftSeasons.register();
 		new io.github.jimbozoomer.jugcraft.creatures.scary.ScaryMod().onInitialize();
+		io.github.jimbozoomer.jugcraft.creatures.chima.ChimaMod.register();
 		io.github.jimbozoomer.jugcraft.town.JugcraftTown.register();
 		io.github.jimbozoomer.jugcraft.concordance.JugcraftConcordance.register();
 		io.github.jimbozoomer.jugcraft.academy.JugcraftAcademy.register();

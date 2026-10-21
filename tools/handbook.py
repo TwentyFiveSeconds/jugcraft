@@ -240,7 +240,15 @@ ABOUT = {
                      "stony hills): every 15 seconds it takes one coal or raw ore from each kind of deposit under it "
                      "or one block round it, down to 3 blocks deep, using 16 JE/t. It pushes what it mines out of every side "
                      "into a chest, item pipe, conveyor or machine beside it. Each deposit block holds 1,000 and then "
-                     "turns to stone; right-click one to see how much is left. Picks only break deposits, for nothing.",
+                     "turns to its host rock; right-click one to see how much is left. Picks only break deposits, for nothing. "
+                     "The same four resources also form underground seams, lenses and veins. A basic rig built down "
+                     "at the seam works normally. Craft a Deep-Drilling Assembly from four steel plates, three steel gears, "
+                     "a basic circuit and a steel pickaxe, then use it on the rig to add a taller mast. It bores a 9x9 "
+                     "column up to 128 blocks below the base, one layer per powered second at 32 JE/t, and works each "
+                     "depth until exhausted. Extraction remains one item per family every 15 seconds; speed and "
+                     "efficiency cards apply. Power loss and full outputs preserve progress. Right-click the mast "
+                     "for depth or open the rig for live progress. Stone and deepslate deposits share the same rate. "
+                     "The Prospector shows separate bulk-deposit readings. High mountain rigs may need a lower platform.",
     "ore_drill": "Two blocks tall. Mines the ore blocks in a 9x9 column below it, one layer at a time down to the bottom "
                  "of the world, one ore every 2 seconds. Each hole is refilled with stone or deepslate. The ores come "
                  "out whole, ready for ore processing.",
@@ -1025,16 +1033,22 @@ def build():
                 "chlorine, hydrogen and lye. Gases live only in tanks, pipes and gas cylinders."]},
             machine_page("electrolytic_cell"),
             form_page("electrolytic_separator"),
+            form_page("bulk_electrolytic_separator"),
             machine_page("chemical_reactor"),
             form_page("chemical_oxidizer"),
+            form_page("bulk_chemical_oxidizer"),
             form_page("industrial_fermenter"),
+            form_page("bulk_fermenter"),
             form_page("bulk_chemical_reactor"),
             form_page("anaerobic_digester"),
             form_page("coal_gasifier"),
             form_page("gas_cleanup_rack"),
             machine_page("fuel_cell"),
             form_page("gas_burning_generator"),
+            form_page("large_gas_burning_generator"),
             form_page("bio_generator"),
+            form_page("large_bio_generator"),
+            form_page("combined_cycle_power_plant"),
             machine_page("electroplating_bath"),
             {"title": "Rubber", "icon": f"{MOD}:rubber", "text": [
                 "Crack a bucket of naphtha in the chemical reactor: 500 mB of butadiene. The polymerization reactor "
@@ -1068,6 +1082,7 @@ def build():
             machine_page("air_separation_unit"),
             machine_page("synthesis_converter"),
             form_page("chemical_infuser"),
+            form_page("bulk_chemical_infuser"),
             machine_page("ammonia_chiller"),
             machine_page("cryogenic_liquefier"),
             {"title": "Gas Cylinders", "icon": f"{MOD}:gas_cylinder", "text": [

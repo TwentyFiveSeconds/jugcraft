@@ -33,6 +33,8 @@ GENERATED_DIRS = [
     DATA / MOD / "loot_table", DATA / MOD / "recipe", DATA / MOD / "worldgen",
     # The lairs' dimensions and templates (tools/lair_data.py).
     DATA / MOD / "dimension", DATA / MOD / "dimension_type", DATA / MOD / "structure" / "lair",
+    # Adam-ondi-Ahman's knoll (tools/adam_ondi_ahman_data.py).
+    DATA / MOD / "structure" / "adam_ondi_ahman",
     DATA / "c" / "tags", DATA / "minecraft" / "tags", RES / MOD, PACKS,
     DATA / MOD / "villager_trade", DATA / MOD / "trade_set", DATA / MOD / "tags" / "villager_trade",
     RES / "assets" / "minecraft",
@@ -300,6 +302,8 @@ def assets():
     diagonal_connections.write_all(write, ASSETS, RES / "assets" / "minecraft")
     import scary_data
     scary_data.write_all(write, RES, lang)
+    import chima_data
+    chima_data.write_all(write, RES, lang)
     import vanilla_logs
     vanilla_logs.write_all(write, ASSETS)
     write(ASSETS / "lang" / "en_us.json", dict(sorted(lang.items())))
@@ -1588,7 +1592,7 @@ def tags():
         tags.add("block", "minecraft:mineable/pickaxe", rid(block))
     # Deposits break (slowly, for nothing) with a pickaxe; only a deposit drill gets their ore.
     import deposits
-    for block in deposits.DEPOSITS:
+    for block in deposits.all_blocks():
         tags.add("block", "minecraft:mineable/pickaxe", rid(block))
     import tank_display
     for block in tank_display.BLOCKS:

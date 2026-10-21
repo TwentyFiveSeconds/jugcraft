@@ -36,6 +36,7 @@ jugcraft:alloy_panel,chain_with_acquisition_evidence,,src/main/resources/data/ju
 jugcraft:alloy_smelter,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/alloy_smelter.json,,
 jugcraft:alpha_pelt,loot_only,,,,src/main/resources/data/jugcraft/loot_table/entities/alpha_werewolf.json
 jugcraft:alphas_hood,loot_only,,,,src/main/resources/data/jugcraft/loot_table/entities/alpha_werewolf.json
+jugcraft:altar_keystone,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/altar_keystone.json | src/main/resources/data/jugcraft/recipe/altar_keystone_from_cydonian_shards.json | src/main/resources/data/jugcraft/recipe/altar_keystone_from_dreamglass.json,,
 jugcraft:alumina,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chemical_reaction/alumina.json | src/main/resources/data/jugcraft/recipe/chemical_reaction/calcine_hydroxide.json,,
 jugcraft:alumina_blank,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pressing/ceramics_alumina_blank.json,,
 jugcraft:alumina_calciner,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/alumina_calciner.json,,
@@ -650,7 +651,11 @@ jugcraft:brown_plastic,chain_with_acquisition_evidence,,src/main/resources/data/
 jugcraft:bubbling_cauldron,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/bubbling_cauldron.json,,
 jugcraft:buckshot_shell,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/buckshot_shell.json,,src/main/resources/data/jugcraft/loot_table/entities/raider_gunner.json
 jugcraft:building_sign,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/building_sign.json,,
+jugcraft:bulk_chemical_infuser,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/bulk_chemical_infuser.json,,
+jugcraft:bulk_chemical_oxidizer,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/bulk_chemical_oxidizer.json,,
 jugcraft:bulk_chemical_reactor,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/alloys_bulk_chemical_reactor.json | src/main/resources/data/jugcraft/recipe/bulk_chemical_reactor.json,,
+jugcraft:bulk_electrolytic_separator,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/bulk_electrolytic_separator.json,,
+jugcraft:bulk_fermenter,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/bulk_fermenter.json,,
 jugcraft:bulldog_pistol,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/bulldog_pistol.json,,
 jugcraft:bullfrog,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/bullfrog.json,,
 jugcraft:bunker_bunk,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/bunker_bunk.json,,
@@ -1306,6 +1311,7 @@ jugcraft:chicken_cuts,recipe_chain_reachable,,src/main/resources/data/jugcraft/r
 jugcraft:chicken_sandwich,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chicken_sandwich.json,,
 jugcraft:chicken_soup,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pot_cooking/chicken_soup.json,,
 jugcraft:chili,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pot_cooking/chili.json,,
+jugcraft:chima_spawn_egg,intentional_noncraftable,Creative spawn egg; acquire creatures through world encounters.,,,
 jugcraft:chimera_finial,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/chimera_finial.json,,
 jugcraft:chiseled_crypt_stone,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/chiseled_crypt_stone_from_stonecutting.json,,
 jugcraft:chitin_smg,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chitin_smg.json,,
@@ -1348,7 +1354,7 @@ jugcraft:clockwork_porter,recipe_chain_reachable,,src/main/resources/data/jugcra
 jugcraft:cloud_seeding_rocket,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/rocket_assembly/cloud_seeding_rocket.json,,
 jugcraft:clover,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/clover.json
 jugcraft:coach_gun,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/coach_gun.json,,
-jugcraft:coal_deposit,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/coal_deposit.json
+jugcraft:coal_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,src/main/resources/data/jugcraft/worldgen/feature/coal_deposit.json
 jugcraft:coal_gasifier,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/coal_gasifier.json | src/main/resources/data/jugcraft/recipe/expanded_coal_gasifier.json,,
 jugcraft:coal_generator,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/coal_generator.json,,
 jugcraft:coastal_seawater_intake,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/coastal_seawater_intake.json,,
@@ -1384,6 +1390,7 @@ jugcraft:colossal_rib,recipe_chain_reachable,,src/main/resources/data/jugcraft/r
 jugcraft:colossal_skull,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/colossal_skull.json,,
 jugcraft:colossal_vertebra,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/colossal_vertebra.json,,
 jugcraft:columbarium,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/columbarium.json,,
+jugcraft:combined_cycle_power_plant,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/combined_cycle_power_plant.json,,
 jugcraft:compact_monopole,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/compact_monopole.json,,
 jugcraft:companion_acorn,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/companion_acorn.json,,src/main/resources/data/jugcraft/loot_table/entities/companion_weevil.json
 jugcraft:companion_acorn_hat,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/companion_acorn_hat.json,,
@@ -1471,13 +1478,14 @@ jugcraft:cooling_tower_controller,chain_with_acquisition_evidence,,src/main/reso
 jugcraft:cooling_tower_fill,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/cooling_tower_fill.json,,
 jugcraft:copper_busbar,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/copper_busbar.json,,
 jugcraft:copper_cable,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/ceramics_copper_cable.json | src/main/resources/data/jugcraft/recipe/copper_cable.json | src/main/resources/data/jugcraft/recipe/insulated_copper_cable.json,,
-jugcraft:copper_deposit,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/copper_deposit.json
+jugcraft:copper_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,src/main/resources/data/jugcraft/worldgen/feature/copper_deposit.json
 jugcraft:copper_dome_plate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/copper_dome_plate.json,,
 jugcraft:copper_dome_plate_slab,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/copper_dome_plate_slab.json,,
 jugcraft:copper_dome_plate_stairs,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/copper_dome_plate_stairs.json,,
 jugcraft:copper_dust,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pulverizing/copper_ingot.json | src/main/resources/data/jugcraft/recipe/pulverizing/copper_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_copper_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/raw_copper.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_copper_ore.json,,
 jugcraft:copper_plate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pressing/copper_ingot.json,,
 jugcraft:copper_wire,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/wire_drawing/copper_ingot.json,,
+jugcraft:corelance,loot_only,,,,src/main/resources/data/jugcraft/loot_table/bosses/cydonian_sentinel.json | src/main/resources/data/jugcraft/loot_table/entities/cydonian_sentinel.json
 jugcraft:corn,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/corn_from_crate.json | src/main/resources/data/jugcraft/recipe/hydroponics/corn_kernels.json | src/main/java/io/github/jimbozoomer/jugcraft/agriculture/TallCropBlock.java,,
 jugcraft:corn_crate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/corn_crate.json,,
 jugcraft:corn_dog,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/corn_dog.json,,
@@ -1547,6 +1555,7 @@ jugcraft:cursed_spindle,recipe_chain_reachable,,src/main/resources/data/jugcraft
 jugcraft:cutting_board,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/cutting_board.json,,
 jugcraft:cyan_alchemical_bag,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/cyan_alchemical_bag.json,,
 jugcraft:cyan_plastic,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/cyan_plastic.json,,
+jugcraft:cydonian_shard,loot_only,,,,src/main/resources/data/jugcraft/loot_table/entities/cydonian_sentinel.json
 jugcraft:cypress_fence,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/cypress_fence.json,,
 jugcraft:cypress_fence_gate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/cypress_fence_gate.json,,
 jugcraft:cypress_leaves,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/cypress.json
@@ -1596,9 +1605,13 @@ jugcraft:dead_stairs,chain_with_acquisition_evidence,,src/main/resources/data/ju
 jugcraft:dead_wood,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/dead_wood.json,,
 jugcraft:deadly_nightshade,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/deadly_nightshade.json
 jugcraft:death_knell,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/death_knell.json,,
+jugcraft:deep_drilling_assembly,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/deep_drilling_assembly.json,,
 jugcraft:deepslate_chromite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_chromite.json
+jugcraft:deepslate_coal_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,
 jugcraft:deepslate_cobaltite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_cobaltite.json
+jugcraft:deepslate_copper_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,
 jugcraft:deepslate_fluorite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_fluorite.json
+jugcraft:deepslate_iron_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,
 jugcraft:deepslate_lead_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_lead.json
 jugcraft:deepslate_lepidolite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_lepidolite.json
 jugcraft:deepslate_monazite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_monazite.json
@@ -1609,6 +1622,7 @@ jugcraft:deepslate_sarcophagus,recipe_chain_reachable,,src/main/resources/data/j
 jugcraft:deepslate_silver_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_silver.json
 jugcraft:deepslate_spodumene_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_spodumene.json
 jugcraft:deepslate_thallite_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_thallite.json | src/main/resources/data/jugcraft/worldgen/feature/ore_thallite_rich.json
+jugcraft:deepslate_tin_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,
 jugcraft:deepslate_tin_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_tin.json
 jugcraft:deepslate_titanium_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_titanium.json
 jugcraft:deepslate_tungsten_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_tungsten.json
@@ -3003,7 +3017,7 @@ jugcraft:ion_emitter,chain_with_acquisition_evidence,,src/main/resources/data/ju
 jugcraft:iron_band,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/iron_band.json,,
 jugcraft:iron_bayonet,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/iron_bayonet.json,,
 jugcraft:iron_bound_coffin,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/iron_bound_coffin.json,,
-jugcraft:iron_deposit,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/iron_deposit.json
+jugcraft:iron_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,src/main/resources/data/jugcraft/worldgen/feature/iron_deposit.json
 jugcraft:iron_dust,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_iron_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_nickel_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_thallite_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/iron_ingot.json | src/main/resources/data/jugcraft/recipe/pulverizing/iron_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/nickel_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/raw_iron.json | src/main/resources/data/jugcraft/recipe/pulverizing/thallite_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_iron_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_nickel_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_thallite_ore.json,,
 jugcraft:iron_gear,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/iron_gear.json,,
 jugcraft:iron_knife,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/iron_knife.json,,
@@ -3650,6 +3664,8 @@ jugcraft:larch_sapling,chain_with_acquisition_evidence,,src/main/resources/data/
 jugcraft:larch_slab,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/larch_slab.json,,
 jugcraft:larch_stairs,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/larch_stairs.json,,
 jugcraft:larch_wood,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/larch_wood.json,,
+jugcraft:large_bio_generator,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/large_bio_generator.json,,
+jugcraft:large_gas_burning_generator,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/large_gas_burning_generator.json,,
 jugcraft:large_ghost_fern,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/large_ghost_fern.json
 jugcraft:large_print,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/large_print.json,,
 jugcraft:large_steam_engine,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/large_steam_engine.json,,
@@ -3740,6 +3756,7 @@ jugcraft:longhorn_rifle,chain_with_acquisition_evidence,,src/main/resources/data
 jugcraft:lookout_rifle,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/lookout_rifle.json,,
 jugcraft:lounge_table,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/lounge_table.json,,
 jugcraft:low_covalence_dust,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/low_covalence_dust.json,,
+jugcraft:lowfall_core,loot_only,,,,src/main/resources/data/jugcraft/loot_table/entities/cydonian_sentinel.json
 jugcraft:lox_tank,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chemical_reaction/lox_tank.json,,
 jugcraft:lubricant_bucket,chain_with_acquisition_evidence,,src/main/java/io/github/jimbozoomer/jugcraft/chemistry/PetroFluids.java,,
 jugcraft:lumen_sconce,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/lumen_sconce.json,,
@@ -4758,7 +4775,7 @@ jugcraft:railing_gate,recipe_chain_reachable,,src/main/resources/data/jugcraft/r
 jugcraft:range_finder,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/ceramics_range_finder.json | src/main/resources/data/jugcraft/recipe/range_finder.json,,
 jugcraft:range_module,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/range_module.json,,
 jugcraft:ranger_rifle,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/ranger_rifle.json,,
-jugcraft:rare_earth_oxide,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/arc_smelting/monazite.json | src/main/resources/data/jugcraft/recipe/chemical_reaction/rare_earth_oxide.json | src/main/resources/data/jugcraft/recipe/rare_earth_oxide.json,,
+jugcraft:rare_earth_oxide,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/arc_smelting/monazite.json | src/main/resources/data/jugcraft/recipe/chemical_reaction/rare_earth_oxide.json | src/main/resources/data/jugcraft/recipe/crushing/cydonian_shard.json | src/main/resources/data/jugcraft/recipe/rare_earth_oxide.json,,
 jugcraft:rare_earth_sand,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_rare_earth_sand.json
 jugcraft:ratatouille,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pot_cooking/ratatouille.json,,
 jugcraft:rattler_pistol,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/rattler_pistol.json,,
@@ -4861,6 +4878,7 @@ jugcraft:red_mum,natural_or_interaction_source,,,,src/main/resources/data/jugcra
 jugcraft:red_plastic,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/red_plastic.json,,
 jugcraft:red_velvet_cake,recipe_chain_reachable,,src/main/java/io/github/jimbozoomer/jugcraft/agriculture/HearthOvenBlockEntity.java,,
 jugcraft:red_velvet_cake_slice,recipe_chain_reachable,,src/main/java/io/github/jimbozoomer/jugcraft/agriculture/PieBlock.java,,
+jugcraft:redstar_cleaver,loot_only,,,,src/main/resources/data/jugcraft/loot_table/bosses/cydonian_sentinel.json | src/main/resources/data/jugcraft/loot_table/entities/cydonian_sentinel.json
 jugcraft:redwood_fence,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/redwood_fence.json,,
 jugcraft:redwood_fence_gate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/redwood_fence_gate.json,,
 jugcraft:redwood_log,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/tree_growing/redwood_sapling.json,,src/main/resources/data/jugcraft/worldgen/feature/fallen_redwood_tree.json | src/main/resources/data/jugcraft/worldgen/feature/giant_redwood.json | src/main/resources/data/jugcraft/worldgen/feature/redwood.json
@@ -4990,6 +5008,8 @@ jugcraft:rust_plate,chain_with_acquisition_evidence,,src/main/resources/data/jug
 jugcraft:rust_plate_slab,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/rust_plate_slab.json,,
 jugcraft:rust_plate_stairs,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/rust_plate_stairs.json,,
 jugcraft:rustic_scroll_headstone,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/rustic_scroll_headstone_from_stonecutting.json,,
+jugcraft:ruthenium_catalyst_bed,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/ruthenium_catalyst_bed.json,,
+jugcraft:ruthenium_powder,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chemical_reaction/bulk_ruthenium_powder.json,,
 jugcraft:safety_shower,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/safety_shower.json,,
 jugcraft:safety_shower_head,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/safety_shower_head.json,,
 jugcraft:saffron,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/hydroponics/crocus_bulb.json | tools/agriculture.py:CROPS/saffron,,
@@ -5048,6 +5068,7 @@ jugcraft:sentinel_helmet,deferred_acquisition_design,Deferred acquisition design
 jugcraft:sentinel_leggings,deferred_acquisition_design,Deferred acquisition design: owner requested preview armor only on October 6; tools/gear.py ARMOR_TIERS records the still-unassigned recipe/drop choice.,,,
 jugcraft:sentinel_longsword,deferred_acquisition_design,Deferred acquisition design: matching owner-preview armor set; tools/arms_variants.py SETS and ArmsVIIGameTests intentionally specify no survival recipe or trophy table yet.,,,
 jugcraft:sentinel_shield,deferred_acquisition_design,Deferred acquisition design: matching owner-preview armor set; tools/arms_variants.py SETS and ArmsVIIGameTests intentionally specify no survival recipe or trophy table yet.,,,
+jugcraft:sentinels_visor,loot_only,,,,src/main/resources/data/jugcraft/loot_table/entities/cydonian_sentinel.json
 jugcraft:sentry_pistol,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/sentry_pistol.json,,
 jugcraft:server_rack,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/server_rack.json,,
 jugcraft:service_pedestal,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/service_pedestal.json,,
@@ -5489,22 +5510,32 @@ jugcraft:timber_revetment_slab,recipe_chain_reachable,,src/main/resources/data/j
 jugcraft:timber_revetment_stairs,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/timber_revetment_stairs.json,,
 jugcraft:timber_shoring,recipe_chain_reachable,,src/main/resources/data/jugcraft/recipe/timber_shoring.json,,
 jugcraft:tin_block,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/tin_block.json,,
-jugcraft:tin_deposit,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/tin_deposit.json
+jugcraft:tin_deposit,intentional_noncraftable,"Natural finite reserve, not a survival block item: picks drop nothing; the deposit drill extracts coal or raw metal.",,,src/main/resources/data/jugcraft/worldgen/feature/tin_deposit.json
 jugcraft:tin_dust,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_tin_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/deepslate_tungsten_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/raw_tin.json | src/main/resources/data/jugcraft/recipe/pulverizing/tin_ingot.json | src/main/resources/data/jugcraft/recipe/pulverizing/tin_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/tungsten_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_tin_ore.json | src/main/resources/data/jugcraft/recipe/pulverizing/washed_tungsten_ore.json,,
 jugcraft:tin_ingot,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/tin_ingot_from_blasting_raw_tin.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_blasting_tin_dust.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_blasting_tin_ore.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_nuggets.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_smelting_raw_tin.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_smelting_tin_dust.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_smelting_tin_ore.json | src/main/resources/data/jugcraft/recipe/tin_ingot_from_tin_block.json,,
 jugcraft:tin_nugget,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/sifting/gravel.json | src/main/resources/data/jugcraft/recipe/tin_nugget.json,,
 jugcraft:tin_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_tin.json
 jugcraft:tin_plate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pressing/tin_ingot.json,,
 jugcraft:tincal,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_tincal.json
+jugcraft:titanium_axe,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_axe.json,,
 jugcraft:titanium_block,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_block.json,,
+jugcraft:titanium_boots,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_boots.json,,
+jugcraft:titanium_chestplate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_chestplate.json,,
 jugcraft:titanium_chlorinator,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_chlorinator.json,,
+jugcraft:titanium_helmet,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_helmet.json,,
+jugcraft:titanium_hoe,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_hoe.json,,
 jugcraft:titanium_ingot,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/arc_smelting/titanium_sponge.json | src/main/resources/data/jugcraft/recipe/titanium_ingot_from_nuggets.json | src/main/resources/data/jugcraft/recipe/titanium_ingot_from_titanium_block.json,,
+jugcraft:titanium_leggings,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_leggings.json,,
 jugcraft:titanium_nugget,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_nugget.json,,
 jugcraft:titanium_ore,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_titanium.json
+jugcraft:titanium_paxel,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_paxel.json,,
+jugcraft:titanium_pickaxe,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_pickaxe.json,,
 jugcraft:titanium_plate,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/pressing/titanium_ingot.json,,
 jugcraft:titanium_reduction_retort,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_reduction_retort.json,,
 jugcraft:titanium_sand,natural_or_interaction_source,,,,src/main/resources/data/jugcraft/worldgen/feature/ore_titanium_sand.json
+jugcraft:titanium_shovel,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_shovel.json,,
 jugcraft:titanium_sponge,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/chemical_reaction/titanium_sponge.json | src/main/resources/data/jugcraft/recipe/electrolysis/reduce_and_clean_titanium_sponge.json,,
+jugcraft:titanium_sword,chain_with_acquisition_evidence,,src/main/resources/data/jugcraft/recipe/titanium_sword.json,,
 jugcraft:tmah_developer_bucket,chain_with_acquisition_evidence,,src/main/java/io/github/jimbozoomer/jugcraft/chemistry/PetroFluids.java,,
 jugcraft:toasted_marshmallow,recipe_chain_reachable,,src/main/java/io/github/jimbozoomer/jugcraft/agriculture/MarshmallowStickItem.java,,
 jugcraft:toffee,recipe_chain_reachable,,tools/agriculture.py:CANDY/cream,,

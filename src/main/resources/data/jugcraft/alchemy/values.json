@@ -187,6 +187,11 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:altar_keystone": {
+      "numerator": 69,
+      "denominator": 1,
+      "source": "recipe jugcraft:altar_keystone_from_cydonian_shards"
+    },
     "jugcraft:alumina": {
       "numerator": 1,
       "denominator": 1,
@@ -3262,10 +3267,30 @@
       "denominator": 2,
       "source": "recipe jugcraft:building_sign"
     },
+    "jugcraft:bulk_chemical_infuser": {
+      "numerator": 17289,
+      "denominator": 16,
+      "source": "recipe jugcraft:bulk_chemical_infuser"
+    },
+    "jugcraft:bulk_chemical_oxidizer": {
+      "numerator": 1096,
+      "denominator": 1,
+      "source": "recipe jugcraft:bulk_chemical_oxidizer"
+    },
     "jugcraft:bulk_chemical_reactor": {
       "numerator": 549,
       "denominator": 1,
       "source": "recipe jugcraft:alloys_bulk_chemical_reactor"
+    },
+    "jugcraft:bulk_electrolytic_separator": {
+      "numerator": 1106,
+      "denominator": 1,
+      "source": "recipe jugcraft:bulk_electrolytic_separator"
+    },
+    "jugcraft:bulk_fermenter": {
+      "numerator": 1103,
+      "denominator": 1,
+      "source": "recipe jugcraft:bulk_fermenter"
     },
     "jugcraft:bulldog_pistol": {
       "numerator": 2465,
@@ -6542,6 +6567,11 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:chima_spawn_egg": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:chimera_finial": {
       "numerator": 291,
       "denominator": 2,
@@ -6931,6 +6961,11 @@
       "numerator": 416,
       "denominator": 1,
       "source": "recipe jugcraft:columbarium"
+    },
+    "jugcraft:combined_cycle_power_plant": {
+      "numerator": 2287,
+      "denominator": 1,
+      "source": "recipe jugcraft:combined_cycle_power_plant"
     },
     "jugcraft:compact_monopole": {
       "numerator": 1,
@@ -7407,6 +7442,11 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:corelance": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:corn": {
       "numerator": 1,
       "denominator": 1,
@@ -7752,6 +7792,11 @@
       "denominator": 16,
       "source": "recipe jugcraft:cyan_plastic"
     },
+    "jugcraft:cydonian_shard": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:cypress_fence": {
       "numerator": 40,
       "denominator": 3,
@@ -7997,7 +8042,17 @@
       "denominator": 9,
       "source": "recipe jugcraft:death_knell"
     },
+    "jugcraft:deep_drilling_assembly": {
+      "numerator": 542,
+      "denominator": 1,
+      "source": "recipe jugcraft:deep_drilling_assembly"
+    },
     "jugcraft:deepslate_chromite_ore": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
+    "jugcraft:deepslate_coal_deposit": {
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
@@ -8007,7 +8062,17 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:deepslate_copper_deposit": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:deepslate_fluorite_ore": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
+    "jugcraft:deepslate_iron_deposit": {
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
@@ -8058,6 +8123,11 @@
       "source": "fallback (balance pending)"
     },
     "jugcraft:deepslate_thallite_ore": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
+    "jugcraft:deepslate_tin_deposit": {
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
@@ -18267,6 +18337,16 @@
       "denominator": 1,
       "source": "reference tag minecraft:logs"
     },
+    "jugcraft:large_bio_generator": {
+      "numerator": 1097,
+      "denominator": 1,
+      "source": "recipe jugcraft:large_bio_generator"
+    },
+    "jugcraft:large_gas_burning_generator": {
+      "numerator": 1097,
+      "denominator": 1,
+      "source": "recipe jugcraft:large_gas_burning_generator"
+    },
     "jugcraft:large_ghost_fern": {
       "numerator": 1,
       "denominator": 1,
@@ -18716,6 +18796,11 @@
       "numerator": 33,
       "denominator": 4,
       "source": "recipe jugcraft:low_covalence_dust"
+    },
+    "jugcraft:lowfall_core": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
     },
     "jugcraft:lox_tank": {
       "numerator": 1,
@@ -24357,6 +24442,11 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:redstar_cleaver": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:redwood_fence": {
       "numerator": 40,
       "denominator": 3,
@@ -25002,6 +25092,16 @@
       "denominator": 1,
       "source": "recipe jugcraft:rustic_scroll_headstone_from_stonecutting"
     },
+    "jugcraft:ruthenium_catalyst_bed": {
+      "numerator": 1057,
+      "denominator": 1,
+      "source": "recipe jugcraft:ruthenium_catalyst_bed"
+    },
+    "jugcraft:ruthenium_powder": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
     "jugcraft:safety_shower": {
       "numerator": 65,
       "denominator": 16,
@@ -25288,6 +25388,11 @@
       "source": "fallback (balance pending)"
     },
     "jugcraft:sentinel_shield": {
+      "numerator": 1,
+      "denominator": 1,
+      "source": "fallback (balance pending)"
+    },
+    "jugcraft:sentinels_visor": {
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
@@ -27532,20 +27637,50 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:titanium_axe": {
+      "numerator": 11,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_axe"
+    },
     "jugcraft:titanium_block": {
       "numerator": 9,
       "denominator": 1,
       "source": "recipe jugcraft:titanium_block"
+    },
+    "jugcraft:titanium_boots": {
+      "numerator": 4,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_boots"
+    },
+    "jugcraft:titanium_chestplate": {
+      "numerator": 8,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_chestplate"
     },
     "jugcraft:titanium_chlorinator": {
       "numerator": 617,
       "denominator": 1,
       "source": "recipe jugcraft:titanium_chlorinator"
     },
+    "jugcraft:titanium_helmet": {
+      "numerator": 5,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_helmet"
+    },
+    "jugcraft:titanium_hoe": {
+      "numerator": 10,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_hoe"
+    },
     "jugcraft:titanium_ingot": {
       "numerator": 1,
       "denominator": 1,
       "source": "recipe jugcraft:arc_smelting/titanium_sponge"
+    },
+    "jugcraft:titanium_leggings": {
+      "numerator": 7,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_leggings"
     },
     "jugcraft:titanium_nugget": {
       "numerator": 1,
@@ -27556,6 +27691,16 @@
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
+    },
+    "jugcraft:titanium_paxel": {
+      "numerator": 31,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_paxel"
+    },
+    "jugcraft:titanium_pickaxe": {
+      "numerator": 11,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_pickaxe"
     },
     "jugcraft:titanium_plate": {
       "numerator": 1,
@@ -27572,10 +27717,20 @@
       "denominator": 1,
       "source": "fallback (balance pending)"
     },
+    "jugcraft:titanium_shovel": {
+      "numerator": 9,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_shovel"
+    },
     "jugcraft:titanium_sponge": {
       "numerator": 1,
       "denominator": 1,
       "source": "fallback (balance pending)"
+    },
+    "jugcraft:titanium_sword": {
+      "numerator": 6,
+      "denominator": 1,
+      "source": "recipe jugcraft:titanium_sword"
     },
     "jugcraft:tmah_developer_bucket": {
       "numerator": 1,
