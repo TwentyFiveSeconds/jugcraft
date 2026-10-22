@@ -122,6 +122,23 @@ def craft_elements_hall(cells, put):
     for x, z in ((59, 20), (77, 20), (59, 46), (77, 46)):
         b(x, 25, z, "dark_oak_trapdoor", facing="north", half="top", open="false", powered="false", waterlogged="false")
 
+    # Three curved seminar tiers turn the large southern floor into an actual
+    # university teaching theatre. A five-wide center aisle and outer aisles
+    # still connect the south portal, stations and north dais.
+    for z, half_width in ((39, 7), (43, 9), (47, 10)):
+        for x in range(68 - half_width, 69 + half_width):
+            if 66 <= x <= 70:
+                continue
+            b(x, 25, z, "spruce_stairs", facing="north", half="bottom",
+              shape="straight", waterlogged="false")
+            b(x, 25, z - 1, "dark_oak_slab", type="bottom", waterlogged="false")
+        for x in (68 - half_width, 68 + half_width):
+            b(x, 26, z - 1, "lantern", hanging="false", waterlogged="false")
+    for x, name in ((63, "amethyst_block"), (73, "copper_block")):
+        b(x, 25, 28, "chiseled_stone_bricks")
+        b(x, 26, 28, name)
+        b(x, 27, 28, "end_rod", facing="up")
+
     # Three distinct exterior belts interrupt the sheer Hall drum. Restrict
     # these to cardinal frontages so the round wall does not gain a uniform
     # procedural stripe. South portal shoulders project into the court.
