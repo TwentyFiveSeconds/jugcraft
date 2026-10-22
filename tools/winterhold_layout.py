@@ -132,6 +132,10 @@ def apply_layout(legacy, layout):
     plant_autumn_court(cells, put)
     enrich_court_arcade(cells, put)
     distinguish_residence_halls(cells, put)
+    from academy_craft import craft_elements_hall, craft_arcanaeum, landscape_autumn_court
+    craft_elements_hall(cells, put)
+    craft_arcanaeum(cells, put)
+    landscape_autumn_court(cells, put)
     final_palette = sorted(set(cells.values()))
     indices = {block: i for i, block in enumerate(final_palette)}
     blocks = []
