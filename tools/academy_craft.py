@@ -158,6 +158,32 @@ def craft_elements_hall(cells, put):
             if cells.get((x, y, 52), ("minecraft:air",))[0] != "minecraft:air":
                 b(x, y, 52, "polished_andesite" if x % 3 else "chiseled_stone_bricks")
 
+    # A three-deep Nordic stone overdoor gives the court-facing Hall a real
+    # threshold. The sides descend into the old rock plinth; the five-wide
+    # processional center is open from the floor through Y36. Its stepped
+    # cornice interprets the donor's slab transitions without Gothic points.
+    for x in (60, 76):
+        for z in (53, 54):
+            for y in range(16, 25):
+                if cells.get((x, y, z), ("minecraft:air",))[0] == "minecraft:air":
+                    b(x, y, z, "tuff" if y < 22 else "stone_bricks")
+            for y in range(25, 43):
+                b(x, y, z, "chiseled_stone_bricks" if y in (25, 30, 37, 42)
+                  else "polished_andesite" if y % 5 == 0 else "stone_bricks")
+            b(x, 43, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+    for x in range(61, 76):
+        y = 40 + min(x - 60, 76 - x) // 3
+        for z in (53, 54):
+            b(x, y, z, "chiseled_stone_bricks" if x in (64, 68, 72)
+              else "polished_andesite")
+            b(x, y + 1, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+    for x in (62, 74):
+        for y in range(29, 35):
+            b(x, y, 53, "orange_stained_glass")
+            b(x, y, 52, "sea_lantern")
+        b(x, 35, 53, "stone_brick_stairs", facing="south", half="top",
+          shape="straight", waterlogged="false")
+
     # A slate roof surface replaces the unbroken light-gray cap, while the
     # donor-derived andesite relief remains visible as its pale embroidery.
     for x in range(50, 87):
@@ -435,6 +461,19 @@ def landscape_autumn_court(cells, put):
         for dx in range(-2, 3):
             if cells.get((x + dx, 31, z), ("minecraft:air",))[0] != "minecraft:air":
                 b(x + dx, 30, z, "jugcraft:ecology_" + ("red" if dx < 0 else "orange") + "_maple_leaves")
+
+    for bay in range(8):
+        angle = pi / 8 + bay * pi / 4
+        x0 = round(68 + 23 * cos(angle))
+        z0 = round(85 + 23 * sin(angle))
+        for along in range(-2, 3):
+            x = x0 + round(-sin(angle) * along)
+            z = z0 + round(cos(angle) * along)
+            if cells.get((x, 30, z), ("minecraft:air",))[0] == "minecraft:air":
+                colour = ("red", "orange", "yellow")[(bay + (along > 0)) % 3]
+                b(x, 30, z, "jugcraft:ecology_" + colour + "_maple_leaves")
+                if along in (-1, 1) and cells.get((x, 29, z), ("minecraft:air",))[0] == "minecraft:air":
+                    b(x, 29, z, "jugcraft:ecology_" + colour + "_maple_leaves")
 
 
 def craft_bridge_gate(put):
