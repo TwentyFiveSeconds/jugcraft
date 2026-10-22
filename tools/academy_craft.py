@@ -277,6 +277,52 @@ def craft_arcanaeum(cells, put):
               shape="straight", waterlogged="false")
         b(cx, 26, cz, "lantern", hanging="false", waterlogged="false")
 
+    # A deep east archive frontage replaces the blank oval wall seen from the
+    # principal reading aisle. Projecting piers and recessed book wells give
+    # the two bays a real three-block section; daylight slots behind remain.
+    for z in range(28, 41):
+        if z in (28, 34, 40):
+            for y in range(25, 36):
+                b(162, y, z, "chiseled_stone_bricks" if y in (25, 29, 34, 35)
+                  else "polished_andesite")
+            b(163, 35, z, "stone_brick_stairs", facing="west", half="top",
+              shape="straight", waterlogged="false")
+            continue
+        for x in range(163, 166):
+            b(x, 24, z, "dark_oak_planks")
+        for y in range(25, 34):
+            b(165, y, z, "bookshelf" if y != 29 else "dark_oak_planks")
+        b(164, 34, z, "stone_brick_stairs", facing="west", half="top",
+          shape="straight", waterlogged="false")
+    for z in (31, 37):
+        b(163, 31, z, "lantern", hanging="true", waterlogged="false")
+        b(162, 25, z, "spruce_stairs", facing="east", half="bottom",
+          shape="straight", waterlogged="false")
+        b(165, 30, z, "chiseled_bookshelf", facing="west")
+
+    # A third, communal research table fills part of the former vacant middle
+    # without touching the west entry, upper stair or named room point.
+    for x in range(155, 160):
+        for z in range(30, 33):
+            b(x, 24, z, "dark_oak_planks")
+    for x in range(156, 159):
+        for z in (31, 32):
+            b(x, 25, z, "dark_oak_slab", type="top", waterlogged="false")
+    b(157, 25, 30, "lectern", facing="south", has_book="false", powered="false")
+    b(157, 26, 31, "lantern", hanging="false", waterlogged="false")
+    for x in (155, 159):
+        b(x, 25, 33, "spruce_stairs", facing="north", half="bottom",
+          shape="straight", waterlogged="false")
+
+    # The high central reading well gains a suspended, warm arcane fixture;
+    # it remains above the lower headroom and below the solid roof.
+    for y in range(40, 44):
+        b(156, y, 35, "chain", axis="y", waterlogged="false")
+    b(156, 39, 35, "amethyst_block")
+    for dx, dz in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+        b(156 + dx, 39, 35 + dz, "sea_lantern")
+        b(156 + dx, 40, 35 + dz, "polished_andesite")
+
     # Carved exterior spandrels and a dark stepped crown give the reading wing
     # its own skyline; source sectional rhythm is adapted, not copied.
     for x in range(145, 167):

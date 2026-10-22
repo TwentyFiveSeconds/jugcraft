@@ -76,6 +76,8 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			server.runCommand("time set midnight");
 			view(context, server, 68, 251, 151, 180, -5);
 			context.takeScreenshot("jugcraft_academy_bridge_night");
+			view(context, server, 68, 254, 108, 180, 5);
+			context.takeScreenshot("jugcraft_academy_court_night");
 			server.runCommand("time set noon");
 			view(context, server, 68, 251, 136, 180, -5);
 			context.takeScreenshot("jugcraft_academy_gatehouse");
@@ -85,7 +87,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_autumn_gardens");
 			view(context, server, 68, 252, 45, 180, 0);
 			context.takeScreenshot("jugcraft_academy_hall");
-			view(context, server, 68, 252, 34, 180, -8);
+			view(context, server, 68, 251, 39, 180, -5);
 			context.takeScreenshot("jugcraft_academy_hall_ceiling_dais");
 			view(context, server, 68, 264, 41, 180, 10);
 			context.takeScreenshot("jugcraft_academy_upper_gallery");
