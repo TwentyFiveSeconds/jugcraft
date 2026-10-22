@@ -78,6 +78,10 @@ class AcademyTests(unittest.TestCase):
         expected.update("jugcraft:" + colour + "_leaf_pile" for colour in ("red", "orange", "yellow"))
         expected.add("jugcraft:ecology_maple_log")
         expected.update("jugcraft:ecology_" + colour + "_maple_leaves" for colour in ("red", "orange", "yellow"))
+        # The crafted court adds only registered seasonal decoration, never a
+        # new academy station, reward block or owned progression object.
+        expected.update("jugcraft:" + colour + "_mum" for colour in ("red", "orange", "yellow", "purple"))
+        expected.add("jugcraft:autumn_wreath")
         self.assertEqual({s["id"] for s in self.palette if s["id"].startswith("jugcraft:")}, expected)
         for name, (pos, block) in STATIONS.items():
             self.assertEqual(self.block(pos), block, name)

@@ -81,8 +81,12 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_gatehouse");
 			view(context, server, 68, 254, 108, 180, 5);
 			context.takeScreenshot("jugcraft_academy_cloister");
+			view(context, server, 68, 267, 102, 180, 25);
+			context.takeScreenshot("jugcraft_academy_autumn_gardens");
 			view(context, server, 68, 252, 45, 180, 0);
 			context.takeScreenshot("jugcraft_academy_hall");
+			view(context, server, 68, 252, 34, 180, -8);
+			context.takeScreenshot("jugcraft_academy_hall_ceiling_dais");
 			view(context, server, 68, 264, 41, 180, 10);
 			context.takeScreenshot("jugcraft_academy_upper_gallery");
 			view(context, server, 59, 251, 36, 180, 20);
@@ -96,7 +100,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			});
 			view(context, server, 112, 252, 44, 180, 5);
 			context.takeScreenshot("jugcraft_academy_library");
-			view(context, server, 150, 251, 48, 180, 5);
+			view(context, server, 157, 252, 41, 180, 3);
 			context.takeScreenshot("jugcraft_academy_grand_reading");
 			view(context, server, 153, 262, 42, 180, 5);
 			context.takeScreenshot("jugcraft_academy_upper_archive");

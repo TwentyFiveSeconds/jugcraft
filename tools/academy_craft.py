@@ -6,7 +6,7 @@ annular gallery, and bookshelves that climb to the next occupied level. These
 features are redrawn around Frostward's original rooms, routes and stations.
 See docs/features/frostward-fonta59-adaptations.md for source bounds.
 """
-from math import hypot
+from math import hypot, cos, sin, pi
 
 from retro_game_shop import state
 
@@ -63,9 +63,30 @@ def craft_elements_hall(cells, put):
                 b(x, 35 if d == 11 else 36, z, "polished_andesite" if (x + z) % 3 else "chiseled_stone_bricks")
             elif d == 10 and (x + z) % 4 == 0:
                 b(x, 36, z, "dark_oak_planks")
+    for spoke in range(12):
+        angle = spoke * pi / 6
+        for radius in range(4, 16):
+            x = 68 + round(radius * cos(angle))
+            z = 33 + round(radius * sin(angle))
+            if (x, z) in ((54, 24), (54, 43), (82, 24), (82, 43)):
+                continue
+            b(x, 34 if radius < 11 else 35, z,
+              "chiseled_stone_bricks" if radius in (6, 11, 15) else "polished_andesite")
     for x, z in ((61, 26), (75, 26), (61, 40), (75, 40),
                  (68, 22), (68, 44)):
         b(x, 35, z, "lantern", hanging="true", waterlogged="false")
+
+    # A suspended five-point arcane luminary gives the vast central teaching
+    # circle a focal object visible from both the ground and open gallery.
+    # Its lowest block is Y30: four air blocks remain over the room anchor.
+    for y in range(32, 36):
+        b(68, y, 33, "chain", axis="y", waterlogged="false")
+    b(68, 31, 33, "chiseled_stone_bricks")
+    b(68, 30, 33, "amethyst_block")
+    for dx, dz in ((-2, 0), (2, 0), (0, -2), (0, 2)):
+        b(68 + dx // 2, 31, 33 + dz // 2, "polished_andesite")
+        b(68 + dx, 31, 33 + dz, "sea_lantern")
+        b(68 + dx, 32, 33 + dz, "chiseled_stone_bricks")
 
     # The north teaching end gets a broad, shallow stone dais and a stepped
     # focus. The middle floor, two Lampwright benches and Arctus remain free.
@@ -87,6 +108,17 @@ def craft_elements_hall(cells, put):
     for x in range(66, 71):
         b(x, 30, 17, "polished_andesite")
     b(68, 26, 20, "enchanting_table")
+    for x in (62, 74):
+        for y in range(25, 33):
+            b(x, y, 17, "chiseled_stone_bricks" if y in (25, 29, 32)
+              else "polished_andesite")
+    for x in range(63, 74):
+        b(x, 33, 17, "stone_brick_stairs", facing="south", half="top",
+          shape="straight", waterlogged="false")
+    for x in (60, 76):
+        for y in range(25, 31):
+            b(x, y, 18, "bookshelf" if y not in (27, 30) else "dark_oak_planks")
+        b(x, 31, 18, "lantern", hanging="false", waterlogged="false")
     for x, z in ((59, 20), (77, 20), (59, 46), (77, 46)):
         b(x, 25, z, "dark_oak_trapdoor", facing="north", half="top", open="false", powered="false", waterlogged="false")
 
@@ -121,6 +153,17 @@ def craft_elements_hall(cells, put):
                     if cells.get((x, y + 1, z), ("minecraft:air",))[0] == "minecraft:air":
                         b(x, y, z, "deepslate_tiles" if int(r) % 5 else "polished_andesite")
                     break
+    # Three amber clerestory recesses make the Hall legible after dark from
+    # the long bridge, with a carved central bay instead of a flat drum face.
+    for cx, y0, y1 in ((64, 56, 58), (68, 55, 60), (72, 56, 58)):
+        for y in range(y0, y1 + 1):
+            b(cx, y, 52, "orange_stained_glass")
+            b(cx, y, 51, "sea_lantern")
+            for x in (cx - 1, cx + 1):
+                b(x, y, 52, "polished_andesite" if y % 2 else "chiseled_stone_bricks")
+        for x in range(cx - 1, cx + 2):
+            b(x, y1 + 1, 52, "stone_brick_stairs", facing="south", half="top",
+              shape="straight", waterlogged="false")
 
 
 def craft_arcanaeum(cells, put):
@@ -156,6 +199,14 @@ def craft_arcanaeum(cells, put):
     for x, z in ((110, 26), (114, 42)):
         b(x, 25, z, "chiseled_bookshelf", facing="south" if z < 34 else "north")
         b(x, 26, z, "amethyst_block")
+    for x in range(107, 118):
+        for y in range(25, 32):
+            b(x, y, 20, "bookshelf" if x not in (107, 112, 117) and y not in (29, 31)
+              else "dark_oak_planks" if y == 29 else "chiseled_stone_bricks")
+    for x in (107, 117):
+        b(x, 26, 21, "chiseled_stone_bricks")
+        b(x, 27, 21, "lantern", hanging="false", waterlogged="false")
+    b(112, 30, 21, "amethyst_block")
 
     # Fonta59's x31..54/Z-188..-165 archive groups books in tall returns.
     # Refit separate north and south runs into Frostward's larger half oval.
@@ -249,8 +300,8 @@ def landscape_autumn_court(cells, put):
     # Four old isolated maples become centers of unequal, raised garden beds.
     # The garden outlines are deliberately noncircular; all four radial walks
     # and the S01 ward's central approach remain at their original level.
-    gardens = ((52, 75, 5, 4, "red"), (84, 75, 6, 4, "orange"),
-               (52, 96, 5, 5, "yellow"), (83, 96, 6, 5, "red"))
+    gardens = ((52, 75, 8, 7, "red"), (84, 75, 8, 7, "orange"),
+               (52, 96, 8, 7, "yellow"), (83, 96, 8, 7, "red"))
     for cx, cz, rx, rz, colour in gardens:
         for x in range(cx - rx, cx + rx + 1):
             for z in range(cz - rz, cz + rz + 1):
@@ -267,6 +318,10 @@ def landscape_autumn_court(cells, put):
                     b(x, 25, z, "mossy_stone_brick_slab", type="bottom", waterlogged="false")
                 elif (x * 7 + z * 3) % 5 == 0 and (x, z) != (cx, cz):
                     b(x, 25, z, "jugcraft:" + colour + "_leaf_pile", layers=1)
+                elif (x * 13 + z * 11) % 13 == 0 and (x, z) != (cx, cz):
+                    b(x, 25, z, "jugcraft:" + ("purple" if (x + z) % 7 == 0 else colour) + "_mum")
+                elif (x * 3 + z * 7) % 23 == 0 and (x, z) != (cx, cz):
+                    b(x, 25, z, "jugcraft:ecology_" + colour + "_maple_leaves")
 
     # Varied tree heights, fork directions and asymmetric canopies prevent a
     # repeated four-tree postcard silhouette. No trunk is on the formal paths.
@@ -301,6 +356,15 @@ def landscape_autumn_court(cells, put):
         b(x, 25, z, "mossy_stone_bricks")
         b(x, 26, z, "lantern", hanging="false", waterlogged="false")
 
+    # Wreaths are native Jugcraft blocks attached to proven stone support.
+    # Gatehouse and Hall entries each have a different seasonal colour.
+    for x, z, colour in ((62, 127, "orange"), (74, 127, "red"),
+                         (59, 54, "yellow"), (77, 54, "purple")):
+        behind = cells.get((x, 28, z - 1), ("minecraft:air",))[0]
+        if behind in ("minecraft:stone_bricks", "minecraft:polished_andesite",
+                      "minecraft:chiseled_stone_bricks"):
+            b(x, 28, z, "jugcraft:autumn_wreath", facing="south", flowers=colour)
+
     # Leaf garlands are carried by the existing eight arcade frames, kept well
     # above eye level. Narrow amber/green highlights enrich the covered walk.
     for x, z in ((48, 74), (48, 96), (88, 74), (88, 96),
@@ -308,3 +372,21 @@ def landscape_autumn_court(cells, put):
         for dx in range(-2, 3):
             if cells.get((x + dx, 31, z), ("minecraft:air",))[0] != "minecraft:air":
                 b(x + dx, 30, z, "jugcraft:ecology_" + ("red" if dx < 0 else "orange") + "_maple_leaves")
+
+
+def craft_bridge_gate(put):
+    """Carve and light the two reception façades that flank the open gate."""
+    def b(x, y, z, name, **props):
+        _put(put, x, y, z, name, **props)
+
+    for cx in (63, 73):
+        for y in range(27, 31):
+            b(cx, y, 126, "orange_stained_glass_pane")
+            b(cx, y, 125, "sea_lantern")
+        for x in (cx - 1, cx + 1):
+            for y in range(26, 33):
+                b(x, y, 126, "chiseled_stone_bricks" if y in (26, 31, 32)
+                  else "polished_andesite")
+        for x in range(cx - 2, cx + 3):
+            b(x, 32, 127, "stone_brick_stairs", facing="south", half="top",
+              shape="straight", waterlogged="false")
