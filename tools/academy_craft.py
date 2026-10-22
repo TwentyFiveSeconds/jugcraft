@@ -199,6 +199,34 @@ def craft_elements_hall(cells, put):
         for z in range(z0 - 2, z0 + 3):
             b(85, 55, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
 
+    # A stone-carver's screen, supported from the research-wing roof, breaks
+    # the broad gray field between the east windows. Its uneven pier rhythm
+    # and contrasting blind recesses follow the donor's sectional masonry
+    # rather than tracing a continuous circular ring around the Hall. Leave
+    # the older central blue window and all openings untouched.
+    for z in (27, 39):
+        for y in range(40, 64):
+            if cells.get((85, y, z), ("minecraft:air",))[0] == "minecraft:air":
+                continue
+            b(86, y, z, "chiseled_stone_bricks" if y in (40, 44, 50, 56, 63)
+              else "polished_tuff" if y % 4 else "tuff_bricks")
+    for z in range(28, 39):
+        if z == 33:
+            continue
+        for y in (43, 56, 63):
+            if cells.get((85, y, z), ("minecraft:air",))[0] != "minecraft:air":
+                b(86, y, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+    for z0 in (29, 36):
+        for z in range(z0, z0 + 3):
+            for y in range(46, 54):
+                if cells.get((85, y, z), ("minecraft:air",))[0] != "minecraft:stone_bricks":
+                    continue
+                edge = z in (z0, z0 + 2) or y in (46, 53)
+                b(85, y, z, "polished_tuff" if edge else "polished_deepslate")
+    for z0 in (25, 41):
+        for z in range(z0 - 2, z0 + 3):
+            b(86, 55, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+
     # Three different windowed research bays interrupt the long, nearly blank
     # south face of the connecting academic gallery seen from the east court.
     for cx in (85, 90, 93):
