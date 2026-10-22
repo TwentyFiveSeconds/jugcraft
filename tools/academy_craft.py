@@ -80,7 +80,7 @@ def craft_elements_hall(cells, put):
     # circle a focal object visible from both the ground and open gallery.
     # Its lowest block is Y30: four air blocks remain over the room anchor.
     for y in range(32, 36):
-        b(68, y, 33, "chain", axis="y", waterlogged="false")
+        b(68, y, 33, "iron_chain", axis="y", waterlogged="false")
     b(68, 31, 33, "chiseled_stone_bricks")
     b(68, 30, 33, "amethyst_block")
     for dx, dz in ((-2, 0), (2, 0), (0, -2), (0, 2)):
@@ -390,7 +390,7 @@ def craft_arcanaeum(cells, put):
     # The high central reading well gains a suspended, warm arcane fixture;
     # it remains above the lower headroom and below the solid roof.
     for y in range(40, 44):
-        b(156, y, 35, "chain", axis="y", waterlogged="false")
+        b(156, y, 35, "iron_chain", axis="y", waterlogged="false")
     b(156, 39, 35, "amethyst_block")
     for dx, dz in ((-1, 0), (1, 0), (0, -1), (0, 1)):
         b(156 + dx, 39, 35 + dz, "sea_lantern")
