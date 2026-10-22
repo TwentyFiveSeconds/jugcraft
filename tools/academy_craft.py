@@ -184,6 +184,36 @@ def craft_elements_hall(cells, put):
         b(x, 35, 53, "stone_brick_stairs", facing="south", half="top",
           shape="straight", waterlogged="false")
 
+    # The east Hall elevation overlooks the scholarly wing. Two deliberately
+    # offset, deeply framed amber archive windows flank its older blue slot.
+    # Their projecting jambs stand on the already solid Y40 wing roof.
+    for z0 in (25, 41):
+        for y in range(44, 55):
+            b(85, y, z0, "orange_stained_glass" if 47 <= y <= 52
+              else "chiseled_stone_bricks")
+            if 47 <= y <= 52:
+                b(84, y, z0, "sea_lantern")
+            for side in (-1, 1):
+                b(85, y, z0 + side, "chiseled_stone_bricks" if y in (44, 50, 54)
+                  else "polished_andesite")
+        for z in range(z0 - 2, z0 + 3):
+            b(85, 55, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+
+    # Three different windowed research bays interrupt the long, nearly blank
+    # south face of the connecting academic gallery seen from the east court.
+    for cx in (85, 90, 93):
+        for y in range(27, 33):
+            b(cx, y, 49, "orange_stained_glass_pane" if 28 <= y <= 31
+              else "chiseled_stone_bricks")
+            if y == 29:
+                b(cx, y, 48, "sea_lantern")
+            for x in (cx - 1, cx + 1):
+                b(x, y, 49, "polished_andesite" if y not in (27, 32)
+                  else "chiseled_stone_bricks")
+        for x in range(cx - 1, cx + 2):
+            b(x, 34, 50, "stone_brick_stairs", facing="south", half="top",
+              shape="straight", waterlogged="false")
+
     # A slate roof surface replaces the unbroken light-gray cap, while the
     # donor-derived andesite relief remains visible as its pale embroidery.
     for x in range(50, 87):
