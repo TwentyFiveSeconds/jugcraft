@@ -54,7 +54,7 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 					&& c.level.getBlockState(new BlockPos(68, 248, 160)).is(Blocks.POLISHED_ANDESITE)
 					&& c.level.getBlockState(new BlockPos(27, 248, 76)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(109, 248, 92)).is(Blocks.POLISHED_DIORITE)
-					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.POLISHED_ANDESITE)
+					&& c.level.getBlockState(new BlockPos(68, 248, 33)).is(Blocks.WAXED_CUT_COPPER)
 					&& c.level.getBlockState(new BlockPos(112, 248, 34)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(150, 248, 34)).is(Blocks.POLISHED_DIORITE)
 					&& c.level.getBlockState(new BlockPos(90, 260, 34)).is(Blocks.STONE_BRICKS)
