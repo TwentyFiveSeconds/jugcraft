@@ -270,6 +270,9 @@ class AcademyTests(unittest.TestCase):
         self.assertNotEqual(self.block((68, 38, 21)), 'minecraft:air')
         self.assertNotEqual(self.block((68, 38, 45)), 'minecraft:air')
         self.assertEqual(self.block((68, 34, 33)), 'minecraft:amethyst_block')
+        self.assertEqual(self.block((68, 38, 27)), 'minecraft:chiseled_stone_bricks')
+        self.assertEqual(self.block((65, 35, 33)), 'minecraft:iron_bars')
+        self.assertEqual(self.block((68, 49, 52)), 'minecraft:amethyst_block')
         for pos, block in STATIONS.values():
             self.assertEqual(self.block(pos), block)
 

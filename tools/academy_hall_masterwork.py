@@ -149,6 +149,38 @@ def craft_hall_masterwork(cells, put):
             b(x, 39, z, "chiseled_stone_bricks")
             b(x, 40, z, "polished_tuff")
 
+    # Lower transept ribs finally reveal the vault profile from the entrance.
+    # Their feet stand beside, rather than on, the two working Lampwright
+    # stations, and the arch crosses only the already open high teaching well.
+    for z in (27, 39):
+        for x in (58, 78):
+            for y in range(25, 32):
+                b(x, y, z, "chiseled_stone_bricks" if y in (25, 30, 31)
+                  else "polished_tuff")
+        for x in range(58, 79):
+            d = abs(x - 68)
+            y = 38 - (d * d * 7) // 100
+            b(x, y, z, "chiseled_stone_bricks" if d in (0, 5, 10)
+              else "polished_tuff")
+            if d in (2, 4, 7):
+                b(x, y - 1, z, "deepslate_tile_slab", type="top",
+                  waterlogged="false")
+
+    # The occupied east-west bridge keeps its floor, but a full-width dark
+    # coffer and six visible carved transverse ties replace the pale flat
+    # soffit seen in the second Minecraft capture.
+    for x in range(58, 79):
+        for z in range(32, 35):
+            if old(x, 38, z) == "minecraft:air":
+                continue
+            b(x, 37, z, "chiseled_stone_bricks" if x in (60, 64, 68, 72, 76)
+              else "dark_oak_planks" if z in (32, 34)
+              else "deepslate_tiles")
+            if x in (60, 64, 72, 76) and z in (32, 34):
+                b(x, 36, z, "polished_tuff_stairs",
+                  facing="east" if x < 68 else "west", half="top",
+                  shape="straight", waterlogged="false")
+
     # A four-block-deep rear teaching console makes the apse an institution's
     # working lectern rather than an empty altar. The enchanted table at
     # (68,26,20), center lectern, and side lecterns retain their exact cells.
@@ -196,50 +228,74 @@ def craft_hall_masterwork(cells, put):
     # roof relief and autumn foliage stay intact.
     for x in (61, 67, 69, 75):
         for y in range(45, 63):
-            if old(x, y, 52) not in ("minecraft:stone_bricks",
+            if old(x, y, 51) not in ("minecraft:stone_bricks",
                                      "minecraft:chiseled_stone_bricks",
                                      "minecraft:polished_andesite"):
                 continue
-            b(x, y, 53, "chiseled_stone_bricks" if y in (45, 50, 56, 62)
+            b(x, y, 52, "chiseled_stone_bricks" if y in (45, 50, 56, 62)
               else "polished_tuff" if y % 3 else "tuff_bricks")
     for x0, x1 in ((62, 66), (70, 74)):
         for x in range(x0, x1 + 1):
-            if old(x, 51, 52) != "minecraft:air":
-                b(x, 51, 53, "deepslate_tile_slab", type="bottom",
+            if old(x, 51, 51) != "minecraft:air":
+                b(x, 51, 52, "deepslate_tile_slab", type="bottom",
                   waterlogged="false")
         for x in range(x0 + 1, x1):
             for y in range(46, 51):
-                if old(x, y, 52) == "minecraft:stone_bricks":
-                    b(x, y, 52, "polished_deepslate" if y < 49
+                if old(x, y, 51) == "minecraft:stone_bricks":
+                    b(x, y, 51, "polished_deepslate" if y < 49
                       else "chiseled_stone_bricks")
 
-    # Rework the first low horizontal copper hoop after inspecting its
-    # Minecraft silhouette. Two upright interlocking iron/bronze meridians
-    # form a tall teaching orrery, with an amethyst/lamplight core. Its bottom
-    # is six blocks above the floor; the occupied Y38 crossing stays intact.
+    # A single recessed heraldic teaching panel gives the south Hall drum a
+    # focal surface below its three old amber clerestories. Its framed dark
+    # field interrupts the gray cylinder without copying a donor façade or
+    # touching the lower processional door.
+    for x in range(64, 73):
+        for y in range(45, 54):
+            if old(x, y, 51) == "minecraft:air":
+                continue
+            b(x, y, 51, "chiseled_stone_bricks" if x in (64, 72)
+              or y in (45, 53) else "polished_deepslate")
+        if old(x, 54, 51) != "minecraft:air":
+            b(x, 54, 52, "deepslate_tile_slab", type="bottom",
+              waterlogged="false")
+    for x in (64, 72):
+        for y in range(45, 54):
+            if old(x, y, 51) != "minecraft:air":
+                b(x, y, 52, "polished_tuff" if y not in (45, 49, 53)
+                  else "chiseled_stone_bricks")
+    for x, y in ((68, 47), (67, 48), (69, 48), (66, 49),
+                 (70, 49), (67, 50), (69, 50), (68, 51)):
+        if old(x, y, 51) != "minecraft:air":
+            b(x, y, 52, "waxed_cut_copper_slab", type="top",
+              waterlogged="false")
+    if old(68, 49, 51) != "minecraft:air":
+        b(68, 49, 52, "amethyst_block")
+
+    # The first horizontal hoop and the second copper meridians both hid the
+    # architecture in Minecraft. Clear those old fixture cells and hang a
+    # slender iron instrument with four warm lamps below the newly coffered
+    # bridge. Its lit violet heart stays six blocks over the walking floor.
     for dx in range(-4, 5):
         for dz in range(-4, 5):
             x, z = 68 + dx, 33 + dz
-            if old(x, 36, z) in ("minecraft:waxed_cut_copper_slab",
-                                 "minecraft:iron_bars", "minecraft:amethyst_block"):
-                b(x, 36, z, "air")
-            if old(x, 35, z) in ("minecraft:lantern",
-                                 "minecraft:purple_stained_glass"):
-                b(x, 35, z, "air")
-    for axis in ("x", "z"):
-        for d, h in ((-3, 0), (-2, 2), (-1, 3), (0, 3),
-                     (1, 3), (2, 2), (3, 0)):
-            x, z = (68 + d, 33) if axis == "x" else (68, 33 + d)
-            for y in (34 - h, 34 + h):
-                if y >= 38:
-                    continue
-                b(x, y, z, "waxed_cut_copper" if abs(d) == 3 or y == 31
-                  else "iron_bars", **({} if abs(d) == 3 or y == 31 else
-                  {"north": "true", "south": "true", "east": "true",
-                   "west": "true", "waterlogged": "false"}))
+            for y in range(31, 38):
+                if old(x, y, z) in ("minecraft:waxed_cut_copper",
+                                    "minecraft:waxed_cut_copper_slab",
+                                    "minecraft:iron_bars", "minecraft:lantern",
+                                    "minecraft:amethyst_block",
+                                    "minecraft:purple_stained_glass"):
+                    b(x, y, z, "air")
+    for d in range(-3, 4):
+        if d == 0:
+            continue
+        for x, z in ((68 + d, 33), (68, 33 + d)):
+            b(x, 35, z, "iron_bars", north="true", south="true",
+              east="true", west="true", waterlogged="false")
+    for y in (35, 36):
+        b(68, y, 33, "iron_chain", axis="y", waterlogged="false")
     b(68, 34, 33, "amethyst_block")
     b(68, 33, 33, "purple_stained_glass")
-    b(68, 32, 33, "sea_lantern")
+    b(68, 32, 33, "lantern", hanging="true", waterlogged="false")
     for x, z in ((64, 33), (72, 33), (68, 29), (68, 37)):
         b(x, 34, z, "waxed_cut_copper_slab", type="top", waterlogged="false")
         b(x, 33, z, "lantern", hanging="true", waterlogged="false")
