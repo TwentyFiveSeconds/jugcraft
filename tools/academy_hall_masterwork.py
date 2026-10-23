@@ -15,6 +15,19 @@ def craft_hall_masterwork(cells, put):
     def old(x, y, z):
         return cells.get((x, y, z), ("minecraft:air",))[0]
 
+    # The first runtime capture still exposed a broad, flat Y38 gallery lip.
+    # Open two larger central bays toward the north and south walls. Preserve
+    # the narrow occupied Y38 wall walks at Z20–21/Z45–46 and the three-wide
+    # east-west crossing through the named gallery anchor.
+    for x in range(63, 74):
+        for z in (*range(22, 26), *range(41, 45)):
+            for y in range(38, 41):
+                b(x, y, z, "air")
+    for z in (21, 45):
+        for x in (*range(63, 67), *range(70, 74)):
+            if old(x, 38, z) != "minecraft:air":
+                b(x, 39, z, "chiseled_stone_bricks")
+
     # Two high, unequal barrel bays rise through the existing teaching wells.
     # The four ribs are stepped in whole stone, shallow stair and slab courses;
     # dark coffer fields between them make their height legible from the floor.
@@ -112,6 +125,30 @@ def craft_hall_masterwork(cells, put):
         b(x, 46, 19, "polished_tuff_stairs", facing="south", half="top",
           shape="straight", waterlogged="false")
 
+    # These are Nordic stepped stone arches, with broad rounded crowns rather
+    # than narrow Gothic points. Their feet land on the previous grounded
+    # piers, and the newly opened gallery bays expose their intrados from the
+    # entrance. A dark timber soffit distinguishes the structure from the
+    # surrounding light masonry.
+    for z in (23, 43):
+        for x in range(61, 76):
+            d = abs(x - 68)
+            y = 45 - (d * d) // 10
+            b(x, y, z, "chiseled_stone_bricks" if d in (0, 4, 7)
+              else "polished_tuff")
+            if d <= 5:
+                b(x, y - 1, z, "dark_oak_planks" if d in (2, 3)
+                  else "polished_tuff_stairs", **({} if d in (2, 3)
+                  else {"facing": "east" if x < 68 else "west",
+                        "half": "top", "shape": "straight",
+                        "waterlogged": "false"}))
+        for x in (61, 75):
+            for y in range(28, 39):
+                if old(x, y, z) == "minecraft:air":
+                    b(x, y, z, "polished_tuff" if y % 4 else "tuff_bricks")
+            b(x, 39, z, "chiseled_stone_bricks")
+            b(x, 40, z, "polished_tuff")
+
     # A four-block-deep rear teaching console makes the apse an institution's
     # working lectern rather than an empty altar. The enchanted table at
     # (68,26,20), center lectern, and side lecterns retain their exact cells.
@@ -175,3 +212,34 @@ def craft_hall_masterwork(cells, put):
                 if old(x, y, 52) == "minecraft:stone_bricks":
                     b(x, y, 52, "polished_deepslate" if y < 49
                       else "chiseled_stone_bricks")
+
+    # Rework the first low horizontal copper hoop after inspecting its
+    # Minecraft silhouette. Two upright interlocking iron/bronze meridians
+    # form a tall teaching orrery, with an amethyst/lamplight core. Its bottom
+    # is six blocks above the floor; the occupied Y38 crossing stays intact.
+    for dx in range(-4, 5):
+        for dz in range(-4, 5):
+            x, z = 68 + dx, 33 + dz
+            if old(x, 36, z) in ("minecraft:waxed_cut_copper_slab",
+                                 "minecraft:iron_bars", "minecraft:amethyst_block"):
+                b(x, 36, z, "air")
+            if old(x, 35, z) in ("minecraft:lantern",
+                                 "minecraft:purple_stained_glass"):
+                b(x, 35, z, "air")
+    for axis in ("x", "z"):
+        for d, h in ((-3, 0), (-2, 2), (-1, 3), (0, 3),
+                     (1, 3), (2, 2), (3, 0)):
+            x, z = (68 + d, 33) if axis == "x" else (68, 33 + d)
+            for y in (34 - h, 34 + h):
+                if y >= 38:
+                    continue
+                b(x, y, z, "waxed_cut_copper" if abs(d) == 3 or y == 31
+                  else "iron_bars", **({} if abs(d) == 3 or y == 31 else
+                  {"north": "true", "south": "true", "east": "true",
+                   "west": "true", "waterlogged": "false"}))
+    b(68, 34, 33, "amethyst_block")
+    b(68, 33, 33, "purple_stained_glass")
+    b(68, 32, 33, "sea_lantern")
+    for x, z in ((64, 33), (72, 33), (68, 29), (68, 37)):
+        b(x, 34, z, "waxed_cut_copper_slab", type="top", waterlogged="false")
+        b(x, 33, z, "lantern", hanging="true", waterlogged="false")

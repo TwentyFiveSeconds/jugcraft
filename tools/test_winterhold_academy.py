@@ -265,6 +265,11 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((71, 27, 21)), 'minecraft:lectern')
         self.assertEqual(self.block((68, 26, 20)), 'minecraft:enchanting_table')
         self.assertEqual(self.block((68, 39, 33)), 'minecraft:air')
+        self.assertEqual(self.block((68, 38, 23)), 'minecraft:air')
+        self.assertEqual(self.block((68, 38, 43)), 'minecraft:air')
+        self.assertNotEqual(self.block((68, 38, 21)), 'minecraft:air')
+        self.assertNotEqual(self.block((68, 38, 45)), 'minecraft:air')
+        self.assertEqual(self.block((68, 34, 33)), 'minecraft:amethyst_block')
         for pos, block in STATIONS.values():
             self.assertEqual(self.block(pos), block)
 
