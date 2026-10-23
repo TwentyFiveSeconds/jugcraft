@@ -1,0 +1,176 @@
+"""A sectional, inhabited Hall of Elements fitted into Frostward's existing tower.
+
+The owner's permitted Fonta59 Hall has a deliberately open teaching void at
+Y118-130, an occupied stone ring at Y131, and successive slab/stair courses at
+Y132-135. This pass adapts that section to Frostward's larger Y25-50 Hall;
+the old stations, stairs, center gallery anchor and upper suites stay in place.
+No donor room, wall volume or complete building is copied.
+"""
+from math import hypot
+
+from retro_game_shop import state
+
+
+def craft_monumental_elements(cells, put):
+    def b(x, y, z, name, **props):
+        put(x, y, z, state(name if ":" in name else "minecraft:" + name, **props))
+
+    def old(x, y, z):
+        return cells.get((x, y, z), ("minecraft:air",))[0]
+
+    # The first detail pass left a suspended low stone net below the gallery.
+    # Remove that net, including its five low lights, so the four enlarged
+    # teaching wells really reveal the Y50 upper structure from ground level.
+    former_net = {
+        "minecraft:polished_andesite", "minecraft:chiseled_stone_bricks",
+        "minecraft:dark_oak_planks", "minecraft:lantern", "minecraft:iron_chain",
+        "minecraft:sea_lantern", "minecraft:amethyst_block",
+    }
+    for x in range(57, 80):
+        for z in range(22, 45):
+            if hypot(x - 68, z - 33) > 11:
+                continue
+            for y in range(30, 38):
+                if old(x, y, z) in former_net:
+                    b(x, y, z, "air")
+
+    # Deep, dark coffers remain high above the occupied gallery. They vary in
+    # width so the room reads as masonry work instead of a tiled flat ceiling.
+    for x in range(58, 79):
+        for z in range(23, 44):
+            dx, dz = x - 68, z - 33
+            if abs(dx) < 2 or abs(dz) < 2 or dx * dx + dz * dz > 11 * 11:
+                continue
+            if old(x, 50, z) == "minecraft:air":
+                continue
+            if abs(dx) in (5, 9) or abs(dz) in (5, 9):
+                b(x, 49, z, "dark_oak_planks" if (x + z) % 5 else "polished_tuff")
+            elif abs(dx) <= 8 and abs(dz) <= 8 and (x + z) % 3 == 0:
+                b(x, 50, z, "deepslate_tiles")
+
+    # Eight asymmetrically weighted supports grow from the teaching floor to
+    # the upper ring. The broad bases and paired corbels give the vault a load
+    # path rather than leaving decorative ribs floating in the air.
+    piers = ((57, 25), (79, 25), (57, 41), (79, 41),
+             (61, 20), (75, 20), (60, 46), (76, 46))
+    for x, z in piers:
+        for y in range(25, 44):
+            b(x, y, z, "chiseled_stone_bricks" if y in (25, 26, 31, 38, 42, 43)
+              else "polished_tuff" if y % 3 else "tuff_bricks")
+        for y in (27, 39):
+            for dx, dz in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                if hypot(x + dx - 68, z + dz - 33) < 18:
+                    b(x + dx, y, z + dz, "stone_brick_stairs",
+                      facing="east" if dx < 0 else "west" if dx > 0 else
+                      "south" if dz < 0 else "north", half="top",
+                      shape="straight", waterlogged="false")
+        b(x, 44, z, "polished_deepslate")
+        b(x, 45, z, "deepslate_tile_slab", type="bottom", waterlogged="false")
+
+    # Four paired, rising stone vaults follow the donor's alternating full
+    # block/slab/stair section. They cross the open quadrants well above the
+    # Y38 walking bridge, with dark intrados and pale carved keystones.
+    for sx in (-1, 1):
+        for sz in (-1, 1):
+            for radius in range(5, 13):
+                for offset in (-1, 0, 1):
+                    x = 68 + sx * round(radius * .707) + (offset if sz == sx else -offset)
+                    z = 33 + sz * round(radius * .707) + offset
+                    if not 55 <= x <= 81 or not 20 <= z <= 46:
+                        continue
+                    y = 49 - (radius - 5) // 2
+                    b(x, y, z, "chiseled_stone_bricks" if radius in (5, 8, 11)
+                      else "polished_tuff" if offset == 0 else "tuff_bricks")
+                    if offset == 0 and radius % 2 == 0:
+                        b(x, y - 1, z, "deepslate_tile_slab", type="top", waterlogged="false")
+            # Shallow pointed ribs near the gallery's perimeter are supported
+            # by the new piers, not generic Gothic flying buttresses.
+            for leg in range(4):
+                x = 68 + sx * (9 + leg)
+                z = 33 + sz * (4 + leg)
+                b(x, 43 - leg // 2, z, "polished_andesite")
+
+    # Stone-framed lamplight up in each high well makes the new section legible
+    # at night without flooding the floor with cold white blocks.
+    for x, z in ((62, 27), (74, 27), (62, 39), (74, 39)):
+        for y in range(46, 49):
+            b(x, y, z, "iron_chain", axis="y", waterlogged="false")
+        b(x, 45, z, "lantern", hanging="true", waterlogged="false")
+        for dx, dz in ((-1, 0), (1, 0)):
+            b(x + dx, 49, z + dz, "chiseled_stone_bricks")
+
+    # A high bronze-and-amethyst armillary replaces the low, stark cross of
+    # sea lanterns. Its Y33 base leaves eight blocks over the teaching floor.
+    for y in range(35, 38):
+        b(68, y, 33, "iron_chain", axis="y", waterlogged="false")
+    b(68, 34, 33, "amethyst_block")
+    b(68, 33, 33, "purple_stained_glass")
+    for dx, dz in ((-4, 0), (4, 0), (0, -4), (0, 4),
+                   (-3, -3), (-3, 3), (3, -3), (3, 3)):
+        x, z = 68 + dx, 33 + dz
+        b(x, 35, z, "copper_block" if dx * dz == 0 else "polished_deepslate")
+        if dx * dz == 0:
+            b(x, 34, z, "lantern", hanging="true", waterlogged="false")
+        else:
+            b(x, 36, z, "amethyst_block")
+    for dx, dz in ((-2, -3), (2, -3), (-2, 3), (2, 3),
+                   (-3, -2), (3, -2), (-3, 2), (3, 2)):
+        b(68 + dx, 35, 33 + dz, "cut_copper")
+
+    # The north teaching apse has two occupied tiers and a carved, illuminated
+    # magical diagram. Keep the earlier enchanting table and wide aisle.
+    for x in range(63, 74):
+        for z in range(18, 25):
+            if abs(x - 68) + abs(z - 21) > 8:
+                continue
+            b(x, 25, z, "polished_deepslate" if z in (18, 24) or x in (63, 73)
+              else "polished_tuff")
+            if z <= 21 and (x, z) != (68, 20):
+                b(x, 26, z, "polished_andesite")
+    for x in range(64, 73):
+        b(x, 25, 25, "polished_tuff_stairs", facing="south", half="bottom",
+          shape="straight", waterlogged="false")
+    for x in (62, 74):
+        for z in (19, 23):
+            for y in range(26, 35):
+                b(x, y, z, "chiseled_stone_bricks" if y in (26, 31, 34)
+                  else "tuff_bricks")
+            b(x, 35, z, "sea_lantern")
+    for x in range(63, 74):
+        for y in range(28, 39):
+            if x in (63, 73) or y in (28, 38):
+                b(x, y, 17, "chiseled_stone_bricks")
+            elif 65 <= x <= 71 and 30 <= y <= 36:
+                b(x, y, 17, "polished_deepslate" if (x + y) % 3 else "amethyst_block")
+    for x, y in ((66, 32), (68, 34), (70, 32), (68, 30)):
+        b(x, y, 18, "purple_stained_glass")
+        b(x, y, 17, "sea_lantern")
+    for x in (65, 71):
+        b(x, 27, 21, "lectern", facing="south", has_book="false", powered="false")
+
+    # Real three-level seating decks and individual writing places replace
+    # three rows of identical stair benches. The center is five blocks wide;
+    # both side aisles and the stations remain clear.
+    for x in list(range(59, 66)) + list(range(71, 78)):
+        for z in range(35, 49):
+            for y in range(25, 29):
+                if old(x, y, z) in ("minecraft:spruce_stairs", "minecraft:dark_oak_slab"):
+                    b(x, y, z, "air")
+    for z, deck in ((37, 24), (42, 25), (47, 26)):
+        for x in list(range(60, 66)) + list(range(71, 77)):
+            for zz in range(z - 1, z + 2):
+                for y in range(24, deck + 1):
+                    b(x, y, zz, "polished_deepslate" if y == deck else "stone_bricks")
+            b(x, deck + 1, z + 1, "spruce_stairs", facing="north", half="bottom",
+              shape="straight", waterlogged="false")
+            b(x, deck + 1, z - 1, "dark_oak_slab", type="top", waterlogged="false")
+        for x in (59, 77):
+            b(x, deck + 1, z, "chiseled_stone_bricks")
+            b(x, deck + 2, z, "lantern", hanging="false", waterlogged="false")
+        for x in (62, 74):
+            b(x, deck + 2, z - 1, "lectern", facing="north", has_book="false", powered="false")
+    for x in (59, 77):
+        b(x, 25, 40, "polished_tuff_stairs", facing="south", half="bottom",
+          shape="straight", waterlogged="false")
+        b(x, 26, 45, "polished_tuff_stairs", facing="south", half="bottom",
+          shape="straight", waterlogged="false")

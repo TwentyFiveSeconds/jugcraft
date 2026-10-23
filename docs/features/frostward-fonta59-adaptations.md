@@ -2,6 +2,10 @@
 
 Fonta59 created [Winterhold (Skyrim TES) with interior](https://www.planetminecraft.com/project/winterhold-skyrim-tes-with-interior/). The Jugcraft owner reports direct permission to selectively reuse and modify portions of his Minecraft world, provided the entire map is not simply copied and pasted. The owner-supplied `Winterhold_by_fonta59.rar` was inspected locally; neither the archive nor its unmodified world is part of this repository or mod distribution.
 
+## Monumental Hall interior section (22 October 2026)
+
+The new Hall pass studies the bounded donor Hall at world **X18–67, Z−207..−153, Y116–145**. At Y118 its stepped slab/stair annulus encloses an open teaching void; Y129–135 turns that void into a load-bearing upper ring through full stone, thin slabs and stair courses. Frostward selectively adapts this **sectional relationship**, not those source coordinates or a whole room. Its existing Y38 gallery now has a guarded three-wide east–west crossing, larger open north/south teaching wells and the same central anchor, perimeter route and original stairs. New original tuff piers, rising stone vaults, high timber/deepslate coffers, a bronze/amethyst armillary, two-tier north teaching apse and three-level scholarly seating fit Frostward's larger Y25–50 occupied volume. The Fonta59 world remains outside the repo. Runtime visual acceptance is pending the new close and wide Minecraft captures.
+
 This checkpoint keeps Frostward's existing **176 × 161** campus footprint, seven-landmark arrangement, 45 room/anchor points, academy stations, Arctus Vale, S01 runes and Midden. The generated structure has grown from **76 to 88 blocks high** for the Hall's stronger bridge silhouette. The single source remains `tools/winterhold_layout.json` and its Python generator passes.
 
 | Donor region in the 1.12.2 world | Selected part | Frostward destination and transformation |

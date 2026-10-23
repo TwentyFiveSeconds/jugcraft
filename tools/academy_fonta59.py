@@ -140,17 +140,22 @@ def open_elements_gallery(cells, put):
 
     Fonta59 Hall world X 20..64, Z -201..-157 at Y118/131 has a deep
     central void and occupied ring. Frostward keeps the existing center anchor
-    by crossing the void with two five-wide teaching bridges. Its original
-    stairs and all floor-level magic stations remain in their existing places.
+    on one guarded three-wide east-west teaching bridge. The north and south
+    gallery sectors remain linked by the perimeter ring. Original stairs and
+    floor-level magic stations remain in their existing places.
     """
     def block(x, y, z, name, **props):
         put(x, y, z, state("minecraft:" + name, **props))
 
     openings = set()
-    for x in range(59, 78):
-        for z in range(24, 43):
+    for x in range(57, 80):
+        for z in range(22, 45):
             dx, dz = x - 68, z - 33
-            if dx * dx + dz * dz <= 10 * 10 and abs(dx) > 2 and abs(dz) > 2:
+            # Fonta59's occupied ring surrounds a genuinely open teaching
+            # void. Keep a guarded three-wide east-west crossing for the
+            # existing central gallery anchor, but open the north/south axis
+            # and larger corner wells to reveal the much higher upper vault.
+            if dx * dx + dz * dz <= 11 * 11 and abs(dz) > 1:
                 openings.add((x, z))
                 block(x, 38, z, "air")
                 for y in range(39, 43):
@@ -160,7 +165,7 @@ def open_elements_gallery(cells, put):
     # it has a supporting floor block and leaves three clear bridge lanes.
     for x, z in openings:
         for nx, nz in ((x - 1, z), (x + 1, z), (x, z - 1), (x, z + 1)):
-            if (nx, nz) in openings or not 58 <= nx <= 78 or not 23 <= nz <= 43:
+            if (nx, nz) in openings or not 55 <= nx <= 81 or not 20 <= nz <= 46:
                 continue
             if cells.get((nx, 38, nz), ("minecraft:air",))[0] == "minecraft:air":
                 continue

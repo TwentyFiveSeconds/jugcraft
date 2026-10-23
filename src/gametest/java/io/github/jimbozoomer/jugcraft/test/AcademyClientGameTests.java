@@ -91,8 +91,14 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_hall");
 			view(context, server, 68, 251, 39, 180, -5);
 			context.takeScreenshot("jugcraft_academy_hall_ceiling_dais");
+			view(context, server, 61, 252, 43, 145, -19);
+			context.takeScreenshot("jugcraft_academy_hall_vault_oblique");
+			view(context, server, 68, 252, 32, 180, 1);
+			context.takeScreenshot("jugcraft_academy_hall_teaching_apse");
 			view(context, server, 68, 264, 41, 180, 10);
 			context.takeScreenshot("jugcraft_academy_upper_gallery");
+			view(context, server, 76, 264, 40, 135, 4);
+			context.takeScreenshot("jugcraft_academy_hall_gallery_oblique");
 			view(context, server, 59, 251, 36, 180, 20);
 			context.takeScreenshot("jugcraft_academy_radiance_instructor");
 			server.runOnServer(s -> {
