@@ -269,3 +269,33 @@ def craft_monumental_elements(cells, put):
           shape="straight", waterlogged="false")
         b(x, 26, 45, "polished_tuff_stairs", facing="south", half="bottom",
           shape="straight", waterlogged="false")
+
+    # The high north teaching gallery should read as an inhabited academic
+    # wall, not a window stranded in a gray cylinder. A deep west book court
+    # and an unequal eastern instrument cabinet flank the preserved window,
+    # with a shared carved lintel carried by their stone jambs. Both sit
+    # against the back wall; the Y38 walking ring and north lectern stay open.
+    for x in (59, 63, 73, 77):
+        for y in range(39, 48):
+            b(x, y, 18, "chiseled_stone_bricks" if y in (39, 43, 47)
+              else "polished_tuff")
+        b(x, 48, 18, "polished_tuff_stairs", facing="south", half="top",
+          shape="straight", waterlogged="false")
+    for x in range(60, 63):
+        for y in range(40, 47):
+            b(x, y, 18, "dark_oak_planks" if y in (43, 46)
+              else "chiseled_stone_bricks" if y == 40 else "bookshelf")
+        b(x, 47, 19, "polished_deepslate")
+    for x in range(74, 77):
+        for y in range(40, 47):
+            b(x, y, 18, "dark_oak_planks" if y in (40, 46)
+              else "polished_deepslate")
+    for x, y in ((75, 42), (74, 43), (76, 43), (75, 44)):
+        b(x, y, 19, "waxed_cut_copper")
+    b(75, 43, 19, "amethyst_block")
+    for x in range(63, 74):
+        b(x, 47, 18, "chiseled_stone_bricks" if x in (63, 68, 73)
+          else "dark_oak_planks")
+    for x in (61, 75):
+        b(x, 46, 19, "iron_chain", axis="y", waterlogged="false")
+        b(x, 45, 19, "lantern", hanging="true", waterlogged="false")

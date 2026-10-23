@@ -255,6 +255,19 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((35, 52, 35)), 'minecraft:lantern')
         self.assertEqual(self.block((62, 36, 116)), 'minecraft:lantern')
 
+    def test_hall_vault_and_teaching_zones_preserve_working_layout(self):
+        self.assertEqual(self.block((68, 48, 24)), 'minecraft:chiseled_stone_bricks')
+        self.assertEqual(self.block((68, 48, 42)), 'minecraft:chiseled_stone_bricks')
+        self.assertEqual(self.block((66, 47, 26)), 'minecraft:lantern')
+        self.assertEqual(self.block((60, 26, 31)), 'minecraft:cartography_table')
+        self.assertEqual(self.block((76, 26, 31)), 'minecraft:smithing_table')
+        self.assertEqual(self.block((65, 27, 21)), 'minecraft:lectern')
+        self.assertEqual(self.block((71, 27, 21)), 'minecraft:lectern')
+        self.assertEqual(self.block((68, 26, 20)), 'minecraft:enchanting_table')
+        self.assertEqual(self.block((68, 39, 33)), 'minecraft:air')
+        for pos, block in STATIONS.values():
+            self.assertEqual(self.block(pos), block)
+
 
 if __name__ == "__main__":
     unittest.main()
