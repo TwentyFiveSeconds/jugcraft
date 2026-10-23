@@ -245,6 +245,7 @@ class AcademyTests(unittest.TestCase):
 
     def test_teaching_hall_and_private_suite_have_distinct_furnishings(self):
         self.assertEqual(self.block((68, 24, 25)), 'minecraft:amethyst_block')
+        self.assertEqual(self.block((68, 24, 33)), 'minecraft:amethyst_block')
         self.assertEqual(self.block((68, 26, 29)), 'minecraft:soul_lantern')
         self.assertEqual(self.block((56, 25, 35)), 'minecraft:spruce_stairs')
         self.assertEqual(self.block((43, 50, 33)), 'minecraft:red_terracotta')
