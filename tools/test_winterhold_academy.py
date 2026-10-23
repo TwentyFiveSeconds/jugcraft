@@ -132,6 +132,8 @@ class AcademyTests(unittest.TestCase):
                         queue.append(p)
         for name, pos in ROOMS.items():
             self.assertTrue(pos in visited, f"Unreachable room: {name} at {pos}")
+        for pos in ((105, 35, 34), (112, 35, 27), (119, 35, 34)):
+            self.assertTrue(pos in visited, f"Unreachable Arcanaeum gallery: {pos}")
         for name, (pos, _) in STATIONS.items():
             x, y, z = pos
             self.assertTrue(any((x+dx, y, z+dz) in visited
@@ -192,7 +194,7 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((104, 24, 121)), "minecraft:air")
         self.assertEqual(self.block((68, 31, 85)), "minecraft:air")  # open-sky court
         self.assertEqual(self.block((112, 36, 34)), "minecraft:air")  # opened Arcanaeum vault
-        self.assertNotEqual(self.block((112, 44, 34)), "minecraft:air")  # raised roof
+        self.assertNotEqual(self.block((112, 46, 34)), "minecraft:air")  # raised roof
         lecterns = [b for b in self.template["blocks"]
                     if self.palette[b["state"]]["id"] == "jugcraft:conclave_lectern"]
         self.assertEqual(len(lecterns), 1)
@@ -246,7 +248,9 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((68, 26, 29)), 'minecraft:soul_lantern')
         self.assertEqual(self.block((56, 25, 35)), 'minecraft:spruce_stairs')
         self.assertEqual(self.block((43, 50, 33)), 'minecraft:red_terracotta')
-        self.assertEqual(self.block((45, 51, 30)), 'minecraft:spruce_stairs')
+        self.assertEqual(self.block((45, 51, 32)), 'minecraft:spruce_stairs')
+        self.assertEqual(self.block((75, 65, 37)), 'minecraft:orange_stained_glass')
+        self.assertEqual(self.block((107, 34, 34)), 'minecraft:polished_tuff_stairs')
         self.assertEqual(self.block((35, 52, 35)), 'minecraft:lantern')
         self.assertEqual(self.block((62, 36, 116)), 'minecraft:lantern')
 

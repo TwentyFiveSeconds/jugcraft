@@ -131,10 +131,11 @@ def craft_monumental_elements(cells, put):
             x, z = 68 + dx, 33 + dz
             if 4.4 <= radius <= 5.2:
                 b(x, 24, z, "polished_deepslate")
-            elif radius <= 3.6 and (dx == 0 or dz == 0):
+            elif 3 <= radius <= 4.4 and (dx == 0 or dz == 0):
                 b(x, 24, z, "waxed_cut_copper")
             elif radius <= 3.6:
                 b(x, 24, z, "polished_tuff" if (dx + dz) % 3 else "tuff_bricks")
+    b(68, 24, 33, "amethyst_block")
     for dx, dz in ((-5, 0), (5, 0), (0, -5), (0, 5)):
         b(68 + dx, 24, 33 + dz, "amethyst_block")
 
@@ -180,6 +181,33 @@ def craft_monumental_elements(cells, put):
     b(68, 33, 18, "purple_stained_glass")
     for x in (65, 71):
         b(x, 27, 21, "lectern", facing="south", has_book="false", powered="false")
+    b(68, 26, 23, "lectern", facing="south", has_book="false", powered="false")
+    for x in (66, 70):
+        b(x, 26, 23, "waxed_cut_copper_slab", type="bottom", waterlogged="false")
+
+    # The east side is a continuous, recessed teaching archive beneath the
+    # gallery, while the opposite daylight bay has a carved window surround.
+    # These unequal treatments replace the broad identical gray side walls.
+    for z in range(29, 39):
+        for y in range(29, 38):
+            if z in (29, 34, 38):
+                b(79, y, z, "chiseled_stone_bricks" if y in (29, 33, 37)
+                  else "polished_tuff")
+            else:
+                b(80, y, z, "polished_deepslate" if y in (29, 33, 37)
+                  else "tuff_bricks")
+                if z in (31, 32, 36, 37) and y in (30, 31, 32):
+                    b(79, y, z, "bookshelf" if y != 31 else "chiseled_bookshelf",
+                      **({} if y != 31 else {"facing": "west"}))
+    for z in (30, 35):
+        b(78, 33, z, "chiseled_stone_bricks")
+        b(78, 34, z, "lantern", hanging="false", waterlogged="false")
+    for z in (29, 38):
+        for y in range(29, 37):
+            b(57, y, z, "chiseled_stone_bricks" if y in (29, 33, 36)
+              else "polished_tuff")
+    for z in range(30, 38):
+        b(57, 37, z, "polished_deepslate" if z % 3 else "chiseled_stone_bricks")
 
     # Real three-level seating decks and individual writing places replace
     # three rows of identical stair benches. The center is five blocks wide;

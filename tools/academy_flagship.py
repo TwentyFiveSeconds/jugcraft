@@ -17,38 +17,85 @@ def craft_flagship_rooms(cells, put):
         return cells.get((x, y, z), ("minecraft:air",))[0]
 
     # LIBRARY: replace the original low ceiling over the reading nave with
-    # a raised, enclosed lantern vault. The side stacks and the Conclave at
-    # (112,25,23) are outside this cut. Its stepped ribs grow from the shelf
-    # piers; glazed clerestory bays light the books without a glass roof.
-    for x in range(107, 118):
-        for z in range(27, 42):
-            for y in range(32, 43):
+    # a full-height archive lantern and reachable upper reading gallery. The
+    # side stacks and Conclave at (112,25,23) stay outside this roof cut.
+    # Fonta59's stepped shelf returns become inhabited perimeter archive bays.
+    for x in range(103, 122):
+        for z in range(25, 44):
+            for y in range(32, 46):
                 b(x, y, z, "air")
-            b(x, 44, z, "deepslate_tiles" if (x + z) % 7 else "polished_deepslate")
-    for z in (28, 34, 40):
-        for x in range(106, 119):
+            b(x, 46, z, "deepslate_tiles" if (x + z) % 7 else "polished_deepslate")
+    for z in (27, 34, 41):
+        for x in range(103, 122):
             dx = abs(x - 112)
-            y = 43 - (dx * 2 // 3)
-            b(x, y, z, "chiseled_stone_bricks" if dx in (0, 6) else "polished_tuff")
-            if dx < 5:
+            y = 45 - (dx * 2 // 3)
+            b(x, y, z, "chiseled_stone_bricks" if dx in (0, 5, 9) else "polished_tuff")
+            if dx < 7:
                 b(x, y - 1, z, "polished_tuff_stairs", facing="east" if x < 112 else "west",
                   half="top", shape="straight", waterlogged="false")
-    for x in (107, 117):
-        for z in range(27, 42):
-            for y in range(37, 44):
-                b(x, y, z, "chiseled_stone_bricks" if z in (27, 34, 41) or y in (37, 43)
-                  else "orange_stained_glass" if z % 4 in (1, 2) and y in (39, 40)
+    for x in (103, 121):
+        for z in range(25, 44):
+            for y in range(37, 46):
+                b(x, y, z, "chiseled_stone_bricks" if z in (25, 34, 43) or y in (37, 45)
+                  else "orange_stained_glass" if z % 4 in (1, 2) and y in (40, 41)
                   else "polished_deepslate")
-    for z in (27, 41):
-        for x in range(108, 117):
-            for y in range(37, 44):
-                b(x, y, z, "chiseled_stone_bricks" if x in (108, 112, 116) or y in (37, 43)
-                  else "orange_stained_glass" if y in (39, 40)
+    for z in (25, 43):
+        for x in range(104, 121):
+            for y in range(37, 46):
+                b(x, y, z, "chiseled_stone_bricks" if x in (104, 112, 120) or y in (37, 45)
+                  else "orange_stained_glass" if y in (40, 41)
                   else "polished_deepslate")
+    # An uneven stepped Nordic crown makes the new lantern part of the campus
+    # roof hierarchy instead of an unbroken black box above the library.
+    for half_width, z0, z1, y in ((7, 27, 41, 47), (5, 28, 40, 48),
+                                  (3, 29, 39, 49), (1, 30, 38, 50)):
+        for x in range(112 - half_width, 113 + half_width):
+            for z in range(z0, z1 + 1):
+                b(x, y, z, "deepslate_tiles" if abs(x - 112) == half_width
+                  else "polished_deepslate")
+    for z in range(31, 38):
+        b(112, 51, z, "waxed_cut_copper_slab", type="bottom", waterlogged="false")
+    for x in (102, 122):
+        for z in (25, 34, 43):
+            for y in range(36, 46):
+                b(x, y, z, "chiseled_stone_bricks" if y in (36, 41, 45)
+                  else "polished_tuff")
+    # The y34 balcony wraps the new void. A broad nine-rise stair from the
+    # south reading floor reaches its west side; a gap in the rail is kept at
+    # the landing. Upper shelves face the central teaching/reading well.
+    for z in range(27, 43):
+        for x in list(range(104, 108)) + list(range(117, 121)):
+            b(x, 34, z, "dark_oak_planks" if x in (105, 106, 118, 119)
+              else "chiseled_stone_bricks")
+    for z in (27, 42):
+        for x in range(104, 121):
+            b(x, 34, z, "dark_oak_planks" if x % 4 else "chiseled_stone_bricks")
+    for z in range(28, 42):
+        for x in (107, 117):
+            if not (x == 107 and z in (33, 34, 35)):
+                b(x, 35, z, "dark_oak_fence")
+    for x in range(108, 117):
+        for z in (28, 41):
+            b(x, 35, z, "dark_oak_fence")
+    for z in range(29, 41):
+        for x in (104, 120):
+            for y in range(35, 40):
+                b(x, y, z, "dark_oak_planks" if y == 38 else "bookshelf")
+            b(x, 40, z, "chiseled_stone_bricks")
+    for z in range(43, 33, -1):
+        height = 25 + 43 - z
+        for x in (107, 108):
+            for y in range(25, height):
+                b(x, y, z, "polished_tuff")
+            b(x, height, z, "polished_tuff_stairs", facing="north",
+              half="bottom", shape="straight", waterlogged="false")
+            for y in (height + 1, height + 2):
+                if y < 37:
+                    b(x, y, z, "air")
     for z in (29, 39):
-        for x in (109, 115):
-            b(x, 40, z, "iron_chain", axis="y", waterlogged="false")
-            b(x, 39, z, "lantern", hanging="true", waterlogged="false")
+        for x in (110, 114):
+            b(x, 43, z, "iron_chain", axis="y", waterlogged="false")
+            b(x, 42, z, "lantern", hanging="true", waterlogged="false")
     # High archive fronts are separated by dark oak bands and deep stone
     # returns. Four deliberately different research bays flank the clear
     # central aisle instead of repeating one bench down the room.
@@ -80,9 +127,9 @@ def craft_flagship_rooms(cells, put):
             if old(x, 31, z) in ("minecraft:sea_lantern", "minecraft:smooth_quartz"):
                 b(x, 31, z, "air")
     for x, z in ((110, 34), (114, 34), (112, 32), (112, 36)):
-        b(x, 41, z, "waxed_cut_copper")
-    b(112, 41, 34, "sea_lantern")
-    b(112, 40, 34, "orange_stained_glass")
+        b(x, 43, z, "waxed_cut_copper")
+    b(112, 43, 34, "sea_lantern")
+    b(112, 42, 34, "orange_stained_glass")
 
     # COURT: the planted ground now meets the Nordic arcade in a continuous
     # irregular herbaceous verge. Formal five-wide radial walks, S01 runes and
@@ -189,3 +236,74 @@ def craft_flagship_rooms(cells, put):
         b(x, 52, 37, "dark_oak_slab", type="top", waterlogged="false")
     b(46, 52, 36, "lectern", facing="south", has_book="false", powered="false")
     b(47, 53, 37, "lantern", hanging="false", waterlogged="false")
+
+    # A glazed autumn conservatory grows out of the study's existing small
+    # planted corner. It is local to the upper suite and sealed by a copper
+    # frame, not a climate or weather change. The garden anchor remains open.
+    for x in range(72, 80):
+        for z in range(34, 42):
+            for y in range(62, 65):
+                b(x, y, z, "air")
+            b(x, 65, z, "waxed_cut_copper" if x in (72, 79) or z in (34, 41)
+              else "orange_stained_glass")
+            if x in (74, 77) and z in (36, 39):
+                b(x, 66, z, "sea_lantern")
+    for x, z in ((72, 34), (79, 34), (72, 41), (79, 41)):
+        for y in range(51, 65):
+            b(x, y, z, "chiseled_stone_bricks" if y in (51, 57, 64)
+              else "polished_tuff")
+    for x in range(74, 79):
+        for z in range(36, 41):
+            if x in (74, 78) or z in (36, 40):
+                b(x, 50, z, "moss_block" if (x + z) % 3 else "coarse_dirt")
+            if (x, z) in ((75, 38), (77, 37), (76, 40)):
+                b(x, 51, z, "jugcraft:" + ("purple" if x == 75 else "orange") + "_mum")
+    for x, z, colour in ((76, 37, "red"), (78, 39, "orange")):
+        b(x, 51, z, "jugcraft:ecology_maple_log", axis="y")
+        for y in (54, 55):
+            for dx in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    if abs(dx) + abs(dz) < 3:
+                        b(x + dx, y, z + dz, "jugcraft:ecology_" + colour + "_maple_leaves")
+    for x, z in ((73, 40), (79, 35)):
+        b(x, 51, z, "chiseled_quartz_block")
+        b(x, 52, z, "lantern", hanging="false", waterlogged="false")
+
+    # Receiving room: a stone-bordered walnut carpet, reading seats and a
+    # scholar's instrument make the large upper floor occupied without
+    # constricting the west gallery or center route.
+    for x in range(62, 69):
+        for z in range(38, 43):
+            if hypot(x - 65, z - 40) <= 3.5:
+                b(x, 50, z, "dark_oak_planks" if x in (62, 68) or z in (38, 42)
+                  else "red_terracotta" if (x + z) % 3 else "purple_terracotta")
+    for x in range(64, 67):
+        b(x, 51, 40, "dark_oak_planks")
+        b(x, 52, 40, "dark_oak_slab", type="top", waterlogged="false")
+    for x in (63, 67):
+        b(x, 51, 41, "spruce_stairs", facing="north", half="bottom",
+          shape="straight", waterlogged="false")
+    b(65, 53, 40, "lantern", hanging="false", waterlogged="false")
+
+    # Replace the annex's small solitary quartz pedestal with a long writing
+    # table and map instruments, then frame its former slit as a tall amber
+    # window between deeply recessed northern archive cases.
+    for y in (51, 52):
+        b(42, y, 30, "air")
+    for x in range(40, 47):
+        for z in (29, 30):
+            b(x, 51, z, "dark_oak_planks" if x in (40, 43, 46) else "air")
+            b(x, 52, z, "dark_oak_slab", type="top", waterlogged="false")
+    b(43, 52, 28, "lectern", facing="south", has_book="false", powered="false")
+    for x in (41, 45):
+        b(x, 53, 30, "lantern", hanging="false", waterlogged="false")
+        b(x, 51, 32, "spruce_stairs", facing="north", half="bottom",
+          shape="straight", waterlogged="false")
+    for x in range(40, 47):
+        for y in range(52, 59):
+            if x in (40, 46) or y in (52, 58):
+                b(x, y, 22, "chiseled_stone_bricks")
+            elif x in (42, 43, 44) and y in (54, 55, 56):
+                b(x, y, 22, "orange_stained_glass")
+            else:
+                b(x, y, 22, "polished_deepslate")

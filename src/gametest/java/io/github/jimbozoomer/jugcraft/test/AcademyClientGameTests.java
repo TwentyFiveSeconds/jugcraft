@@ -99,6 +99,8 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_hall_vault_oblique");
 			view(context, server, 68, 252, 32, 180, 1);
 			context.takeScreenshot("jugcraft_academy_hall_teaching_apse");
+			view(context, server, 72, 252, 34, 270, -5);
+			context.takeScreenshot("jugcraft_academy_hall_side_archive");
 			view(context, server, 68, 264, 41, 180, 10);
 			context.takeScreenshot("jugcraft_academy_upper_gallery");
 			view(context, server, 76, 264, 40, 135, 4);
@@ -116,8 +118,10 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_library");
 			view(context, server, 112, 252, 39, 180, -25);
 			context.takeScreenshot("jugcraft_academy_library_vault");
-			view(context, server, 107, 252, 37, 145, -3);
+			view(context, server, 112, 252, 38, 135, -3);
 			context.takeScreenshot("jugcraft_academy_library_research_bay");
+			view(context, server, 105, 260, 35, 270, 5);
+			context.takeScreenshot("jugcraft_academy_library_upper_gallery");
 			view(context, server, 157, 252, 41, 180, 3);
 			context.takeScreenshot("jugcraft_academy_grand_reading");
 			view(context, server, 153, 262, 42, 180, 5);
@@ -126,8 +130,10 @@ public final class AcademyClientGameTests implements FabricClientGameTest {
 			context.takeScreenshot("jugcraft_academy_scholarly_wing");
 			view(context, server, 68, 278, 42, 180, 10);
 			context.takeScreenshot("jugcraft_academy_archmage");
-			view(context, server, 62, 278, 38, 155, -12);
+			view(context, server, 72, 278, 41, 180, -12);
 			context.takeScreenshot("jugcraft_academy_archmage_study_detail");
+			view(context, server, 77, 278, 42, 180, -17);
+			context.takeScreenshot("jugcraft_academy_archmage_conservatory");
 			view(context, server, 43, 277, 39, 180, 5);
 			context.takeScreenshot("jugcraft_academy_archmage_annex");
 			view(context, server, 46, 278, 40, 145, 2);
