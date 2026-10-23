@@ -273,6 +273,10 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((68, 38, 27)), 'minecraft:chiseled_stone_bricks')
         self.assertEqual(self.block((65, 35, 33)), 'minecraft:iron_bars')
         self.assertEqual(self.block((68, 49, 52)), 'minecraft:amethyst_block')
+        self.assertEqual(self.block((68, 26, 30)), 'minecraft:lectern')
+        self.assertEqual(self.block((65, 26, 29)), 'minecraft:amethyst_block')
+        self.assertEqual(self.block((71, 26, 29)), 'minecraft:waxed_cut_copper')
+        self.assertEqual(self.block((68, 25, 33)), 'minecraft:air')
         for pos, block in STATIONS.values():
             self.assertEqual(self.block(pos), block)
 

@@ -223,53 +223,77 @@ def craft_hall_masterwork(cells, put):
           facing="east" if side < 0 else "west", half="top",
           shape="straight", waterlogged="false")
 
-    # A selective south elevation treatment makes the tower's great frontage
-    # look carved from several depths. Existing lower portal, amber windows,
-    # roof relief and autumn foliage stay intact.
-    for x in (61, 67, 69, 75):
-        for y in range(45, 63):
-            if old(x, y, 51) not in ("minecraft:stone_bricks",
-                                     "minecraft:chiseled_stone_bricks",
-                                     "minecraft:polished_andesite"):
-                continue
-            b(x, y, 52, "chiseled_stone_bricks" if y in (45, 50, 56, 62)
-              else "polished_tuff" if y % 3 else "tuff_bricks")
-    for x0, x1 in ((62, 66), (70, 74)):
-        for x in range(x0, x1 + 1):
-            if old(x, 51, 51) != "minecraft:air":
-                b(x, 51, 52, "deepslate_tile_slab", type="bottom",
-                  waterlogged="false")
-        for x in range(x0 + 1, x1):
-            for y in range(46, 51):
-                if old(x, y, 51) == "minecraft:stone_bricks":
-                    b(x, y, 51, "polished_deepslate" if y < 49
-                      else "chiseled_stone_bricks")
-
-    # A single recessed heraldic teaching panel gives the south Hall drum a
-    # focal surface below its three old amber clerestories. Its framed dark
-    # field interrupts the gray cylinder without copying a donor façade or
-    # touching the lower processional door.
+    # Bring the professor's active demonstration into the middle of the
+    # auditorium instead of leaving a broad empty gray floor before the
+    # northern apse. This low, nine-wide instrument deck meets the older
+    # compass and side plinths while leaving the named center anchor at
+    # (68,25,33), both side routes and the Y26 soul lantern unobstructed.
     for x in range(64, 73):
+        for z in range(28, 32):
+            edge = x in (64, 72) or z in (28, 31)
+            b(x, 25, z, "polished_deepslate" if edge
+              else "dark_oak_planks" if (x + z) % 3 else "polished_tuff")
+    for x in range(65, 72):
+        b(x, 25, 32, "polished_tuff_stairs", facing="south", half="bottom",
+          shape="straight", waterlogged="false")
+    for x, material in ((65, "amethyst_block"), (71, "waxed_cut_copper")):
+        b(x, 26, 29, material)
+        b(x, 27, 29, "end_rod", facing="up")
+        b(x, 26, 31, "chiseled_stone_bricks")
+        b(x, 27, 31, "lantern", hanging="false", waterlogged="false")
+    for x in (66, 70):
+        b(x, 26, 30, "dark_oak_slab", type="top", waterlogged="false")
+    b(68, 26, 30, "lectern", facing="south", has_book="false",
+      powered="false")
+
+    # The tower front is curved in plan: at Y49 its outer stone lies at Z49,
+    # Z50 or Z51 depending on X. The first runtime panel mistakenly assumed
+    # one flat Z51 wall and appeared as a narrow center stripe. Fit each bay
+    # to its actual outermost stone, retaining the existing upper windows and
+    # south processional threshold. The result is a broad, recessed Nordic
+    # heraldic screen with thick light jambs and a slate/bronze center.
+    def frontage(x, y):
+        for z in range(52, 47, -1):
+            if old(x, y, z) in ("minecraft:stone_bricks",
+                                "minecraft:chiseled_stone_bricks",
+                                "minecraft:polished_andesite",
+                                "minecraft:polished_tuff",
+                                "minecraft:tuff_bricks",
+                                "minecraft:polished_deepslate",
+                                "minecraft:deepslate_tiles"):
+                return z
+        return None
+
+    for x in range(63, 74):
         for y in range(45, 54):
-            if old(x, y, 51) == "minecraft:air":
+            z = frontage(x, y)
+            if z is None:
                 continue
-            b(x, y, 51, "chiseled_stone_bricks" if x in (64, 72)
-              or y in (45, 53) else "polished_deepslate")
-        if old(x, 54, 51) != "minecraft:air":
-            b(x, 54, 52, "deepslate_tile_slab", type="bottom",
-              waterlogged="false")
-    for x in (64, 72):
-        for y in range(45, 54):
-            if old(x, y, 51) != "minecraft:air":
-                b(x, y, 52, "polished_tuff" if y not in (45, 49, 53)
+            frame = x in (63, 73) or y in (45, 53)
+            b(x, y, z, "chiseled_stone_bricks" if frame
+              else "polished_deepslate" if (x + y) % 5
+              else "deepslate_tiles")
+            if x in (63, 73):
+                b(x, y, z + 1, "polished_tuff" if y not in (45, 49, 53)
                   else "chiseled_stone_bricks")
+            if y == 53:
+                b(x, y + 1, z + 1, "deepslate_tile_slab", type="bottom",
+                  waterlogged="false")
     for x, y in ((68, 47), (67, 48), (69, 48), (66, 49),
                  (70, 49), (67, 50), (69, 50), (68, 51)):
-        if old(x, y, 51) != "minecraft:air":
-            b(x, y, 52, "waxed_cut_copper_slab", type="top",
+        z = frontage(x, y)
+        if z is not None:
+            b(x, y, z + 1, "waxed_cut_copper_slab", type="top",
               waterlogged="false")
-    if old(68, 49, 51) != "minecraft:air":
-        b(68, 49, 52, "amethyst_block")
+    center_z = frontage(68, 49)
+    if center_z is not None:
+        b(68, 49, center_z + 1, "amethyst_block")
+    for x in (61, 75):
+        for y in range(44, 61):
+            z = frontage(x, y)
+            if z is not None:
+                b(x, y, z + 1, "chiseled_stone_bricks" if y in (44, 50, 56, 60)
+                  else "polished_tuff")
 
     # The first horizontal hoop and the second copper meridians both hid the
     # architecture in Minecraft. Clear those old fixture cells and hang a
