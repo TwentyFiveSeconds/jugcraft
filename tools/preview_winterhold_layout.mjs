@@ -137,7 +137,7 @@ assert.deepEqual(result.failures, []);
 assert.equal(result.doors, 8);
 assert.equal(result.beds, 16);
 const cells = new Map(template.blocks.map(b => [b.pos.join(","), template.palette[b.state].id]));
-for (const pos of [[38,32,85], [98,32,85], [68,32,56], [112,36,34], [90,36,25], [133,44,34], [147,44,34], [153,36,42]]) {
+for (const pos of [[38,32,85], [98,32,85], [68,32,56], [112,44,34], [90,36,25], [133,44,34], [147,44,34], [153,36,42]]) {
   assert.notEqual(cells.get(pos.join(",")) ?? "minecraft:air", "minecraft:air", "enclosure/library");
 }
 for (const pos of [[32,24,121], [104,24,121], [68,31,85]]) {

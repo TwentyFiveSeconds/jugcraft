@@ -139,6 +139,8 @@ def apply_layout(legacy, layout):
     craft_bridge_gate(put)
     from academy_monument import craft_monumental_elements
     craft_monumental_elements(cells, put)
+    from academy_flagship import craft_flagship_rooms
+    craft_flagship_rooms(cells, put)
     final_palette = sorted(set(cells.values()))
     indices = {block: i for i, block in enumerate(final_palette)}
     blocks = []

@@ -191,7 +191,8 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(self.block((32, 24, 121)), "minecraft:air")
         self.assertEqual(self.block((104, 24, 121)), "minecraft:air")
         self.assertEqual(self.block((68, 31, 85)), "minecraft:air")  # open-sky court
-        self.assertNotEqual(self.block((112, 36, 34)), "minecraft:air")  # low library roof
+        self.assertEqual(self.block((112, 36, 34)), "minecraft:air")  # opened Arcanaeum vault
+        self.assertNotEqual(self.block((112, 44, 34)), "minecraft:air")  # raised roof
         lecterns = [b for b in self.template["blocks"]
                     if self.palette[b["state"]]["id"] == "jugcraft:conclave_lectern"]
         self.assertEqual(len(lecterns), 1)

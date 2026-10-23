@@ -99,24 +99,44 @@ def craft_monumental_elements(cells, put):
         for dx, dz in ((-1, 0), (1, 0)):
             b(x + dx, 49, z + dz, "chiseled_stone_bricks")
 
-    # A single continuous bronze armillary hangs from the crossing. The
-    # eight-sided rim and radial braces read as one crafted instrument from
-    # the floor, with four suspended lamps and a small amethyst heart.
+    # A single slender bronze armillary hangs from the crossing. Copper
+    # half-slabs and iron spokes keep the teaching vault visible through it;
+    # the first full-block rim read as an oppressive plate in Minecraft.
     # The occupied upper crossing is directly above the hub at Y38. Its
     # center must stay clear at Y39 for the room anchor and gallery route.
     for dx in range(-4, 5):
         for dz in range(-4, 5):
             radius = hypot(dx, dz)
             if 3.5 <= radius <= 4.5:
-                b(68 + dx, 37, 33 + dz, "waxed_cut_copper")
+                b(68 + dx, 36, 33 + dz, "waxed_cut_copper_slab",
+                  type="top", waterlogged="false")
                 if (dx, dz) in ((-4, 0), (4, 0), (0, -4), (0, 4)):
-                    b(68 + dx, 36, 33 + dz, "lantern", hanging="true", waterlogged="false")
+                    b(68 + dx, 35, 33 + dz, "lantern", hanging="true", waterlogged="false")
             elif (dx == 0 or dz == 0) and radius <= 3:
-                b(68 + dx, 37, 33 + dz, "polished_deepslate")
-    b(68, 37, 33, "amethyst_block")
-    b(68, 36, 33, "purple_stained_glass")
+                b(68 + dx, 36, 33 + dz, "iron_bars",
+                  north="true" if dx == 0 else "false",
+                  south="true" if dx == 0 else "false",
+                  east="true" if dz == 0 else "false",
+                  west="true" if dz == 0 else "false", waterlogged="false")
+    b(68, 36, 33, "amethyst_block")
+    b(68, 35, 33, "purple_stained_glass")
     for dx, dz in ((-3, -3), (-3, 3), (3, -3), (3, 3)):
-        b(68 + dx, 38, 33 + dz, "chiseled_stone_bricks")
+        b(68 + dx, 37, 33 + dz, "chiseled_stone_bricks")
+
+    # The central demonstrations happen inside a worn compass of dark slate,
+    # tuff and copper. It is entirely flush with the Y24 walking floor.
+    for dx in range(-5, 6):
+        for dz in range(-5, 6):
+            radius = hypot(dx, dz)
+            x, z = 68 + dx, 33 + dz
+            if 4.4 <= radius <= 5.2:
+                b(x, 24, z, "polished_deepslate")
+            elif radius <= 3.6 and (dx == 0 or dz == 0):
+                b(x, 24, z, "waxed_cut_copper")
+            elif radius <= 3.6:
+                b(x, 24, z, "polished_tuff" if (dx + dz) % 3 else "tuff_bricks")
+    for dx, dz in ((-5, 0), (5, 0), (0, -5), (0, 5)):
+        b(68 + dx, 24, 33 + dz, "amethyst_block")
 
     # The north teaching apse has two occupied tiers and a carved, illuminated
     # magical diagram. Keep the earlier enchanting table and wide aisle.
