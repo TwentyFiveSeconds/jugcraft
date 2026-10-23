@@ -185,6 +185,28 @@ def craft_monumental_elements(cells, put):
     for x in (66, 70):
         b(x, 26, 23, "waxed_cut_copper_slab", type="bottom", waterlogged="false")
 
+    # The teaching wall's two blank wings become unequal research niches.
+    # Their carved backs sit north of the instructor and active stations;
+    # the central rune and all approaches to the raised dais remain clear.
+    for x0, x1 in ((57, 61), (75, 79)):
+        for x in range(x0, x1 + 1):
+            for y in range(28, 36):
+                b(x, y, 18, "chiseled_stone_bricks" if x in (x0, x1) or
+                  y in (28, 35) else "dark_oak_planks" if y in (31, 34)
+                  else "polished_deepslate")
+        for x in range(x0 + 1, x1):
+            for y in (29, 30, 32, 33):
+                b(x, y, 19, "bookshelf" if x != x0 + 2 or y < 32
+                  else "chiseled_bookshelf", **({} if x != x0 + 2 or y < 32
+                  else {"facing": "south"}))
+        for x in (x0, x1):
+            b(x, 36, 18, "polished_tuff_stairs", facing="south", half="top",
+              shape="straight", waterlogged="false")
+    b(59, 34, 19, "amethyst_block")
+    b(59, 35, 19, "orange_stained_glass")
+    b(77, 34, 19, "waxed_cut_copper")
+    b(77, 35, 19, "lantern", hanging="false", waterlogged="false")
+
     # The east side is a continuous, recessed teaching archive beneath the
     # gallery, while the opposite daylight bay has a carved window surround.
     # These unequal treatments replace the broad identical gray side walls.

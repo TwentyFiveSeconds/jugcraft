@@ -137,6 +137,24 @@ def craft_flagship_rooms(cells, put):
     b(112, 43, 34, "sea_lantern")
     b(112, 42, 34, "orange_stained_glass")
 
+    # GRAND READING WING: a long inlaid walnut reading floor gives the
+    # formerly white, repetitive shelf hall a deliberate institutional axis.
+    # The extant three work islands and (150,25,34) route remain above it.
+    for x in range(143, 162):
+        for z in range(28, 40):
+            if x in (143, 161) or z in (28, 39):
+                b(x, 24, z, "polished_deepslate")
+            elif x in (147, 153, 159):
+                b(x, 24, z, "waxed_cut_copper" if z in (30, 34, 37)
+                  else "polished_tuff")
+            elif z in (31, 36):
+                b(x, 24, z, "spruce_planks")
+            else:
+                b(x, 24, z, "dark_oak_planks")
+    for x in (145, 157):
+        for z in (29, 38):
+            b(x, 24, z, "chiseled_stone_bricks")
+
     # COURT: the planted ground now meets the Nordic arcade in a continuous
     # irregular herbaceous verge. Formal five-wide radial walks, S01 runes and
     # portals stay at the original grade; the verge gives maples a landscape

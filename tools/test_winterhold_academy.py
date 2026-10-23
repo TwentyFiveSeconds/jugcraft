@@ -236,7 +236,7 @@ class AcademyTests(unittest.TestCase):
         self.assertEqual(SIZE, (176, 88, 161))
         self.assertEqual(self.block((134, 27, 34)), 'minecraft:air')
         self.assertEqual(self.block((133, 44, 34)), 'minecraft:stone_bricks')
-        self.assertEqual(self.block((150, 24, 34)), 'minecraft:polished_diorite')
+        self.assertEqual(self.block((150, 24, 34)), 'minecraft:dark_oak_planks')
         self.assertEqual(self.block((148, 36, 41)), 'minecraft:stone_brick_stairs')
         self.assertEqual(self.block((153, 36, 42)), 'minecraft:polished_diorite')
         self.assertEqual(self.block((147, 44, 34)), 'minecraft:stone_bricks')
