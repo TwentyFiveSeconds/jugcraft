@@ -86,12 +86,18 @@ def craft_flagship_rooms(cells, put):
         height = 25 + 43 - z
         for x in (107, 108):
             for y in range(25, height):
-                b(x, y, z, "polished_tuff")
+                # A diagonal spine and three grounded posts keep the flight
+                # believable without the first pass's view-blocking wedge.
+                b(x, y, z, "polished_tuff" if y == height - 1 or
+                  (x == 107 and z in (43, 40, 37, 34)) else "air")
             b(x, height, z, "polished_tuff_stairs", facing="north",
               half="bottom", shape="straight", waterlogged="false")
             for y in (height + 1, height + 2):
                 if y < 37:
                     b(x, y, z, "air")
+        if z not in (34, 35):
+            b(106, height, z, "chiseled_stone_bricks")
+            b(106, height + 1, z, "dark_oak_fence")
     for z in (29, 39):
         for x in (110, 114):
             b(x, 43, z, "iron_chain", axis="y", waterlogged="false")
@@ -198,6 +204,41 @@ def craft_flagship_rooms(cells, put):
                 b(x, y, 22, "bookshelf" if y not in (54, 57) else "dark_oak_planks")
     for x in (64, 72):
         b(x, 58, 23, "lantern", hanging="true", waterlogged="false")
+
+    # A generous parquet reading floor and dark masonry border give the
+    # Arch-Mage's principal room a residential scale. The conservatory's
+    # planted eastern floor and the center study/garden anchors remain open.
+    for x in range(58, 79):
+        for z in range(24, 44):
+            radius = hypot(x - 68, z - 33)
+            if radius > 10 or (x >= 72 and z >= 34):
+                continue
+            if radius >= 8.5:
+                b(x, 50, z, "polished_deepslate")
+            elif 63 <= x <= 73 and 28 <= z <= 38:
+                if x in (63, 73) or z in (28, 38):
+                    b(x, 50, z, "red_terracotta" if (x + z) % 7 else "purple_terracotta")
+                else:
+                    b(x, 50, z, "dark_oak_planks")
+            else:
+                b(x, 50, z, "dark_oak_planks" if (x + z) % 4 else "spruce_planks")
+    for x in range(64, 73):
+        for z in (28, 38):
+            b(x, 50, z, "waxed_cut_copper" if x in (64, 68, 72) else "polished_deepslate")
+    for z in range(29, 38):
+        for x in (64, 72):
+            b(x, 50, z, "waxed_cut_copper" if z in (29, 33, 37) else "polished_deepslate")
+    # A small scholar's celestial chandelier is suspended high enough to
+    # keep the suite's original route and study floor unobstructed.
+    for dx in range(-3, 4):
+        for dz in range(-3, 4):
+            if 2.2 <= hypot(dx, dz) <= 3.2:
+                b(68 + dx, 59, 33 + dz, "waxed_cut_copper_slab",
+                  type="top", waterlogged="false")
+    for x, z in ((65, 33), (71, 33), (68, 30), (68, 36)):
+        b(x, 58, z, "lantern", hanging="true", waterlogged="false")
+    b(68, 59, 33, "amethyst_block")
+    b(68, 58, 33, "orange_stained_glass")
 
     # The annex is a private collection with real wall-scale shelves and a
     # framed, existing bed. Wood ceiling coffers and copper lights add warmth;
