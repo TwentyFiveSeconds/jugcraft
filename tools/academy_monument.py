@@ -99,23 +99,24 @@ def craft_monumental_elements(cells, put):
         for dx, dz in ((-1, 0), (1, 0)):
             b(x + dx, 49, z + dz, "chiseled_stone_bricks")
 
-    # A high bronze-and-amethyst armillary replaces the low, stark cross of
-    # sea lanterns. Its Y33 base leaves eight blocks over the teaching floor.
-    for y in range(35, 38):
-        b(68, y, 33, "iron_chain", axis="y", waterlogged="false")
-    b(68, 34, 33, "amethyst_block")
-    b(68, 33, 33, "purple_stained_glass")
-    for dx, dz in ((-4, 0), (4, 0), (0, -4), (0, 4),
-                   (-3, -3), (-3, 3), (3, -3), (3, 3)):
-        x, z = 68 + dx, 33 + dz
-        b(x, 35, z, "copper_block" if dx * dz == 0 else "polished_deepslate")
-        if dx * dz == 0:
-            b(x, 34, z, "lantern", hanging="true", waterlogged="false")
-        else:
-            b(x, 36, z, "amethyst_block")
-    for dx, dz in ((-2, -3), (2, -3), (-2, 3), (2, 3),
-                   (-3, -2), (3, -2), (-3, 2), (3, 2)):
-        b(68 + dx, 35, 33 + dz, "cut_copper")
+    # A single continuous bronze armillary hangs from the crossing. The
+    # eight-sided rim and radial braces read as one crafted instrument from
+    # the floor, with four suspended lamps and a small amethyst heart.
+    # The occupied upper crossing is directly above the hub at Y38. Its
+    # center must stay clear at Y39 for the room anchor and gallery route.
+    for dx in range(-4, 5):
+        for dz in range(-4, 5):
+            radius = hypot(dx, dz)
+            if 3.5 <= radius <= 4.5:
+                b(68 + dx, 37, 33 + dz, "waxed_cut_copper")
+                if (dx, dz) in ((-4, 0), (4, 0), (0, -4), (0, 4)):
+                    b(68 + dx, 36, 33 + dz, "lantern", hanging="true", waterlogged="false")
+            elif (dx == 0 or dz == 0) and radius <= 3:
+                b(68 + dx, 37, 33 + dz, "polished_deepslate")
+    b(68, 37, 33, "amethyst_block")
+    b(68, 36, 33, "purple_stained_glass")
+    for dx, dz in ((-3, -3), (-3, 3), (3, -3), (3, 3)):
+        b(68 + dx, 38, 33 + dz, "chiseled_stone_bricks")
 
     # The north teaching apse has two occupied tiers and a carved, illuminated
     # magical diagram. Keep the earlier enchanting table and wide aisle.
@@ -136,15 +137,27 @@ def craft_monumental_elements(cells, put):
                 b(x, y, z, "chiseled_stone_bricks" if y in (26, 31, 34)
                   else "tuff_bricks")
             b(x, 35, z, "sea_lantern")
+    # A dark, recessed slate field gives the north wall a deliberate focal
+    # relief. Four amethyst arcs frame a lit central rune; narrow copper
+    # inlays and carved jambs replace the first pass's noisy checkerboard.
     for x in range(63, 74):
         for y in range(28, 39):
             if x in (63, 73) or y in (28, 38):
                 b(x, y, 17, "chiseled_stone_bricks")
-            elif 65 <= x <= 71 and 30 <= y <= 36:
-                b(x, y, 17, "polished_deepslate" if (x + y) % 3 else "amethyst_block")
-    for x, y in ((66, 32), (68, 34), (70, 32), (68, 30)):
-        b(x, y, 18, "purple_stained_glass")
-        b(x, y, 17, "sea_lantern")
+            else:
+                b(x, y, 17, "polished_deepslate")
+    for x in (64, 72):
+        for y in range(29, 38):
+            b(x, y, 18, "waxed_cut_copper" if y in (29, 33, 37) else "polished_tuff")
+    for x in range(65, 72):
+        for y in range(30, 37):
+            dist = abs(x - 68) + abs(y - 33)
+            if dist == 3:
+                b(x, y, 17, "amethyst_block" if x == 68 or y == 33 else "budding_amethyst")
+            elif (x == 68 and y in (31, 35)) or (y == 33 and x in (66, 70)):
+                b(x, y, 17, "waxed_cut_copper")
+    b(68, 33, 17, "sea_lantern")
+    b(68, 33, 18, "purple_stained_glass")
     for x in (65, 71):
         b(x, 27, 21, "lectern", facing="south", has_book="false", powered="false")
 
