@@ -205,6 +205,43 @@ def craft_flagship_rooms(cells, put):
     for x in (64, 72):
         b(x, 58, 23, "lantern", hanging="true", waterlogged="false")
 
+    # The main study needs a commanding, usable center rather than a clear
+    # parquet field with furniture only at its rim. A backed writing table
+    # sits between the existing north library wall and the open study anchor.
+    # Its two unequal side cabinets are newly composed around the original
+    # stair, conservatory approach and the two scholarly desks above.
+    for x in range(64, 73):
+        for z in (26, 27):
+            b(x, 51, z, "dark_oak_planks" if x in (64, 68, 72) else "polished_deepslate")
+            b(x, 52, z, "dark_oak_slab", type="top", waterlogged="false")
+    for x in (65, 68, 71):
+        b(x, 53, 26, "waxed_cut_copper_slab", type="bottom", waterlogged="false")
+    b(68, 53, 27, "lectern", facing="south", has_book="false", powered="false")
+    for x in (64, 72):
+        b(x, 53, 27, "lantern", hanging="false", waterlogged="false")
+    for x in (65, 71):
+        b(x, 51, 29, "spruce_stairs", facing="north", half="bottom",
+          shape="straight", waterlogged="false")
+    for z in range(24, 29):
+        for x in (62, 74):
+            for y in range(51, 57):
+                b(x, y, z, "chiseled_stone_bricks" if y in (51, 55) or z in (24, 28)
+                  else "dark_oak_planks" if y == 54 else "bookshelf")
+    for x in (62, 74):
+        b(x, 56, 26, "lantern", hanging="true", waterlogged="false")
+    # Framed collections sit in the side walls instead of another repeated
+    # wall of shelves. Warm stone and amethyst mark the private collection.
+    for x, z0, z1 in ((60, 34, 39), (77, 29, 32)):
+        for z in range(z0, z1 + 1):
+            for y in range(52, 58):
+                b(x, y, z, "chiseled_stone_bricks" if y in (52, 57) or z in (z0, z1)
+                  else "polished_deepslate" if y in (53, 56)
+                  else "bookshelf")
+        b(x + (1 if x < 68 else -1), 54, (z0 + z1) // 2,
+          "amethyst_block")
+        b(x + (1 if x < 68 else -1), 55, (z0 + z1) // 2,
+          "orange_stained_glass")
+
     # A generous parquet reading floor and dark masonry border give the
     # Arch-Mage's principal room a residential scale. The conservatory's
     # planted eastern floor and the center study/garden anchors remain open.

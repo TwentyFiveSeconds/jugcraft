@@ -222,9 +222,21 @@ def craft_monumental_elements(cells, put):
             for zz in range(z - 1, z + 2):
                 for y in range(24, deck + 1):
                     b(x, y, zz, "polished_deepslate" if y == deck else "stone_bricks")
-            b(x, deck + 1, z + 1, "spruce_stairs", facing="north", half="bottom",
-              shape="straight", waterlogged="false")
-            b(x, deck + 1, z - 1, "dark_oak_slab", type="top", waterlogged="false")
+            # Paired individual scholars' chairs and desk leaves interrupt the
+            # former continuous timber bands. Carved stone standards take the
+            # place of every third seat and make each terrace a designed bay.
+            if x in (60, 62, 64, 71, 73, 75):
+                b(x, deck + 1, z + 1, "spruce_stairs", facing="north", half="bottom",
+                  shape="straight", waterlogged="false")
+                b(x, deck + 1, z - 1, "dark_oak_slab", type="top", waterlogged="false")
+            elif x in (61, 74):
+                b(x, deck + 1, z + 1, "chiseled_stone_bricks")
+                b(x, deck + 2, z + 1, "waxed_cut_copper_slab",
+                  type="bottom", waterlogged="false")
+                b(x, deck + 1, z - 1, "chiseled_stone_bricks")
+            else:
+                b(x, deck + 1, z + 1, "dark_oak_planks")
+                b(x, deck + 1, z - 1, "dark_oak_planks")
         for x in (59, 77):
             b(x, deck + 1, z, "chiseled_stone_bricks")
             b(x, deck + 2, z, "lantern", hanging="false", waterlogged="false")
